@@ -4,14 +4,12 @@ import styles from './CurrentLocation.module.scss'
 import { WiUmbrella, WiDirectionUp, WiBarometer, WiFog, WiRaindrop, WiStrongWind, WiCloudy, WiThermometer } from 'weather-icons-react'
 import retrieveWeather from 'scripts/retrieveWeather'
 import { WeatherData } from 'scripts/universalWeatherTypes'
+import LoadingScreen from 'components/LoadingScreen'
 
 export default function CurrentLocation() {
     useEffect(() => checkLocationPermission(), [])
+    const [loadingText, setLoadingText] = useState("Loading...")
 
-    const loadingScreenRef = useRef<any>()
-    const loadingTextRef = useRef<any>()
-
-    
     function checkLocationPermission() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(RetreiveData, displayLocationError)
@@ -28,16 +26,17 @@ export default function CurrentLocation() {
         
     }
     function displayLocationError() {
-        loadingTextRef.current.value = "Could not get your location!"
+        setLoadingText("Could not get your location!")
     }
     function displayNotSupported() {
-        loadingTextRef.current.value = "Geolocation not supported by your browser or device."
+        setLoadingText("Geolocation not supported by your browser or device.")
     }
     return (
         <div className={styles.containerMain}>
-            <div ref={loadingScreenRef} className={styles.loading}>
-                <p ref={loadingTextRef}>Loading...</p>
-            </div>
+            
+            //Loading screen
+            <LoadingScreen text={loadingText}/>
+
             <div className={styles.containerCurrentLocation}>
                 <h1 className={styles.textCity}>City</h1>
                 <div className={styles.containerGrid}>

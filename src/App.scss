@@ -1,9 +1,9 @@
 @import "variables";
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:300,600,700|Roboto:400,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap');
 
 * {
-  box-sizing: border-box;
-  transition: all ease-in-out 100ms;
+    box-sizing: border-box;
+    transition: all ease-in-out 50ms;
 }
 
 @keyframes fadein {
@@ -17,88 +17,79 @@
 }
 
 html {
-  animation: fadein 0.2s;
-  text-rendering: optimizeLegibility;
-  height: 100%;
+    animation: fadein 0.2s;
+    text-rendering: optimizeLegibility;
+    height: 100%;
 }
 
 #root {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
-  margin: 0;
-  background-color: $color-background;
-  text-align: center;
-  height: 100%;
-  max-width: 100%;
-  overflow: hidden;
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    background: linear-gradient(0deg, $color-background 0%, $color-backgroundAlt 100%);
+    text-align: center;
+    height: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    user-select: none;
 }
 
 button {
-  font-family: 'Open Sans', sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 h1 {
-  color: $color-text-primary;
-  font-weight: 600;
-  font-size: 1.2rem;
-  text-align: center;
-  margin: 0 auto;
+    color: $color-text-primary;
+    font-weight: 700;
+    font-size: 4rem;
+    text-align: center;
+    margin: 0 auto;
 }
 
 h2 {
-  font-weight: 600;
-  font-size: 5rem;
-  color: $color-text-primary;
-  text-align: center;
-  margin: 0 auto;
+    color: $color-text-primary;
+    font-weight: 700;
+    font-size: 0.9rem;
+    display: inline-block;
 }
 
-h3 {
-  color: $color-text-primary;
-  text-align: start;
-  font-weight: 600;
-  font-size: 1.25rem;
-  margin-top: 0;
-  margin-bottom: 0;
+label {
+    font-family: 'Roboto', sans-serif;
+    color: $color-text-primary;
+    font-size: 1rem;
+    text-align: left;
+    display: inline-block;
 }
-
 p {
-  font-family: 'Roboto', sans-serif;
-  text-align: center;
-  padding: 0;
-  color: $color-text-secondary;
-  font-size: 0.9rem;
-  font-weight: 400;
-  margin-top: 0;
-  margin-bottom: 0;
+    text-align: center;
+    padding: 0;
+    margin-top: 0;
+    margin-bottom: 0;
+    color: $color-text-primary;
+    font-size: 0.9rem;
+    font-weight: 400;
 }
 
 a {
-  text-decoration: none;
-  user-select: none;
+    text-decoration: none;
+    user-select: none;
 }
 
 ul {
-  list-style-type: none;
+    list-style-type: none;
 }
-.icon {
-  font-size: 1.6rem;
-  color: $color-primary;
+.containerMain {
+    height: 100%;
+}
+.containerPages {
+    height: 100%;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
 }
 
-@media(min-width: 30rem) {
-  h1 {
-    font-size: 3rem;
-  }
+@media(min-width: 512px) {
 
-  h2 {
-    font-size: 2.25rem;
-  }
-
-  h3 {
-    font-size: 1.25rem;
-  }
 }

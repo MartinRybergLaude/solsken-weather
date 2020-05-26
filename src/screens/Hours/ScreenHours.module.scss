@@ -1,0 +1,46 @@
+@import "src/variables";
+
+.containerHours {
+    max-width: 512px;
+    margin: 0 auto;
+}
+.containerScroll {
+    overflow-y: auto;
+    height: calc(100% - 56px);
+    scrollbar-color: rgba($color-text-primary, 0.2) rgba(#fff, 0);   
+    -webkit-overflow-scrolling: touch;
+    &::-webkit-scrollbar {
+        background: none;
+        width:4px;
+        height: 12px;
+    }
+    &::-webkit-scrollbar-track {
+        background: none;
+    }
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba($color-text-primary, 0.2);
+        border-radius:8px;
+    }
+    &::-webkit-scrollbar-button {display:none}
+}
+.toolbar {
+    height: 56px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+.toolbarIcon {
+    color: $color-text-primary;
+    font-size: 1.4rem;
+    margin-right: 1rem;
+    margin-left: 1rem;
+    cursor: pointer;
+}
+.toolbarText {
+    font-size: 1.2rem;
+    margin-left: 0.5rem;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

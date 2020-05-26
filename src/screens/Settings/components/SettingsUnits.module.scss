@@ -1,0 +1,24 @@
+@import "src/variables";
+
+.settingsCategory {
+    margin-top: 16px;
+    border-bottom: 2px solid rgba($color-text-primary, 0.2);
+}
+.itemSettings {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.itemSettings label {
+    margin-left: 16px;
+}
+.itemSettings select {
+    margin-right: 16px;
+}
+.title {
+    text-align: left;
+    margin-left: 16px;
+    font-weight: 500;
+    font-size: 24px;
+}

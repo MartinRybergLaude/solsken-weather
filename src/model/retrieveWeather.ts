@@ -1,7 +1,7 @@
 import { WeatherData } from 'model/TypesWeather';
 import fetchWeatherSMHI from 'model/SMHI/utils'
 import retrieveCity from 'model/BigDataCloud/utils'
-import { getCachedWeatherData, setCachedWeatherData, clearAllWeatherData } from 'model/utilsStorage';
+import { getCachedWeatherData, setCachedWeatherData } from 'model/utilsStorage';
 
 export default async function retrieveWeather(lon: string, lat: string): Promise<WeatherData> {
     const cachedData = getCachedWeatherData(lon, lat)

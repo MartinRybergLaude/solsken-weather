@@ -2,7 +2,6 @@ import * as WeatherTypesSMHI from './types'
 import {fetchSettings, apiBaseSMHI, temprUnits, windUnits, precUnits, pressureUnits, visUnits, clockUnits} from '../../utils/constants'
 import * as WeatherTypesUni from 'model/TypesWeather'
 import SunCalc from 'suncalc'
-import { getByAltText } from '@testing-library/react'
 
 export default async function fetchWeatherSMHI(lon: string, lat: string): Promise<WeatherTypesUni.WeatherData> {
     console.log(`${apiBaseSMHI}lon/${lon}/lat/${lat}/data.json`)
@@ -63,7 +62,7 @@ function parseDays(times: WeatherTypesSMHI.TimeSery[], lon: number, lat: number)
         // Retrieve an icon for the day
         let icon
         iterationDay.hours.forEach(hour => {
-            if (new Date(hour.date).getHours() == 14) icon = hour.icon
+            if (new Date(hour.date).getHours() === 14) icon = hour.icon
         });
         if (icon == null) icon = iterationDay.hours[~~(iterationDay.hours.length / 2)].icon
 

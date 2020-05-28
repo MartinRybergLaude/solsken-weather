@@ -1,14 +1,16 @@
 @import "src/variables";
 
 .hour {
+    user-select: none;
     transition: none;
+    overflow-y: hidden;
     width: 90%;
     margin: 0 auto;
-    margin-bottom: 16px;
+    margin-top: 16px;
     padding: 16px 24px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: left;
     flex-direction: column;
     background-color: rgba($color-text-primary, 0.2);
     border: 2px solid rgba($color-text-primary, 0);
@@ -38,7 +40,10 @@
     }
 }
 .hour:hover {
-    border: 2px solid $color-text-primary;
+    cursor: pointer;
+}
+.hour:last-of-type {
+    margin-bottom: 16px;
 }
 .preview {
     width: 100%;

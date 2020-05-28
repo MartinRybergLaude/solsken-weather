@@ -66,5 +66,6 @@ export const WiBarometer = "wi-barometer"
 export const WiRaindrop = "wi-raindrop"
 export const WiStrongwind = "wi-strong-wind"
 export const WiThermometer = "wi-thermometer"
+export const WiHorizon = "wi-horizon-alt"
 
 export const Days = [Strings.Sun,Strings.Mon,Strings.Tue,Strings.Wed,Strings.Thu,Strings.Fri,Strings.Sat];

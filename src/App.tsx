@@ -4,13 +4,13 @@ import './App.scss'
 import 'weathericons/css/weather-icons.min.css'
 import 'weathericons/css/weather-icons-wind.min.css'
 
-import { MemoryRouter, Route, Switch } from 'react-router-dom'
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { motion, AnimatePresence } from "framer-motion"
 
 import LoadingScreen from 'screens/Loading/ScreenLoading'
 import ScreenWeather from 'screens/Weather/ScreenWeather'
 import ScreenSettings from 'screens/Settings/ScreenSettings'
-import ScreenHours from 'screens/Hours/ScreenHours'
+import ScreenHours from 'screens/Day/ScreenDay'
 
 import { FormattedWeatherData } from 'model/TypesFormattedWeather'
 import retrieveWeather from 'model/retrieveWeather'
@@ -25,7 +25,6 @@ const variants = ({
 function App() {
     useEffect(() => callRetrieveDataTesting(), [])
     const [textLoading, setTextLoading] = useState(Strings.TextLoading)
-    const [showLoading, setShowLoading] = useState(true)
     const [weatherData, setWeatherData] = useState<FormattedWeatherData>()
 
 
@@ -60,41 +59,40 @@ function App() {
     }
     function applyData(data: FormattedWeatherData) {
         setWeatherData(data)
-        setShowLoading(false)
     }
     function displayError(error: string) {
         setTextLoading(error)
     }
     return (
-        <MemoryRouter initialEntries={["/weather", "/settings"]} initialIndex={0}>
+        <BrowserRouter>
             <Route render={(props: any) => (
-                <AnimatePresence>
+                <AnimatePresence exitBeforeEnter initial={true}>
                     <motion.div
                         className="containerPages"
                         initial="hidden" 
                         animate="visible" 
                         exit="hidden" 
                         variants={variants}
-                        transition={{ ease: "easeOut", duration: 0.1 }}
+                        transition={{ type: "spring", stiffness: 2000, damping: 100 }}
                         key={props.location.key}>
 
                         <Switch location={props.location}>
-                            <Route path="/weather">
-                                {showLoading ? <LoadingScreen text={textLoading}/> : null}
-                                <ScreenWeather weatherData={weatherData}/>
+                            <Route exact path="/">
+                                {!weatherData ? <LoadingScreen text={textLoading}/> : <ScreenWeather weatherData={weatherData}/>}
                             </Route>
-                            <Route path="/hours/:id">
+                            <Route path="/day/:id">
                                 <ScreenHours weatherData={weatherData}/>
                             </Route>
                             <Route path="/settings">
                                 <ScreenSettings/>
                             </Route>
+                            <Redirect to="/"/>
                         </Switch>
                     </motion.div>
                 </AnimatePresence>
             )}/>
             
-        </MemoryRouter>
+        </BrowserRouter>
     );
 }
 

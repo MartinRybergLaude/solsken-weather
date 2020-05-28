@@ -16,11 +16,10 @@
         margin-right: 0;
     }
     &:hover {
-        background-color: $color-text-primary;
-        color: $color-text-primary-inv;
+        cursor: pointer;
     }
-    &:hover p {
-        color: $color-text-primary-inv;
+    &:active {
+        transform: scale(0.9);
     }
 }
 .dayName {

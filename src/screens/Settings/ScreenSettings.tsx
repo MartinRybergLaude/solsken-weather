@@ -10,7 +10,7 @@ function ScreenSettings(props: RouteComponentProps<any>) {
     return (
         <div className={"containerMain " + styles.containerSettings}>
             <div className={styles.toolbar}>
-                <FontAwesomeIcon className={styles.toolbarIcon} icon={faArrowLeft} onClick={() => props.history.goBack()} />
+                <FontAwesomeIcon className={styles.toolbarIcon} icon={faArrowLeft} onClick={() => props.history.push("/")} />
                 <h2 className={styles.toolbarText}>{Strings.Settings}</h2>
             </div>
 

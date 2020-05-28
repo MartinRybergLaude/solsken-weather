@@ -7,25 +7,21 @@
 .containerScroll {
     overflow-y: auto;
     height: calc(100% - 56px);
-    scrollbar-color: rgba($color-text-primary, 0.2) rgba(#fff, 0);   
-    -webkit-overflow-scrolling: touch;
     &::-webkit-scrollbar {
-        background: none;
-        width:4px;
-        height: 12px;
+        display: none;
+        width: 0 !important;
     }
-    &::-webkit-scrollbar-track {
-        background: none;
-    }
-    &::-webkit-scrollbar-thumb {
-        background-color: rgba($color-text-primary, 0.2);
-        border-radius:8px;
-    }
-    &::-webkit-scrollbar-button {display:none}
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
 }
 .toolbar {
     height: 56px;
     width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.toolbarWrapperTitle {
     display: flex;
     align-items: center;
     justify-content: left;
@@ -43,4 +39,18 @@
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
+}
+.toolbarWrapperSun {
+    margin-right: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    & i {
+        color: $color-text-primary;
+        font-size: 24px;
+        margin-right: 16px;
+    }
+    & p:first-of-type {
+        font-weight: 700;
+    }
 }

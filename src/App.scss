@@ -1,5 +1,5 @@
 @import "variables";
-@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
 
 * {
     box-sizing: border-box;
@@ -83,6 +83,8 @@ ul {
 }
 .containerMain {
     height: 100%;
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
 }
 .containerPages {
     height: 100%;

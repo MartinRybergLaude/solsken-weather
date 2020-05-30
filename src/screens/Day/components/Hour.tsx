@@ -14,10 +14,22 @@ const variants = {
   }
 export default function Hour(props: Props) {
     const [isExpandedVis, setExpandedVis] = useState(false)
+    const [isMountedVis, setMountedVis] = useState(false)
+
+    function setExpanded() {
+        if (isExpandedVis) {
+            setExpandedVis(false)
+            setTimeout(() => setMountedVis(false), 50)
+        } else {
+            setExpandedVis(true)
+            setMountedVis(true)
+        }
+    }
+
     return (
         <motion.div
         className={styles.hour} 
-        onClick={() => setExpandedVis(!isExpandedVis)}
+        onClick={() => setExpanded()}
         animate={isExpandedVis ? "open" : "closed"}
         variants={variants}
         initial={false}>
@@ -31,7 +43,9 @@ export default function Hour(props: Props) {
                     <i className={styles.weatherIcon + " wi " + props.hour.icon}/>
                 </div>    
             </div>
-            <Grid data={props.hour}/>
+            {isMountedVis &&
+                <Grid data={props.hour}/>
+            }
         </motion.div>
     )
 }

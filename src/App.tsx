@@ -18,11 +18,11 @@ import formatWeather from 'model/formatWeather'
 import * as Strings from 'utils/strings'
 import { WeatherData } from 'model/TypesWeather'
 
-const variants = ({
+const variantsPages = ({
     visible: { opacity: 1, scale: 1 },
     hidden: { opacity: 0, scale: 0.95 }
-  });
-  
+});
+
 function App() {
     useEffect(() => callRetrieveDataTesting(), [])
     const [textLoading, setTextLoading] = useState(Strings.TextLoading)
@@ -94,15 +94,16 @@ function App() {
                         initial="hidden" 
                         animate="visible" 
                         exit="hidden" 
-                        variants={variants}
+                        variants={variantsPages}
                         transition={{ type: "spring", stiffness: 2000, damping: 100 }}
                         key={props.location.key}>
 
                         <Switch location={props.location}>
                             <Route exact path="/">
-                                {!formattedWeatherData ?
-                                 <LoadingScreen text={textLoading}/> :
-                                <ScreenWeather weatherData={formattedWeatherData} reapplyUnitsCallback={reapplyUnits}/>}
+                                <LoadingScreen text={textLoading} show={formattedWeatherData ? true : false}/>
+                                {formattedWeatherData &&
+                                    <ScreenWeather weatherData={formattedWeatherData} reapplyUnitsCallback={reapplyUnits}/>}
+                               
                             </Route>
                             <Route path="/day/:id">
                                 <ScreenHours weatherData={formattedWeatherData}/>

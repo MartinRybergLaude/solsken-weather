@@ -16,18 +16,19 @@ import { FormattedWeatherData } from 'model/TypesFormattedWeather'
 import retrieveWeather from 'model/retrieveWeather'
 import formatWeather from 'model/formatWeather'
 import * as Strings from 'utils/strings'
+import { WeatherData } from 'model/TypesWeather'
 
 const variants = ({
     visible: { opacity: 1, scale: 1 },
     hidden: { opacity: 0, scale: 0.95 }
   });
-
+  
 function App() {
     useEffect(() => callRetrieveDataTesting(), [])
     const [textLoading, setTextLoading] = useState(Strings.TextLoading)
-    const [weatherData, setWeatherData] = useState<FormattedWeatherData>()
-
-
+    const [formattedWeatherData, setFormattedWeatherData] = useState<FormattedWeatherData>()
+    let weatherData: WeatherData
+ 
     function checkLocationPermission() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(RetreiveData, locationErrorCallback, {maximumAge:60000, timeout:10000})
@@ -42,7 +43,10 @@ function App() {
         let lon = pos.coords.longitude.toFixed(6)
         let lat = pos.coords.latitude.toFixed(6)
         retrieveWeather(lon, lat)
-        .then(data => formatWeather(data))
+        .then(data => {
+            weatherData = data
+            return formatWeather(data)
+        })
         .then(formattedData => applyData(formattedData))
         .catch(error => displayError(error.message))
     }
@@ -53,12 +57,30 @@ function App() {
         let lon = "17.823493"
         let lat = "59.373137"
         retrieveWeather(lon, lat)
-        .then(data => formatWeather(data))
+        .then(data => {
+            weatherData = data
+            return formatWeather(data)
+        })
         .then(formattedData => applyData(formattedData))
         .catch(error => displayError(error.message))
     }
     function applyData(data: FormattedWeatherData) {
-        setWeatherData(data)
+        setFormattedWeatherData(data)
+    }
+
+    // Used for when units are changed through settings
+    async function reapplyUnits() {
+        if (weatherData) {
+            // Data exists, just re-format
+            setFormattedWeatherData(undefined)
+            formatWeather(weatherData)
+            .then(formattedData => applyData(formattedData)) 
+            .catch(error => displayError(error.message))
+        } else {
+            // Data does not exist, get new data
+            setFormattedWeatherData(undefined)
+            callRetrieveDataTesting()
+        }
     }
     function displayError(error: string) {
         setTextLoading(error)
@@ -78,13 +100,15 @@ function App() {
 
                         <Switch location={props.location}>
                             <Route exact path="/">
-                                {!weatherData ? <LoadingScreen text={textLoading}/> : <ScreenWeather weatherData={weatherData}/>}
+                                {!formattedWeatherData ?
+                                 <LoadingScreen text={textLoading}/> :
+                                <ScreenWeather weatherData={formattedWeatherData} reapplyUnitsCallback={reapplyUnits}/>}
                             </Route>
                             <Route path="/day/:id">
-                                <ScreenHours weatherData={weatherData}/>
+                                <ScreenHours weatherData={formattedWeatherData}/>
                             </Route>
                             <Route path="/settings">
-                                <ScreenSettings/>
+                                <ScreenSettings />
                             </Route>
                             <Redirect to="/"/>
                         </Switch>

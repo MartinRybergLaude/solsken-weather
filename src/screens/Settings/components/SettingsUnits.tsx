@@ -1,7 +1,10 @@
 import React from 'react'
 import styles from './SettingsUnits.module.scss'
-import Dropdown, {Option} from 'components/Dropdown'
+
+import { Global } from 'utils/globals'
 import * as Strings from 'utils/strings'
+
+import Dropdown, {Option} from 'components/Dropdown'
 
 
 export default function SettingsUnits() {
@@ -44,31 +47,37 @@ export default function SettingsUnits() {
 
     const onChangeTempr = (option: Option) => {
         if (option != null) {
+            Global.shouldReformat = true
             setUnitTempr(option.value)
         }
     }
     const onChangeWind = (option: Option) => {
         if (option != null) {
+            Global.shouldReformat = true
             setUnitWind(option.value)
         }
     }
     const onChangePrec = (option: Option) => {
         if (option != null) {
+            Global.shouldReformat = true
             setUnitPrec(option.value)
         }
     }
     const onChangePressure = (option: Option) => {
         if (option != null) {
+            Global.shouldReformat = true
             setUnitPressure(option.value)
         }
     }
     const onChangeVis = (option: Option) => {
         if (option != null) {
+            Global.shouldReformat = true
             setUnitVis(option.value)
         }
     }
     const onChangeTime = (option: Option) => {
         if (option != null) {
+            Global.shouldReformat = true
             setUnitTime(option.value)
         }
     }

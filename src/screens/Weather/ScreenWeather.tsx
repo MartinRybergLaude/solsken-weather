@@ -1,16 +1,27 @@
 import React from 'react'
-import Grid from 'screens/Weather/components/Grid'
 import styles from './ScreenWeather.module.scss'
-import * as Data from 'model/TypesFormattedWeather'
+
+import { Global } from 'utils/globals'
+
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faMap } from '@fortawesome/free-solid-svg-icons'
+
+import Grid from 'screens/Weather/components/Grid'
 import Days from './components/Days'
+import * as Data from 'model/TypesFormattedWeather'
 
 interface Props extends RouteComponentProps{
     weatherData: Data.FormattedWeatherData
+    reapplyUnitsCallback: Function
 }
 function ScreenWeather(props: Props) {
+
+    // Basically if a setting has been changed
+    if (Global.shouldReformat) {
+        Global.shouldReformat = false
+        props.reapplyUnitsCallback()
+    }
     
     return (
         <div className={"containerMain " + styles.containerScreenWeather}>

@@ -25,25 +25,25 @@ export default async function retrieveWeather(lon: string, lat: string): Promise
     }
 }
 async function cleanHours(data: WeatherData): Promise<WeatherData> {
-    data.days.filter(day => isDateOlderByDay(day.date))
+    data.days.filter(day => isDateNotOlderByDay(day.date))
 
     data.days.forEach(day => {
-        day.hours.filter(hour => isDateOlderBy30min(hour.date))
+        day.hours.filter(hour => isDateNotOlderBy30min(hour.date))
     });
 
-    function isDateOlderBy30min(date: Date): boolean {
-        if (new Date(date).getMilliseconds() < new Date(new Date().getTime() - 30*60000).getMilliseconds()) {
+    function isDateNotOlderBy30min(date: Date): boolean {
+        if (new Date().getTime() - new Date(date).getTime() <= 30 * 60000) {
             return true
         } else {
             return false
         }
     }
-    function isDateOlderByDay(date: Date): boolean {
+    function isDateNotOlderByDay(date: Date): boolean {
         const current = new Date()
         date = new Date(date)
-        return date.getFullYear() < current.getFullYear() &&
-          date.getMonth() < current.getMonth() &&
-          date.getDate() < current.getDate()
+        return date.getFullYear() >= current.getFullYear() &&
+          date.getMonth() >= current.getMonth() &&
+          date.getDate() >= current.getDate()
     }
     return data
 }

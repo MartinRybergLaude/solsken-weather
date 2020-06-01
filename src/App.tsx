@@ -23,15 +23,18 @@ const variantsPages = ({
     hidden: { opacity: 0, scale: 0.95 }
 });
 
+let weatherData: WeatherData
+
 function App() {
     useEffect(() => callRetrieveDataTesting(), [])
     const [textLoading, setTextLoading] = useState(Strings.TextLoading)
     const [formattedWeatherData, setFormattedWeatherData] = useState<FormattedWeatherData>()
-    let weatherData: WeatherData
+    
  
     function checkLocationPermission() {
+        if (formattedWeatherData) return
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(RetreiveData, locationErrorCallback, {maximumAge:60000, timeout:10000})
+            navigator.geolocation.getCurrentPosition(retrieveData, locationErrorCallback, {maximumAge:60000, timeout:10000})
         } else {
             displayError(Strings.ErrorLocationNotSupported)
         }
@@ -39,7 +42,7 @@ function App() {
     function locationErrorCallback() {
         displayError(Strings.ErrorLocation)
     }
-    async function RetreiveData(pos: Position) {
+    async function retrieveData(pos: Position) {
         let lon = pos.coords.longitude.toFixed(6)
         let lat = pos.coords.latitude.toFixed(6)
         retrieveWeather(lon, lat)
@@ -70,7 +73,7 @@ function App() {
 
     // Used for when units are changed through settings
     async function reapplyUnits() {
-        if (weatherData) {
+        if (weatherData != null) {
             // Data exists, just re-format
             setFormattedWeatherData(undefined)
             formatWeather(weatherData)

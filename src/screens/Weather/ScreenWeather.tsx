@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styles from './ScreenWeather.module.scss'
 
 import { Global } from 'utils/globals'
@@ -17,12 +17,14 @@ interface Props extends RouteComponentProps{
 }
 function ScreenWeather(props: Props) {
 
-    // Basically if a setting has been changed
-    if (Global.shouldReformat) {
-        Global.shouldReformat = false
-        props.reapplyUnitsCallback()
-    }
-    
+    useEffect(() => {
+        // Basically if a setting has been changed
+        if (Global.shouldReformat) {
+            Global.shouldReformat = false
+            props.reapplyUnitsCallback()
+        }
+    }, [])
+   
     return (
         <div className={"containerMain " + styles.containerScreenWeather}>
             <div className={styles.toolbar}>
@@ -31,8 +33,8 @@ function ScreenWeather(props: Props) {
                 <FontAwesomeIcon className={styles.toolbarIcon} icon={faCog} onClick={() => props.history.push("/settings")}/>
             </div>
             
-            <div className={styles.containerGrid}>
-                <div>
+            <div className={styles.containerScreenContent}>
+                <div className={styles.containerTopInfo}>
                     <h1 className={styles.textTempr}>{props.weatherData.days[0].hours[0].tempr}</h1>
                     <div className={styles.containerWthr}>
                         <i className={styles.iconWthr + " wi " + props.weatherData.days[0].hours[0].icon}/>

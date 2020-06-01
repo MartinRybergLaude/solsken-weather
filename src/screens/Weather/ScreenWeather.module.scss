@@ -36,10 +36,25 @@
     justify-content: center;
 }
 
+// Main screen content
+.containerScreenContent {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+}
+
 // Main weather module
+.containerTopInfo {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
 .textTempr {
-    margin-top: 16px;
-    margin-bottom: 16px;
+    margin-right: 16px;
 }
 .containerWthr {
     display: flex;
@@ -60,13 +75,12 @@
     color: $color-text-primary;
     font-size: 32px;
 }
-
-// Grid
-.containerGrid {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
-    width: 100%;
+@media(min-height: 640px) {
+    .containerTopInfo {
+        display: block;
+    }
+    .textTempr {
+        margin-right: 0;
+        margin-bottom: 16px;
+    }
 }

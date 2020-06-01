@@ -5,7 +5,7 @@ import { Global } from 'utils/globals'
 
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faMap } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faBars } from '@fortawesome/free-solid-svg-icons'
 
 import Grid from 'screens/Weather/components/Grid'
 import Days from './components/Days'
@@ -26,9 +26,9 @@ function ScreenWeather(props: Props) {
     return (
         <div className={"containerMain " + styles.containerScreenWeather}>
             <div className={styles.toolbar}>
-                <FontAwesomeIcon className={styles.toolbarIcon} icon={faCog} onClick={() => props.history.push("/settings")}/>
+                <FontAwesomeIcon className={styles.toolbarIcon} icon={faBars}/>
                 <h2 className={styles.toolbarText}>{props.weatherData.city}</h2>
-                <FontAwesomeIcon className={styles.toolbarIcon} icon={faMap}/>
+                <FontAwesomeIcon className={styles.toolbarIcon} icon={faCog} onClick={() => props.history.push("/settings")}/>
             </div>
             
             <div className={styles.containerGrid}>

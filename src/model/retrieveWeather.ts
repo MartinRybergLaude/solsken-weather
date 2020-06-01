@@ -7,28 +7,27 @@ export default async function retrieveWeather(lon: string, lat: string): Promise
     const cachedData = getCachedWeatherData(lon, lat)
     if (cachedData != null) {
         // Use cached data
-        const weatherDataParsedWithCity = await retrieveCity(cachedData)
-        const weatherDataCleaned = await cleanHours(weatherDataParsedWithCity)
+        const weatherDataCleaned = await cleanHours(cachedData)
         console.log("Applied cached data")
         return weatherDataCleaned
     } else {
         // Use new data
         const weatherData = await fetchWeatherSMHI(lon, lat)
-        const data = weatherData
+        const weatherDataParsedWithCity = await retrieveCity(weatherData)
+        const weatherDataCleaned = await cleanHours(weatherDataParsedWithCity)
+        const data = weatherDataCleaned
         if (setCachedWeatherData(data)) {
             console.log("Data cached sucessfully")
         }
-        const weatherDataParsedWithCity = await retrieveCity(data)
-        const weatherDataCleaned = await cleanHours(weatherDataParsedWithCity)
         console.log("Applied new data")
-        return weatherDataCleaned
+        return data
     }
 }
 async function cleanHours(data: WeatherData): Promise<WeatherData> {
-    data.days.filter(day => isDateNotOlderByDay(day.date))
+    data.days = data.days.filter(day => isDateNotOlderByDay(day.date))
 
     data.days.forEach(day => {
-        day.hours.filter(hour => isDateNotOlderBy30min(hour.date))
+        day.hours = day.hours.filter(hour => isDateNotOlderBy30min(hour.date))
     });
 
     function isDateNotOlderBy30min(date: Date): boolean {

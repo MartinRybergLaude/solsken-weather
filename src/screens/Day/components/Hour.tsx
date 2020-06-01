@@ -7,6 +7,7 @@ import Grid from './Grid'
 
 interface Props {
     hour: FormattedWeatherData.Hour
+    animateExpand: boolean
 }
 const variants = {
     open: { height: "auto" },
@@ -26,26 +27,47 @@ export default function Hour(props: Props) {
         }
     }
 
-    return (
-        <motion.div
-        className={styles.hour} 
-        onClick={() => setExpanded()}
-        animate={isExpandedVis ? "open" : "closed"}
-        variants={variants}
-        initial={false}>
-            <div className={styles.preview}>
-                <div className={styles.left}>
-                    <p className={styles.hourText}>{props.hour.hour}</p>
-                    <p>{props.hour.text}</p>
+    if (props.animateExpand) { return (
+            <motion.div
+            className={styles.hour} 
+            onClick={() => setExpanded()}
+            animate={isExpandedVis ? "open" : "closed"}
+            variants={variants}
+            initial={false}>
+                <div className={styles.preview}>
+                    <div className={styles.left}>
+                        <p className={styles.hourText}>{props.hour.hour}</p>
+                        <p>{props.hour.text}</p>
+                    </div>
+                    <div className={styles.right}>
+                        <p className={styles.temprText}>{props.hour.tempr}</p>
+                        <i className={styles.weatherIcon + " wi " + props.hour.icon}/>
+                    </div>    
                 </div>
-                <div className={styles.right}>
-                    <p className={styles.temprText}>{props.hour.tempr}</p>
-                    <i className={styles.weatherIcon + " wi " + props.hour.icon}/>
-                </div>    
+                {isMountedVis &&
+                    <Grid data={props.hour}/>
+                }
+            </motion.div>
+        )
+    } else {
+        return (
+            <div
+            className={styles.hour} 
+            onClick={() => (setMountedVis(!isMountedVis))}>
+                <div className={styles.preview}>
+                    <div className={styles.left}>
+                        <p className={styles.hourText}>{props.hour.hour}</p>
+                        <p>{props.hour.text}</p>
+                    </div>
+                    <div className={styles.right}>
+                        <p className={styles.temprText}>{props.hour.tempr}</p>
+                        <i className={styles.weatherIcon + " wi " + props.hour.icon}/>
+                    </div>    
+                </div>
+                {isMountedVis &&
+                    <Grid data={props.hour}/>
+                }
             </div>
-            {isMountedVis &&
-                <Grid data={props.hour}/>
-            }
-        </motion.div>
-    )
+        )
+    }
 }

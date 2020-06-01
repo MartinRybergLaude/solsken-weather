@@ -4,6 +4,7 @@ import styles from './ScreenDay.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
+import Bowser from 'bowser'
 
 import * as Consts from 'utils/constants'
 
@@ -13,11 +14,14 @@ import Hour from './components/Hour'
 interface Props extends RouteComponentProps<any> {
     weatherData: FormattedWeatherData.FormattedWeatherData | undefined | null
 }
+const browser = Bowser.getParser(navigator.userAgent)
+const isMobileFirefox = browser.getEngine().name == "Gecko"
+    && browser.getPlatform().type == "mobile" && browser.getOSName() == "Android"
+
 function ScreenDay(props: Props) {
 
     const day = props.weatherData?.days[props.match.params.id]
-
-
+    
     useEffect(() => {
         if (day == null) {
             props.history.push("/")
@@ -42,7 +46,7 @@ function ScreenDay(props: Props) {
             <div className={styles.containerScroll}>
                 {day?.hours.map((hour, index) => {
                     return (
-                        <Hour key={index} hour={hour}/>
+                        <Hour key={index} hour={hour} animateExpand={!isMobileFirefox}/>
                     )
                 })}
             </div>

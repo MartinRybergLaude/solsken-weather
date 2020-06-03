@@ -15,7 +15,7 @@ export default function Grid(props: Props) {
         <div className={styles.grid}>
             <div className={styles.row}>
                 <GridItem icon={Consts.WiUmbrella} text={Strings.Precipitation} value={props.data.precMean} />
-                <GridItem icon={Consts.WiWind + " from-" + props.data.windDirDeg + "-deg"} text={props.data.windDir} value={props.data.wind} />
+                <GridItem icon={Consts.WiWind + " towards-" + props.data.windDirDeg + "-deg"} text={props.data.windDir} value={props.data.wind} />
                 <GridItem icon={Consts.WiBarometer} text={Strings.Pressure} value={props.data.pressure} />
                 <GridItem icon={Consts.WiFog} text={Strings.Visibility} value={props.data.vis} />
             </div>

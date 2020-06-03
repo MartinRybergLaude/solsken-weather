@@ -9,3 +9,8 @@
     background-color: $color-text-primary;
     padding: 12px;
 }
+@media(min-width: 512px) {
+    .containerMain {
+        width: 400px;
+    }
+}

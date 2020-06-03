@@ -1,7 +1,11 @@
 export const ErrorLocation = "Could not get your location!"
 export const ErrorLocationNotSupported = "Location is not support by your device!"
+export const ErrorSearchLocation = "Could not search!"
+export const ErrorLocationNotFound = "Could not find that location!"
 export const TextLoading = "Loading..."
 export const TextBlank = "..."
+export const TextSearch = "Search a place..."
+export const TextSearchShort = "Search"
 export const NA = "N/A"
 
 export const Settings = "Settings"

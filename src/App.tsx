@@ -7,7 +7,6 @@ import 'weathericons/css/weather-icons-wind.min.css'
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { motion, AnimatePresence } from "framer-motion"
 
-import LoadingScreen from 'screens/Loading/ScreenLoading'
 import ScreenWeather from 'screens/Weather/ScreenWeather'
 import ScreenSettings from 'screens/Settings/ScreenSettings'
 import ScreenHours from 'screens/Day/ScreenDay'
@@ -93,7 +92,7 @@ function App() {
             <Route render={(props: any) => (
                 <AnimatePresence exitBeforeEnter initial={true}>
                     <motion.div
-                        className="containerPages"
+                        className="screen"
                         initial="hidden" 
                         animate="visible" 
                         exit="hidden" 
@@ -103,10 +102,7 @@ function App() {
 
                         <Switch location={props.location}>
                             <Route exact path="/">
-                                <LoadingScreen text={textLoading} show={formattedWeatherData ? true : false}/>
-                                {formattedWeatherData &&
-                                    <ScreenWeather weatherData={formattedWeatherData} reapplyUnitsCallback={reapplyUnits}/>}
-                               
+                                <ScreenWeather textLoading={textLoading} weatherData={formattedWeatherData} reapplyUnitsCallback={reapplyUnits}/>
                             </Route>
                             <Route path="/day/:id">
                                 <ScreenHours weatherData={formattedWeatherData}/>

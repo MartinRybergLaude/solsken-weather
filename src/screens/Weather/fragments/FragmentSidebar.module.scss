@@ -1,0 +1,11 @@
+@import "src/variables";
+
+.containerMain {
+    position: absolute;
+    top: 0; bottom: 0; left: 0;
+    z-index: 10;
+    width: 80%;
+    height: 100%;
+    background-color: $color-text-primary;
+    padding: 12px;
+}

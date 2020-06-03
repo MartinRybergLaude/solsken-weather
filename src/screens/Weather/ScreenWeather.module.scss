@@ -1,12 +1,5 @@
 @import "src/variables";
 
-.containerScreenWeather {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-evenly;
-}
-
 // Toolbar
 .toolbar {
     height: 56px;
@@ -15,6 +8,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 0 auto;
 }
 .toolbarIcon {
     color: $color-text-primary;
@@ -35,52 +29,11 @@
     align-items: center;
     justify-content: center;
 }
-
-// Main screen content
-.containerScreenContent {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
-    align-items: center;
+.cover {
+    position: absolute;
+    top: 0; bottom: 0; left: 0; right: 0;
+    z-index: 5;
     width: 100%;
-}
-
-// Main weather module
-.containerTopInfo {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-}
-.textTempr {
-    margin-right: 16px;
-}
-.containerWthr {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.containerWthrText {
-    margin-left: 16px;
-    & p {
-        text-align: left;
-    }
-}
-.textWthr {
-    font-size: 20px;
-    font-weight: 600;
-}
-.iconWthr {
-    color: $color-text-primary;
-    font-size: 32px;
-}
-@media(min-height: 640px) {
-    .containerTopInfo {
-        display: block;
-    }
-    .textTempr {
-        margin-right: 0;
-        margin-bottom: 16px;
-    }
+    height: 100%;
+    background-color: rgba($color-text-primary-inv, 0.6);
 }

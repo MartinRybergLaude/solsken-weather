@@ -29,7 +29,7 @@ function ScreenDay(props: Props) {
     }, [])
     
     return (
-        <div className={"containerMain " + styles.containerHours}>
+        <div className={"screen " + styles.containerHours}>
             <div className={styles.toolbar}>
                 <div className={styles.toolbarWrapperTitle}>
                     <FontAwesomeIcon className={styles.toolbarIcon} icon={faArrowLeft} onClick={() => props.history.push("/")} />

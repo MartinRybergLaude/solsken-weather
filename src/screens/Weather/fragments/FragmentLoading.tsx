@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './ScreenLoading.module.scss'
+import styles from './FragmentLoading.module.scss'
 import { motion } from 'framer-motion'
 
 type Props = {
@@ -13,7 +13,7 @@ const variantsLoading = ({
 export default function LoadingScreen(props: Props) {
     return (
         <motion.div
-            className="containerMain"
+            className="fragment"
             animate={!props.show ? "visible" : "hidden"}
             variants={variantsLoading}
             transition={{ type: "spring", stiffness: 2000, damping: 100 }}

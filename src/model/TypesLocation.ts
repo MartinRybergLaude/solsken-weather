@@ -1,22 +1,6 @@
-export default interface LocationData {
-    type:     string;
-    features: Feature[];
-}
-
-export interface Feature {
-    type:       string;
-    geometry:   Geometry;
-    properties: Properties;
-}
-
-export interface Geometry {
-    coordinates: number[];
-    type:        string;
-}
-
-export interface Properties {
-    city?:     string;
-    country:   string;
-    name:      string;
-    postcode?: string;
+export default interface Location {
+    name: string,
+    country: string,
+    lon: number,
+    lat: number
 }

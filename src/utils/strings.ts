@@ -6,6 +6,7 @@ export const TextLoading = "Loading..."
 export const TextBlank = "..."
 export const TextSearch = "Search a place..."
 export const TextSearchShort = "Search"
+export const TextCurrentLocation = "Current location"
 export const NA = "N/A"
 
 export const Settings = "Settings"

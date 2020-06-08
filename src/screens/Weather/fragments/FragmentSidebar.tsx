@@ -3,7 +3,9 @@ import styles from './FragmentSidebar.module.scss'
 
 import { motion, AnimatePresence } from 'framer-motion'
 import Search from '../components/Search';
-import useWindowDimensions from 'utils/useDimensions';
+import LocationList from '../components/LocationList'
+import LocationType from 'model/TypesLocation'
+import { setItem, getItem } from 'model/utilsStorage';
 
 interface Props {
     visible: boolean
@@ -12,6 +14,8 @@ interface Props {
 
 export default function Sidebar(props: Props) {
     
+    // State holding locations
+    const [locations, setLocations] = useState<Array<LocationType>>()
     // State to change animation variable hidden
     const [moveLeft, setMoveLeft] = useState("-80%")
     
@@ -21,8 +25,12 @@ export default function Sidebar(props: Props) {
         hidden:  { left: moveLeft}
     })
 
-    // Detect window resizes to change animation variable
+    
     useEffect(() => {
+        // Read locations from localstorage
+        reloadLocations()
+
+        // Detect window resizes to change animation variable
         setCorrectMoveLeft()
         function handleResize() {
             setCorrectMoveLeft()
@@ -58,6 +66,13 @@ export default function Sidebar(props: Props) {
           };
         }, [wrapperRef]);
     }
+    function reloadLocations() {
+        let data = getItem("locations")
+        if (data) {
+            let dataParsed = JSON.parse(data) as LocationType[]
+            setLocations(dataParsed)
+        }
+    }
 
     return (
         <AnimatePresence> 
@@ -71,7 +86,8 @@ export default function Sidebar(props: Props) {
                     exit="hidden" 
                     variants={variantsSidebar}
                     transition={{ type: "spring", stiffness: 500, damping: 100 }}>
-                        <Search/>
+                        <Search reloadLocations={reloadLocations}/>
+                        <LocationList locations={locations}/>
                 </motion.div>
             }
         </AnimatePresence>

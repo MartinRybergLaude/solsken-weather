@@ -7,9 +7,14 @@ import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import * as Strings from 'utils/strings'
 
 import searchLocations from 'model/searchLocations'
-import TypeLocations from 'model/TypesLocation'
+import TypeLocations from 'model/Photon/TypesLocation'
+import LocationType from 'model/TypesLocation'
+import { setItem, getItem } from 'model/utilsStorage';
 
-export default function Search() {
+interface PropsForSearch {
+    reloadLocations: Function
+}
+export default function Search(props: PropsForSearch) {
     const mainRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
     const [locations, setLocations] = useState<TypeLocations | null>()
@@ -27,11 +32,7 @@ export default function Search() {
         useEffect(() => {
           function handleClickOutside(event: any) {
             if (mainRef.current && !mainRef.current.contains(event.target)) {
-                controller.abort()
-                setSearching(false)
-                setShowSearchBtn(false)
-                setLoading(false)
-                if(inputRef.current) inputRef.current.value = ""
+                closeSearch(false)
             }
           }
           document.addEventListener("mousedown", handleClickOutside);
@@ -72,6 +73,14 @@ export default function Search() {
             setShowSearchBtn(false)
         }
     }
+    function closeSearch(reload: boolean) {
+        controller.abort()
+        setSearching(false)
+        setShowSearchBtn(false)
+        setLoading(false)
+        if(inputRef.current) inputRef.current.value = ""
+        if(reload) props.reloadLocations(locations)
+    }
     return (
         <div ref={mainRef} className={styles.containerMain}>
             <form onSubmit={handleSearch}>
@@ -85,18 +94,33 @@ export default function Search() {
             </form>
             
             {isSearching &&
-                <LocationsList locations={locations} isLoading={isLoading}/>
+                <ListedLocations locations={locations} isLoading={isLoading} closeSearch={closeSearch}/>
             }
         </div>
     )
 }
 
-interface Props {
+interface PropsForListedLocations {
     isLoading: boolean
     locations: TypeLocations | null | undefined
+    closeSearch: Function
 }
 
-export function LocationsList(props: Props) {
+export function ListedLocations(props: PropsForListedLocations) {
+
+    function handleLocationClick(name: string, country: string, lon: number, lat: number) {
+        const location: LocationType = {name, country, lon, lat}
+        let data = getItem("locations")
+        if (data) {
+            let dataParsed = JSON.parse(data) as LocationType[]
+            dataParsed.push(location)
+            setItem("locations", JSON.stringify(dataParsed))
+        } else {
+            setItem("locations", JSON.stringify(new Array(location)))
+        }
+        props.closeSearch(true)
+    }
+
     if (props.isLoading) {
         return (
             <div className={styles.loading}>
@@ -106,7 +130,7 @@ export function LocationsList(props: Props) {
     } else if (!props.locations || !props.locations.features || props.locations.features.length <= 0) {
         return (
             <div className={styles.error}>
-                <p>No locations found!</p>
+                <p>{Strings.ErrorLocationNotFound}</p>
             </div>
         )
     } else {
@@ -114,7 +138,10 @@ export function LocationsList(props: Props) {
             <div>
                 {props.locations.features.map((feature, index) => {
                     return(
-                        <div className={styles.location} key={index}>
+                        <div className={styles.location} key={index} onClick={() => 
+                                handleLocationClick(feature.properties.name, feature.properties.country, feature.geometry.coordinates[0],
+                                    feature.geometry.coordinates[1])
+                            }>
                             <p>{feature.properties.name}</p>
                             <p>{feature.properties.country}</p> 
                         </div>

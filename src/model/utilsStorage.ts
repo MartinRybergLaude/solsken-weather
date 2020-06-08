@@ -52,7 +52,7 @@ export function setCachedWeatherData(data: WeatherData): boolean {
     }
     return false
 }
-export function getSetting(key: string): string | null {
+export function getItem(key: string): string | null {
     if(!storageAvailable) return null
     try {
         return localStorage.getItem(key)
@@ -60,7 +60,7 @@ export function getSetting(key: string): string | null {
         return null
     }
 }
-export function setSetting(key: string, value: string): boolean {
+export function setItem(key: string, value: string): boolean {
     if(!storageAvailable) return false
     while(true) {
         try {

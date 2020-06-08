@@ -1,4 +1,4 @@
-import TypeLocation from './TypesLocation'
+import TypeLocation from './Photon/TypesLocation'
 import { apiBasePhoton } from 'utils/constants'
 
 export default async function searchLocations(query: string, signal: AbortSignal): Promise<TypeLocation> {

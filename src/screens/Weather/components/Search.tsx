@@ -21,6 +21,7 @@ export default function Search(props: PropsForSearch) {
     const [isLoading, setLoading] = useState(false)
     const [isSearching, setSearching] = useState(false)
     const [showSearchBtn, setShowSearchBtn] = useState(false)
+    const [coverClassName, setCoverClassName] = useState(styles.coverInactive)
     
     let query: string
     let controller = new AbortController()
@@ -69,33 +70,39 @@ export default function Search(props: PropsForSearch) {
         if (event.currentTarget.value.length != 0) {
             controller.abort()
             setShowSearchBtn(true)
+            setCoverClassName(styles.cover)
         } else {
             setShowSearchBtn(false)
+            setCoverClassName(styles.coverInactive)
         }
     }
     function closeSearch(reload: boolean) {
         controller.abort()
+        setCoverClassName(styles.coverInactive)
         setSearching(false)
         setShowSearchBtn(false)
         setLoading(false)
         if(inputRef.current) inputRef.current.value = ""
         if(reload) props.reloadLocations(locations)
     }
+    
     return (
-        <div ref={mainRef} className={styles.containerMain}>
-            <form onSubmit={handleSearch}>
-                <div className={styles.inputWrapper}>
-                    <input ref={inputRef} className={styles.input} onChange={handleInputChange} placeholder={Strings.TextSearch} />
-                    <FontAwesomeIcon className={styles.icon} icon={faSearch}/>
-                </div>
-                {showSearchBtn &&
-                    <button type="submit" className={styles.btnSearch}>{Strings.TextSearchShort}</button>
+        <div className={coverClassName}>
+            <div ref={mainRef} className={styles.search}>
+                <form onSubmit={handleSearch}>
+                    <div className={styles.inputWrapper}>
+                        <input ref={inputRef} className={styles.input} onChange={handleInputChange} placeholder={Strings.TextSearch} />
+                        <FontAwesomeIcon className={styles.icon} icon={faSearch}/>
+                    </div>
+                    {showSearchBtn &&
+                        <button type="submit" className={styles.btnSearch}>{Strings.TextSearchShort}</button>
+                    }
+                </form>
+                
+                {isSearching &&
+                    <ListedLocations locations={locations} isLoading={isLoading} closeSearch={closeSearch}/>
                 }
-            </form>
-            
-            {isSearching &&
-                <ListedLocations locations={locations} isLoading={isLoading} closeSearch={closeSearch}/>
-            }
+            </div>
         </div>
     )
 }

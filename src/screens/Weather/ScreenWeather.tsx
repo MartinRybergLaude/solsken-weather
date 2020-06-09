@@ -16,7 +16,8 @@ import { AnimatePresence, motion } from 'framer-motion'
 interface Props extends RouteComponentProps{
     weatherData: Data.FormattedWeatherData | undefined
     reapplyUnitsCallback: Function
-    textLoading: string
+    changedLocation: Function
+    textLoading: string | undefined
 }
 const variantsCover = ({
     visible: { opacity: 1 },
@@ -34,6 +35,14 @@ function ScreenWeather(props: Props) {
         }
     }, [])
 
+    function setSidebarVis(isVis: boolean) {
+        setShowSidebar(isVis)
+        if (!isVis && Global.selectedLocationChanged) {
+            Global.selectedLocationChanged = false
+            props.changedLocation()
+        }
+    }
+
     return (
         <div className="screen">
             <div className={styles.toolbar}>
@@ -45,7 +54,7 @@ function ScreenWeather(props: Props) {
             {props.weatherData && 
                 <FragmentWeather weatherData={props.weatherData}/>
             }
-            <FragmentSidebar visible={showSidebar} setVisibility={setShowSidebar}/>
+            <FragmentSidebar visible={showSidebar} setVisibility={setSidebarVis}/>
             
             <AnimatePresence>
                 {showSidebar &&

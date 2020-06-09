@@ -16,6 +16,8 @@ import retrieveWeather from 'model/retrieveWeather'
 import formatWeather from 'model/formatWeather'
 import * as Strings from 'utils/strings'
 import { WeatherData } from 'model/TypesWeather'
+import { getItem } from 'model/utilsStorage';
+import LocationType from 'model/TypesLocation'
 
 const variantsPages = ({
     visible: { opacity: 1, scale: 1 },
@@ -25,15 +27,28 @@ const variantsPages = ({
 let weatherData: WeatherData
 
 function App() {
-    useEffect(() => callRetrieveDataTesting(), [])
-    const [textLoading, setTextLoading] = useState(Strings.TextLoading)
+    const [textLoading, setTextLoading] = useState<string>()
     const [formattedWeatherData, setFormattedWeatherData] = useState<FormattedWeatherData>()
     
- 
+    useEffect(() =>
+        getSelectedLocation() 
+    , [])
+
+    function getSelectedLocation() {
+        setTextLoading(undefined)
+        setFormattedWeatherData(undefined)
+        const selectedLocation = getItem("selectedLoc")
+        if (selectedLocation) {
+            const selectedLocationParsed = JSON.parse(selectedLocation) as LocationType
+            retrieveLocData(selectedLocationParsed.lon, selectedLocationParsed.lat, selectedLocationParsed.name)
+        } else {
+            checkLocationPermission()
+        }
+    }
     function checkLocationPermission() {
         if (formattedWeatherData) return
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(retrieveData, locationErrorCallback, {maximumAge:60000, timeout:10000})
+            navigator.geolocation.getCurrentPosition(retrieveCurrentLocData, locationErrorCallback, {maximumAge:60000, timeout:10000})
         } else {
             displayError(Strings.ErrorLocationNotSupported)
         }
@@ -41,10 +56,12 @@ function App() {
     function locationErrorCallback() {
         displayError(Strings.ErrorLocation)
     }
-    async function retrieveData(pos: Position) {
-        let lon = pos.coords.longitude.toFixed(6)
-        let lat = pos.coords.latitude.toFixed(6)
-        retrieveWeather(lon, lat)
+    async function retrieveCurrentLocData(pos: Position) {
+       
+        const lon = pos.coords.longitude.toFixed(2)
+        const lat = pos.coords.latitude.toFixed(2)
+        
+        retrieveWeather(lon, lat, null)
         .then(data => {
             weatherData = data
             return formatWeather(data)
@@ -52,13 +69,8 @@ function App() {
         .then(formattedData => applyData(formattedData))
         .catch(error => displayError(error.message))
     }
-    function callRetrieveDataTesting() {
-        retrieveDataTesting()
-    }
-    async function retrieveDataTesting() {
-        let lon = "17.823493"
-        let lat = "59.373137"
-        retrieveWeather(lon, lat)
+    async function retrieveLocData(lon: number, lat: number, locationName: string) {
+        retrieveWeather(lon.toFixed(2), lat.toFixed(2), locationName)
         .then(data => {
             weatherData = data
             return formatWeather(data)
@@ -66,6 +78,7 @@ function App() {
         .then(formattedData => applyData(formattedData))
         .catch(error => displayError(error.message))
     }
+
     function applyData(data: FormattedWeatherData) {
         setFormattedWeatherData(data)
     }
@@ -75,13 +88,13 @@ function App() {
         if (weatherData != null) {
             // Data exists, just re-format
             setFormattedWeatherData(undefined)
+            setTextLoading(undefined)
             formatWeather(weatherData)
             .then(formattedData => applyData(formattedData)) 
             .catch(error => displayError(error.message))
         } else {
             // Data does not exist, get new data
-            setFormattedWeatherData(undefined)
-            callRetrieveDataTesting()
+            getSelectedLocation()
         }
     }
     function displayError(error: string) {
@@ -102,7 +115,8 @@ function App() {
 
                         <Switch location={props.location}>
                             <Route exact path="/">
-                                <ScreenWeather textLoading={textLoading} weatherData={formattedWeatherData} reapplyUnitsCallback={reapplyUnits}/>
+                                <ScreenWeather textLoading={textLoading} weatherData={formattedWeatherData} 
+                                reapplyUnitsCallback={reapplyUnits} changedLocation={getSelectedLocation}/>
                             </Route>
                             <Route path="/day/:id">
                                 <ScreenHours weatherData={formattedWeatherData}/>

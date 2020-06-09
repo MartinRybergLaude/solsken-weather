@@ -3,7 +3,7 @@ import fetchWeatherSMHI from 'model/SMHI/utils'
 import retrieveCity from 'model/BigDataCloud/utils'
 import { getCachedWeatherData, setCachedWeatherData } from 'model/utilsStorage';
 
-export default async function retrieveWeather(lon: string, lat: string): Promise<WeatherData> {
+export default async function retrieveWeather(lon: string, lat: string, locationName: string | null): Promise<WeatherData> {
     const cachedData = getCachedWeatherData(lon, lat)
     if (cachedData != null) {
         // Use cached data
@@ -13,7 +13,7 @@ export default async function retrieveWeather(lon: string, lat: string): Promise
     } else {
         // Use new data
         const weatherData = await fetchWeatherSMHI(lon, lat)
-        const weatherDataParsedWithCity = await retrieveCity(weatherData)
+        const weatherDataParsedWithCity = await getCity(weatherData, locationName)
         const weatherDataCleaned = await cleanHours(weatherDataParsedWithCity)
         const data = weatherDataCleaned
         if (setCachedWeatherData(data)) {
@@ -21,6 +21,14 @@ export default async function retrieveWeather(lon: string, lat: string): Promise
         }
         console.log("Applied new data")
         return data
+    }
+}
+async function getCity(weatherData: WeatherData, locationName: string | null): Promise<WeatherData> {
+    if (locationName) {
+        weatherData.city = locationName
+        return weatherData;
+    } else {
+        return await retrieveCity(weatherData)
     }
 }
 async function cleanHours(data: WeatherData): Promise<WeatherData> {

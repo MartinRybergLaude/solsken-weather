@@ -89,6 +89,10 @@ export function setItem(key: string, value: string): boolean {
     }
     return false
 }
+export function deleteItem(key: string) {
+    if(!storageAvailable) return false
+    localStorage.removeItem(key)
+}
 export function clearExpiredWeatherData() {
     if(!storageAvailable) return
     Object.keys(localStorage).forEach(function(key){

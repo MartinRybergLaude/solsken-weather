@@ -8,7 +8,11 @@
     display: flex;
     justify-content: left;
     align-items: center;
+    overflow: hidden;
     & p {
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
         font-weight: 500;
         color: $color-text-primary-inv;
     }
@@ -17,6 +21,10 @@
         font-size: 20px;
         margin-right: 24px;
     }
+    &:hover {
+        cursor: pointer;
+    }
+    transition: 100ms ease;
 }
 .containerMainSelected {
     background-color: rgba($color-primary, 0.2);
@@ -25,5 +33,8 @@
     }
     .icon {
         color: $color-primary;
+    }
+    &:hover {
+        cursor: initial;
     }
 }

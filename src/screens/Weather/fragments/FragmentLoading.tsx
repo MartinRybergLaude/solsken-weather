@@ -3,7 +3,7 @@ import styles from './FragmentLoading.module.scss'
 import { motion } from 'framer-motion'
 
 type Props = {
-    text: string
+    text: string | undefined
     show: boolean
 }
 const variantsLoading = ({
@@ -18,9 +18,13 @@ export default function LoadingScreen(props: Props) {
             variants={variantsLoading}
             transition={{ type: "spring", stiffness: 2000, damping: 100 }}
             initial={false}>
-                <div className={styles.loading}>
-                        <p>{props.text}</p>
-                </div>
+            <div className={styles.loading}>
+                {props.text ? 
+                    <p>{props.text}</p>
+                :
+                <div className={styles.ldsEllipsis}><div></div><div></div><div></div><div></div></div>
+                }
+            </div>
          </motion.div>
     )
 }

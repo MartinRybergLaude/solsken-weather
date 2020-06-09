@@ -5,11 +5,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import Search from '../components/Search';
 import LocationList from '../components/LocationList'
 import LocationType from 'model/TypesLocation'
-import { setItem, getItem } from 'model/utilsStorage';
+import { getItem } from 'model/utilsStorage';
 
 interface Props {
     visible: boolean
-    setVisibility: Function
+    setVisibility: (isVis: boolean) => void
 }
 
 export default function Sidebar(props: Props) {
@@ -87,7 +87,7 @@ export default function Sidebar(props: Props) {
                     variants={variantsSidebar}
                     transition={{ type: "spring", stiffness: 500, damping: 100 }}>
                         <Search reloadLocations={reloadLocations}/>
-                        <LocationList locations={locations}/>
+                        <LocationList reloadLocations={reloadLocations} locations={locations} setSidebarVis={props.setVisibility}/>
                 </motion.div>
             }
         </AnimatePresence>

@@ -1,4 +1,5 @@
 
 export let Global = {
-    shouldReformat: false
+    shouldReformat: false,
+    selectedLocationChanged: false
 }

@@ -41,10 +41,8 @@ export default function Sidebar(props: Props) {
 
     function setCorrectMoveLeft() {
         if (window.innerWidth >= 512) {
-            console.log("width > 512")
             setMoveLeft("-400px")
         } else {
-            console.log("width < 512")
             setMoveLeft("-80%")
         }
     }

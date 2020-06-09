@@ -46,7 +46,6 @@ function App() {
         }
     }
     function checkLocationPermission() {
-        if (formattedWeatherData) return
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(retrieveCurrentLocData, locationErrorCallback, {maximumAge:60000, timeout:10000})
         } else {
@@ -60,7 +59,6 @@ function App() {
        
         const lon = pos.coords.longitude.toFixed(2)
         const lat = pos.coords.latitude.toFixed(2)
-        
         retrieveWeather(lon, lat, null)
         .then(data => {
             weatherData = data

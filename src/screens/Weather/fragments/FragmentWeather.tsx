@@ -1,7 +1,7 @@
 import React from 'react'
 import styles from './FragmentWeather.module.scss'
 
-import Grid from '../components/Grid'
+import Grid from '../../../components/Grid'
 import Days from '../components/Days'
 
 import * as Data from 'model/TypesFormattedWeather'

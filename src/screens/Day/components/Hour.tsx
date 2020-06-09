@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import styles from './Hour.module.scss'
 import { motion } from 'framer-motion'
 import * as FormattedWeatherData from 'model/TypesFormattedWeather'
-import Grid from './Grid'
+import Grid from 'components/Grid'
 
 
 interface Props {
@@ -45,7 +45,7 @@ export default function Hour(props: Props) {
                     </div>    
                 </div>
                 {isMountedVis &&
-                    <Grid data={props.hour}/>
+                    <Grid altStyle={true} data={props.hour}/>
                 }
             </motion.div>
         )
@@ -65,7 +65,7 @@ export default function Hour(props: Props) {
                     </div>    
                 </div>
                 {isMountedVis &&
-                    <Grid data={props.hour}/>
+                    <Grid altStyle={true} data={props.hour}/>
                 }
             </div>
         )

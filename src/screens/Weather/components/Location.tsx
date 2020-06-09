@@ -24,10 +24,8 @@ export default function Location(props: Props) {
 
     useEffect(() => {
         if (props.index === props.selectedIndex) {
-            console.log("selected style")
             setStyleString(styles.containerMain + " " + styles.containerMainSelected)
         } else {
-            console.log("unselected style " + props.index + " " + props.selectedIndex)
             setStyleString(styles.containerMain)
         }
     }, [props.selectedIndex])

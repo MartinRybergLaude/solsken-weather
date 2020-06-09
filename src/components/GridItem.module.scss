@@ -3,11 +3,14 @@
     height: 80px;
     width: 80px;
     background-color: rgba($color-text-primary, 0.2);
-    border-radius: 12px;
+    border-radius: 8px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+}
+.itemAlt {
+    background: none;
 }
 .icon {
     color: $color-text-primary;

@@ -24,7 +24,7 @@ const variantsPages = ({
     hidden: { opacity: 0, scale: 0.95 }
 });
 
-let weatherData: WeatherData
+let weatherData: WeatherData | undefined
 
 function App() {
     const [textLoading, setTextLoading] = useState<string>()
@@ -35,6 +35,7 @@ function App() {
     , [])
 
     function getSelectedLocation() {
+        weatherData = undefined
         setTextLoading(undefined)
         setFormattedWeatherData(undefined)
         const selectedLocation = getItem("selectedLoc")

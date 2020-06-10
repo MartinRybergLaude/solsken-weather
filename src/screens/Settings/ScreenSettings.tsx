@@ -5,6 +5,7 @@ import * as Strings from 'utils/strings'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import Info from './components/Info'
 
 function ScreenSettings(props: RouteComponentProps<any>) {
     return (
@@ -16,6 +17,7 @@ function ScreenSettings(props: RouteComponentProps<any>) {
 
             <div className={styles.containerScroll}>
                 <SettingsUnits/>
+                <Info/>
             </div>
         </div>
     )

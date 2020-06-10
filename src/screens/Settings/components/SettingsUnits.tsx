@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './SettingsUnits.module.scss'
+import styles from './Settings.module.scss'
 
 import { Global } from 'utils/globals'
 import * as Strings from 'utils/strings'
@@ -114,7 +114,7 @@ export default function SettingsUnits() {
     ]
     return (
         <div className={styles.settingsCategory}>
-            <p className={styles.title}>{Strings.Units}</p>
+            <h2>{Strings.Units}</h2>
             <div className={styles.itemSettings}>
                 <label>{Strings.Temperature}</label>
                 <Dropdown value={unitTempr} onChange={onChangeTempr} options={temprOptions}/>

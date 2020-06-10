@@ -1,0 +1,70 @@
+@import "src/variables";
+
+.settingsCategory {
+    margin-top: 16px;
+    border-bottom: 2px solid rgba($color-text-primary, 0.2);
+    & h2 {
+        display: block;
+        margin-top: 24px;
+        margin-left: 16px;
+        margin-bottom: 0;
+        text-align: left;
+        font-weight: 700;
+        font-size: 14px;
+    }
+    .link {
+        color: $color-text-primary;
+        text-decoration: underline;
+    }
+    &:last-of-type {
+        border-bottom: none;
+    }
+}
+.itemContact {
+    margin: 0 auto;
+    margin-bottom: 16px;
+    background-color: rgba($color-text-primary, 0.2);
+    padding: 16px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    text-decoration: none;
+    width: 96%;
+    .icon {
+        font-size: 32px;
+        color: $color-text-primary;
+    }
+    & div {
+        margin-left: 24px;
+    }
+    & p {
+        text-align: left;
+        &:first-of-type {
+            font-weight: 700;
+        }
+    }
+    &:first-of-type {
+        margin-top: 16px;
+    }
+}
+.categoryDesc {
+    margin-top: 16px;
+    margin-left: 16px;
+    text-align: left;
+}
+.itemContactLink:hover {
+    cursor: pointer;
+}
+.itemSettings {
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.itemSettings label {
+    margin-left: 16px;
+}
+.itemSettings select {
+    margin-right: 16px;
+}

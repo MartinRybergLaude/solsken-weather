@@ -3,12 +3,18 @@
 .containerMain {
     width: 100%;
     height: 56px;
-    padding: 16px;
     border-radius: 4px;
     display: flex;
-    justify-content: left;
     align-items: center;
-    overflow: hidden;
+    justify-content: space-between;
+    & div {
+        padding: 16px;
+        flex-grow: 1;
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        overflow: hidden;
+    }
     & p {
         text-overflow: ellipsis;
         white-space: nowrap;
@@ -20,6 +26,12 @@
         color: $color-text-primary-inv;
         font-size: 20px;
         margin-right: 24px;
+    }
+    .iconRight {
+        margin: 16px;
+        &:hover {
+            cursor: pointer;
+        }
     }
     &:hover {
         cursor: pointer;

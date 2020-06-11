@@ -65,6 +65,7 @@ export default function Sidebar(props: Props) {
         }, [wrapperRef]);
     }
     function reloadLocations() {
+        
         let data = getItem("locations")
         if (data) {
             let dataParsed = JSON.parse(data) as LocationType[]

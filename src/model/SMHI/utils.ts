@@ -5,17 +5,34 @@ import SunCalc from 'suncalc'
 
 export default async function fetchWeatherSMHI(lon: string, lat: string): Promise<WeatherTypesUni.WeatherData> {
     console.log(`${apiBaseSMHI}lon/${lon}/lat/${lat}/data.json`)
+    let expires = new Date()
     const response = await fetch(`${apiBaseSMHI}lon/${lon}/lat/${lat}/data.json`, fetchSettings)
-    const weatherJSON = await response.json()
+    const weatherJSON = await parseResponse(response)
     const weatherDataSMHI = await castWeatherSMHI(weatherJSON)
-    const weatherDataParsed = await parseWeatherSMHI(weatherDataSMHI, parseFloat(lon), parseFloat(lat))
+    const weatherDataParsed = await parseWeatherSMHI(weatherDataSMHI, parseFloat(lon), parseFloat(lat), expires)
     return weatherDataParsed
+
+    async function parseResponse(response: Response): Promise<any> {
+        let expiresSet = false
+        try {
+            expires.setSeconds(expires.getSeconds() + parseInt(response.headers.get("Cache-control")!.split("=")[1].split(",")[0]))
+            expiresSet = true
+        } catch {
+            try {
+                expires = new Date(Date.parse(response.headers.get("Expires")!))
+                expiresSet = true
+            } catch { }
+        }
+        if(!expiresSet) expires.setHours(expires.getHours() + 1)
+        console.log("Expires: " + expires.getHours() + ":" + expires.getMinutes())
+        return response.json()        
+    }
 }
 async function castWeatherSMHI(weatherJson: any): Promise<WeatherTypesSMHI.WeatherData> {
         const data = weatherJson as WeatherTypesSMHI.WeatherData
         return data
 }
-async function parseWeatherSMHI(weatherData: WeatherTypesSMHI.WeatherData, lon: number, lat: number): Promise<WeatherTypesUni.WeatherData> {
+async function parseWeatherSMHI(weatherData: WeatherTypesSMHI.WeatherData, lon: number, lat: number, expires: Date): Promise<WeatherTypesUni.WeatherData> {
     const weatherDataUni = {} as WeatherTypesUni.WeatherData
     weatherDataUni.days = []
     weatherDataUni.units = {
@@ -26,6 +43,7 @@ async function parseWeatherSMHI(weatherData: WeatherTypesSMHI.WeatherData, lon: 
         visUnit: visUnits.km,
         clockUnit: clockUnits.twentyfour
     }
+    weatherDataUni.expires = expires
     weatherDataUni.latTwoDecimal = lat.toFixed(2)
     weatherDataUni.lonTwoDecimal = lon.toFixed(2)
 

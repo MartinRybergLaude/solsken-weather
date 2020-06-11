@@ -11,7 +11,7 @@ export function getCachedWeatherData(lon: string, lat: string): WeatherData | nu
         
         let data = JSON.parse(dataString) as WeatherData
         
-        if (data != null && Date.now() - new Date(data.retrievedTime).getTime() < 60 * 60000) {
+        if (data != null && Date.now() < new Date(data.expires).getTime()) {
             return data
         } else {
             // Too old or corrupted
@@ -23,7 +23,6 @@ export function getCachedWeatherData(lon: string, lat: string): WeatherData | nu
     }
 }
 export function setCachedWeatherData(data: WeatherData): boolean {
-    data.retrievedTime = new Date()
     if(!storageAvailable) return false
     while(true) {
         try {
@@ -104,7 +103,7 @@ export function clearExpiredWeatherData() {
             try {
                 // Test if item is weather data
                 let data = JSON.parse(value) as WeatherData
-                if (new Date().getMilliseconds() - new Date(data.retrievedTime).getMilliseconds() > 60 * 60000) {
+                if (Date.now() >= new Date(data.expires).getTime()) {
                     localStorage.removeItem(key)
                 }
             } catch {
@@ -115,6 +114,7 @@ export function clearExpiredWeatherData() {
     })
 }
 export function clearAllWeatherData() {
+    if(!storageAvailable) return
     Object.keys(localStorage).forEach(function(key){
         let value = localStorage.getItem(key)
         if (value == null) {
@@ -123,8 +123,9 @@ export function clearAllWeatherData() {
         } else {
             try {
                 // Test if item is weather data
-                let data = JSON.parse(value) as WeatherData
-                if (data) {
+                let data = JSON.parse(value)
+                let casted = data as WeatherData
+                if (casted.latTwoDecimal) {
                     localStorage.removeItem(key)
                 }
             } catch {

@@ -16,7 +16,7 @@ import retrieveWeather from 'model/retrieveWeather'
 import formatWeather from 'model/formatWeather'
 import * as Strings from 'utils/strings'
 import { WeatherData } from 'model/TypesWeather'
-import { getItem } from 'model/utilsStorage';
+import { getItem, clearExpiredWeatherData } from 'model/utilsStorage';
 import LocationType from 'model/TypesLocation'
 
 const variantsPages = ({
@@ -30,9 +30,10 @@ function App() {
     const [textLoading, setTextLoading] = useState<string>()
     const [formattedWeatherData, setFormattedWeatherData] = useState<FormattedWeatherData>()
     
-    useEffect(() =>
+    useEffect(() => {
+        clearExpiredWeatherData()
         getSelectedLocation() 
-    , [])
+    }, [])
 
     function getSelectedLocation() {
         weatherData = undefined
@@ -115,7 +116,7 @@ function App() {
                         <Switch location={props.location}>
                             <Route exact path="/">
                                 <ScreenWeather textLoading={textLoading} weatherData={formattedWeatherData} 
-                                reapplyUnitsCallback={reapplyUnits} changedLocation={getSelectedLocation}/>
+                                reapplyUnitsCallback={reapplyUnits} reloadWeatherDataCallback={getSelectedLocation} changedLocation={getSelectedLocation}/>
                             </Route>
                             <Route path="/day/:id">
                                 <ScreenHours weatherData={formattedWeatherData}/>

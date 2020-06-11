@@ -16,6 +16,7 @@ import { AnimatePresence, motion } from 'framer-motion'
 interface Props extends RouteComponentProps{
     weatherData: Data.FormattedWeatherData | undefined
     reapplyUnitsCallback: Function
+    reloadWeatherDataCallback: Function
     changedLocation: Function
     textLoading: string | undefined
 }
@@ -32,6 +33,10 @@ function ScreenWeather(props: Props) {
         if (Global.shouldReformat) {
             Global.shouldReformat = false
             props.reapplyUnitsCallback()
+        }
+        if (Global.shouldReload) {
+            Global.shouldReload = false
+            props.reloadWeatherDataCallback()
         }
     }, [])
 

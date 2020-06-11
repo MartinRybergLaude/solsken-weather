@@ -2,6 +2,7 @@
 
 .settingsCategory {
     margin-top: 16px;
+    padding-bottom: 16px;
     border-bottom: 2px solid rgba($color-text-primary, 0.2);
     & h2 {
         display: block;
@@ -12,6 +13,12 @@
         font-weight: 700;
         font-size: 14px;
     }
+    & button {
+        margin-top: 16px;
+        width: 96%;
+        background: rgba($color-text-primary, 0.2);
+        border: none;
+    }
     .link {
         color: $color-text-primary;
         text-decoration: underline;
@@ -20,17 +27,21 @@
         border-bottom: none;
     }
 }
-.itemContact {
+.contactWrapper {
     margin: 0 auto;
-    margin-bottom: 16px;
-    background-color: rgba($color-text-primary, 0.2);
-    padding: 16px;
+    width: 96%;
+    margin-top: 16px;
+    padding: 24px;
     border-radius: 8px;
+    background-color: rgba($color-text-primary, 0.2);
+}
+.itemContact {
+    margin-top: 24px;
     display: flex;
     justify-content: left;
     align-items: center;
     text-decoration: none;
-    width: 96%;
+    width: 100%;
     .icon {
         font-size: 32px;
         color: $color-text-primary;
@@ -44,9 +55,9 @@
             font-weight: 700;
         }
     }
-    &:first-of-type {
-        margin-top: 16px;
-    }
+}
+.first {
+    margin-top: 0;
 }
 .categoryDesc {
     margin-top: 16px;

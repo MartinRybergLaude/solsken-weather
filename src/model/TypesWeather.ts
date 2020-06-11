@@ -1,7 +1,7 @@
 import { temprUnits, windUnits, precUnits, pressureUnits, visUnits, clockUnits } from "../utils/constants";
 
 export interface WeatherData {
-    retrievedTime: Date
+    expires: Date
     days: Day[],
     units: Units,
     lonTwoDecimal: string,

@@ -48,8 +48,10 @@ export default function Dialog(props: Props) {
                         <h2>{props.title}</h2>
                         <p>{props.text}</p>
                         <div className={styles.actions}>
-                            <button className="buttonAlt" onClick={() => props.callbackDismiss()}>{props.textDismiss}</button>
-                            <button className="buttonAlt" onClick={() => props.callbackAction()}>{props.textAction}</button>
+                            <div>
+                                <button className="buttonAlt" onClick={() => props.callbackDismiss()}>{props.textDismiss}</button>
+                                <button className="buttonAlt" onClick={() => props.callbackAction()}>{props.textAction}</button>
+                            </div>
                         </div>
                     </div>
             </motion.div>

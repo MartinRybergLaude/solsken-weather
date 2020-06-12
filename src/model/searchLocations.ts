@@ -7,7 +7,6 @@ export default async function searchLocations(query: string, signal: AbortSignal
         mode: "cors" as RequestMode,
         signal: signal
     }
-    const userLang = navigator.language.substring(0,2) 
     console.log(`${apiBasePhoton}${query}&limit=6`)
     const response = await fetch(`${apiBasePhoton}${query}&limit=6`, fetchSettings)
     const locationJSON = await response.json()

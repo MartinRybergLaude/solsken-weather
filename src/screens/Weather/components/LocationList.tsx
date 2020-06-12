@@ -14,7 +14,7 @@ interface Props {
     reloadLocations: Function
 }
 export default function LocationList(props: Props) {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
 
     const [selectedIndex, setSelectedIndex] = useState<number>()
     
@@ -46,7 +46,7 @@ export default function LocationList(props: Props) {
         if (props.locations) {
             let data = getItem("locations")
             if (data) {
-                if (index == selectedIndex) {
+                if (index === selectedIndex) {
                     setItem("selectedLocIndex", "-1")
                     setSelectedIndex(-1)
                     Global.selectedLocationChanged = true

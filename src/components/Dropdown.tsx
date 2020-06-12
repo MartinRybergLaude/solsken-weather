@@ -34,7 +34,7 @@ export default function Dropdown(props: Props) {
           return () => {
             document.removeEventListener("mousedown", handleClickOutside);
           };
-        }, [wrapperRef]);
+        }, []);
     }
     
     

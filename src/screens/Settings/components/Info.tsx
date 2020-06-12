@@ -8,7 +8,7 @@ import { faUserCircle, faGlobe} from '@fortawesome/free-solid-svg-icons'
 import { faGithub , faTwitter, faInstagram} from '@fortawesome/free-brands-svg-icons'
 
 export default function Info() {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
     return (
         <div className={styles.settingsCategory}>
             <h2>{t("title_info")}</h2>

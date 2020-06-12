@@ -8,10 +8,10 @@ import { AnimatePresence } from 'framer-motion';
 import Toast from 'components/Toast'
 
 export default function Extras() {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
     const [toastText, setToastText] = useState<string>()
 
-    let timer: NodeJS.Timer
+    let timer: NodeJS.Timer | undefined = undefined
     useEffect(() => {
         
         return () => {
@@ -19,7 +19,7 @@ export default function Extras() {
                 clearTimeout(timer)
             }
         }
-    }, [])
+    }, [timer])
     function handleButtonClick() {
         clearAllWeatherData()
         setToastText(t("text_cache_weatherdata_clear_success"))

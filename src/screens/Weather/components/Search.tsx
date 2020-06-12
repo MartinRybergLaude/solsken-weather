@@ -15,7 +15,7 @@ interface PropsForSearch {
     reloadLocations: Function
 }
 export default function Search(props: PropsForSearch) {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
 
     const mainRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
@@ -42,13 +42,13 @@ export default function Search(props: PropsForSearch) {
           return () => {
             document.removeEventListener("mousedown", handleClickOutside);
           };
-        }, [mainRef]);
+        }, []);
     }
     async function handleSearch(event: React.FormEvent<HTMLFormElement>) {
         event.preventDefault()
         if (!inputRef.current) return
         query = inputRef.current.value
-        if (query.length == 0) return
+        if (query.length === 0) return
         setShowSearchBtn(false)
         setLoading(true)
         setSearching(true)
@@ -69,7 +69,7 @@ export default function Search(props: PropsForSearch) {
     }
     function handleInputChange(event: React.FormEvent<HTMLInputElement>) {
         setSearching(false)
-        if (event.currentTarget.value.length != 0) {
+        if (event.currentTarget.value.length !== 0) {
             controller.abort()
             setShowSearchBtn(true)
             setCoverClassName(styles.cover)
@@ -116,7 +116,7 @@ interface PropsForListedLocations {
 }
 
 export function ListedLocations(props: PropsForListedLocations) {
-    const { t, i18n } = useTranslation();
+    const { t } = useTranslation();
 
     function handleLocationClick(name: string, country: string, lon: number, lat: number) {
         const location: LocationType = {name, country, lon, lat}

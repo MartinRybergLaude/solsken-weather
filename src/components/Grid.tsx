@@ -10,7 +10,7 @@ interface Props {
     altStyle?: boolean
 }
 export default function Grid(props: Props) {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
 
     let gridClassName = styles.grid;
     let rowClassName = styles.row;

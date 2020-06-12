@@ -27,7 +27,7 @@ const variantsPages = ({
 let weatherData: WeatherData | undefined
 
 function App() {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
 
     const [textLoading, setTextLoading] = useState<string>()
     const [formattedWeatherData, setFormattedWeatherData] = useState<FormattedWeatherData>()

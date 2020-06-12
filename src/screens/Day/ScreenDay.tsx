@@ -15,18 +15,18 @@ interface Props extends RouteComponentProps<any> {
     weatherData: FormattedWeatherData.FormattedWeatherData | undefined | null
 }
 const browser = Bowser.getParser(navigator.userAgent)
-const isMobileFirefox = browser.getEngine().name == "Gecko"
-    && browser.getPlatform().type == "mobile" && browser.getOSName() == "Android"
+const isMobileFirefox = browser.getEngine().name === "Gecko"
+    && browser.getPlatform().type === "mobile" && browser.getOSName() === "Android"
 
 function ScreenDay(props: Props) {
 
     const day = props.weatherData?.days[props.match.params.id]
     
     useEffect(() => {
-        if (day == null) {
+        if (props.weatherData?.days[props.match.params.id] == null) {
             props.history.push("/")
         }
-    }, [])
+    }, [props])
     
     return (
         <div className={"screen " + styles.containerHours}>

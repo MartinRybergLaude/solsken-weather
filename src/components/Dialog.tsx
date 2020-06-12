@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import styles from './Dialog.module.scss'
-import { AnimatePresence, motion } from 'framer-motion'
+import { motion } from 'framer-motion'
 
 interface Props {
     callbackAction: Function
@@ -33,7 +33,7 @@ export default function Dialog(props: Props) {
           return () => {
             document.removeEventListener("mousedown", handleClickOutside);
           };
-        }, [wrapperRef]);
+        }, []);
     }
     return (
             <motion.div

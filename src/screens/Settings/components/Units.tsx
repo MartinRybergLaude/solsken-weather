@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next'
 import Dropdown, {Option} from 'components/Dropdown'
 
 export default function SettingsUnits() {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
 
     const [unitTempr, setUnitTempr] = React.useState(
         localStorage.getItem('unitTempr') || 'c'

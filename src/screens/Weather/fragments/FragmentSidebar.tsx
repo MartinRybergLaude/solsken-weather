@@ -62,7 +62,7 @@ export default function Sidebar(props: Props) {
           return () => {
             document.removeEventListener("mousedown", handleClickOutside);
           };
-        }, [wrapperRef]);
+        }, []);
     }
     function reloadLocations() {
         

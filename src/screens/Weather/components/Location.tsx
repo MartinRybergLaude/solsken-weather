@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './Location.module.scss'
 
 import { useTranslation } from 'react-i18next'
@@ -16,7 +16,7 @@ interface Props {
     onDelete: (index: number) => void
 }
 export default function Location(props: Props) {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
 
     const [styleString, setStyleString] = useState(styles.containerMain)
     const [showDialog, setShowDialog] = useState(false)
@@ -27,7 +27,7 @@ export default function Location(props: Props) {
         } else {
             setStyleString(styles.containerMain)
         }
-    }, [props.selectedIndex])
+    }, [props.selectedIndex, props.index])
 
     function onClick() {
         if (props.index !== props.selectedIndex) {

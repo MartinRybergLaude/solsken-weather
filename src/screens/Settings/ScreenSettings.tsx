@@ -9,7 +9,7 @@ import Info from './components/Info'
 import Extras from './components/Extras'
 
 function ScreenSettings(props: RouteComponentProps<any>) {
-    const { t, i18n } = useTranslation()
+    const { t } = useTranslation()
     return (
         <div className={"screen " + styles.containerSettings}>
             <div className={styles.toolbar}>

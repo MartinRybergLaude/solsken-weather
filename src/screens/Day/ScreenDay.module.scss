@@ -40,7 +40,7 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
-.toolbarWrapperSun {
+.wrapperSun {
     margin-right: 16px;
     display: flex;
     align-items: center;
@@ -48,7 +48,7 @@
     & i {
         color: $color-text-primary;
         font-size: 24px;
-        margin-right: 16px;
+        margin: 16px;
     }
     & p:first-of-type {
         font-weight: 700;

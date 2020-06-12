@@ -6,7 +6,7 @@
     overflow-y: hidden;
     width: 90%;
     margin: 0 auto;
-    margin-top: 16px;
+    margin-bottom: 16px;
     padding: 16px 24px;
     display: flex;
     align-items: center;
@@ -41,9 +41,6 @@
 }
 .hour:hover {
     cursor: pointer;
-}
-.hour:last-of-type {
-    margin-bottom: 16px;
 }
 .preview {
     width: 100%;

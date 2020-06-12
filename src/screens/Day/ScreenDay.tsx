@@ -35,15 +35,13 @@ function ScreenDay(props: Props) {
                     <FontAwesomeIcon className={styles.toolbarIcon} icon={faArrowLeft} onClick={() => props.history.push("/")} />
                     <h2 className={styles.toolbarText}>{day?.dayOfWeek}</h2>
                 </div>
-                <div className={styles.toolbarWrapperSun}>
-                    <i className={"wi " + Consts.WiHorizon}/>
-                    <div>
-                        <p>{day?.sunrise}</p>
-                        <p>{day?.sunset}</p>
-                    </div>
-                </div>
             </div>
             <div className={styles.containerScroll}>
+                <div className={styles.wrapperSun}>
+                    <p>{day?.sunrise}</p>
+                    <i className={"wi " + Consts.WiHorizon}/>
+                    <p>{day?.sunset}</p>
+                </div>
                 {day?.hours.map((hour, index) => {
                     return (
                         <Hour key={index} hour={hour} animateExpand={!isMobileFirefox}/>

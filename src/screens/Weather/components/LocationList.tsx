@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
 import styles from './LocationList.module.scss'
 
-import * as Strings from 'utils/strings'
+import { useTranslation } from 'react-i18next'
 
 import Location from './Location'
 import LocationType from 'model/TypesLocation'
-import { setItem, getItem, deleteItem } from 'model/utilsStorage';
+import { setItem, getItem, deleteItem } from 'model/utilsStorage'
 import { Global } from 'utils/globals'
 
 interface Props {
@@ -14,6 +14,7 @@ interface Props {
     reloadLocations: Function
 }
 export default function LocationList(props: Props) {
+    const { t, i18n } = useTranslation()
 
     const [selectedIndex, setSelectedIndex] = useState<number>()
     
@@ -61,7 +62,7 @@ export default function LocationList(props: Props) {
     
     return (
         <div className={styles.containerMain}>
-            <Location onDelete={handleDeleteLocation} onClick={handleSelectLocation} index={-1} selectedIndex={selectedIndex} title={Strings.TextCurrentLocation}/>
+            <Location onDelete={handleDeleteLocation} onClick={handleSelectLocation} index={-1} selectedIndex={selectedIndex} title={t("text_location_current")}/>
             {props.locations?.map((location, index) => 
                 <Location onDelete={handleDeleteLocation} onClick={handleSelectLocation} key={index} index={index} selectedIndex={selectedIndex} title={location.name}/>
             )}

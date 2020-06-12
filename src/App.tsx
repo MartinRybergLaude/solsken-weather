@@ -6,6 +6,7 @@ import 'weathericons/css/weather-icons-wind.min.css'
 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { motion, AnimatePresence } from "framer-motion"
+import { useTranslation } from 'react-i18next';
 
 import ScreenWeather from 'screens/Weather/ScreenWeather'
 import ScreenSettings from 'screens/Settings/ScreenSettings'
@@ -14,9 +15,8 @@ import ScreenHours from 'screens/Day/ScreenDay'
 import { FormattedWeatherData } from 'model/TypesFormattedWeather'
 import retrieveWeather from 'model/retrieveWeather'
 import formatWeather from 'model/formatWeather'
-import * as Strings from 'utils/strings'
 import { WeatherData } from 'model/TypesWeather'
-import { getItem, clearExpiredWeatherData } from 'model/utilsStorage';
+import { getItem, clearExpiredWeatherData } from 'model/utilsStorage'
 import LocationType from 'model/TypesLocation'
 
 const variantsPages = ({
@@ -27,9 +27,10 @@ const variantsPages = ({
 let weatherData: WeatherData | undefined
 
 function App() {
+    const { t, i18n } = useTranslation()
+
     const [textLoading, setTextLoading] = useState<string>()
     const [formattedWeatherData, setFormattedWeatherData] = useState<FormattedWeatherData>()
-    
     useEffect(() => {
         clearExpiredWeatherData()
         getSelectedLocation() 
@@ -51,11 +52,11 @@ function App() {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(retrieveCurrentLocData, locationErrorCallback, {maximumAge:60000, timeout:10000})
         } else {
-            displayError(Strings.ErrorLocationNotSupported)
+            displayError(t("error_location_not_supported"))
         }
     }
     function locationErrorCallback() {
-        displayError(Strings.ErrorLocation)
+        displayError(t("error_location_cant_get"))
     }
     async function retrieveCurrentLocData(pos: Position) {
        

@@ -1,9 +1,10 @@
 import * as WeatherTypes from 'model/TypesWeather';
 import * as FormattedWeatherTypes from './TypesFormattedWeather';
 import * as Consts from 'utils/constants'
-import * as Strings from 'utils/strings'
+import i18n from 'i18n'
 
 export default async function formatWeather(data: WeatherTypes.WeatherData): Promise<FormattedWeatherTypes.FormattedWeatherData> {
+    
     let formattedData = {} as FormattedWeatherTypes.FormattedWeatherData
     formattedData.city = data.city
 
@@ -16,9 +17,9 @@ export default async function formatWeather(data: WeatherTypes.WeatherData): Pro
         let tomorrow = new Date()
         tomorrow.setDate(tomorrow.getDate() + 1)
         if(isSameDay(new Date(day.date), new Date())) {
-            dayOfWeek = Strings.Today
+            dayOfWeek = i18n.t("day_today")
         } else if (isSameDay(new Date(day.date), tomorrow)) {
-            dayOfWeek = Strings.Tomorrow
+            dayOfWeek = i18n.t("day_tomorrow")
         } else {
             dayOfWeek = Consts.Days[new Date(day.date).getDay()];
         }
@@ -79,15 +80,15 @@ function getVisibilityString(vis: number): string {
     }
 }
 function getWindDirString(dir: number): string {
-    if(isBetween(dir, 337.5, 360) || isBetween(dir, 0, 22.5)) return Strings.N
-    if(isBetween(dir, 22.5, 67.5)) return Strings.NE
-    if(isBetween(dir, 67.5, 112.5)) return Strings.E
-    if(isBetween(dir, 112.5, 157.5)) return Strings.SE
-    if(isBetween(dir, 157.5, 202.5)) return Strings.S
-    if(isBetween(dir, 202.5, 247.5)) return Strings.SW
-    if(isBetween(dir, 247.5, 292.5)) return Strings.W
-    if(isBetween(dir, 292.5, 337.5)) return Strings.NW
-    return Strings.NA
+    if(isBetween(dir, 337.5, 360) || isBetween(dir, 0, 22.5)) return i18n.t("dir_N")
+    if(isBetween(dir, 22.5, 67.5)) return i18n.t("dir_NE")
+    if(isBetween(dir, 67.5, 112.5)) return i18n.t("dir_E")
+    if(isBetween(dir, 112.5, 157.5)) return i18n.t("dir_SE")
+    if(isBetween(dir, 157.5, 202.5)) return i18n.t("dir_S")
+    if(isBetween(dir, 202.5, 247.5)) return i18n.t("dir_SW")
+    if(isBetween(dir, 247.5, 292.5)) return i18n.t("dir_W")
+    if(isBetween(dir, 292.5, 337.5)) return i18n.t("dir_NW")
+    return i18n.t("text_NA")
 }
 function getWindString(wind: number): string {
     switch(localStorage.getItem("unitWind")) {

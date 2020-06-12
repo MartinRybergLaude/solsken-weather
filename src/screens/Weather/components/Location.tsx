@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback } from 'react'
 import styles from './Location.module.scss'
 
-import * as Strings from 'utils/strings'
+import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faMapMarkerAlt, faLocationArrow, faTimes } from '@fortawesome/free-solid-svg-icons'
 
@@ -16,6 +16,7 @@ interface Props {
     onDelete: (index: number) => void
 }
 export default function Location(props: Props) {
+    const { t, i18n } = useTranslation()
 
     const [styleString, setStyleString] = useState(styles.containerMain)
     const [showDialog, setShowDialog] = useState(false)
@@ -43,8 +44,8 @@ export default function Location(props: Props) {
                 {showDialog && 
                     <Dialog callbackDismiss={() => setShowDialog(false)} callbackAction={() => {setShowDialog(false) 
                         props.onDelete(props.index)}}
-                    title={Strings.TextRemove + " " + props.title + "?"} text={Strings.TextCannotBeUndone}
-                    textAction={Strings.TextRemove} textDismiss={Strings.TextDismiss}/>
+                    title={t("text_remove") + " " + props.title + "?"} text={t("text_action_cant_undone")}
+                    textAction={t("text_remove")} textDismiss={t("text_dismiss")}/>
                 }
             </AnimatePresence>
             <div className={styleString} >

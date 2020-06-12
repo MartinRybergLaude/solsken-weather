@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import styles from './Settings.module.scss'
 import { Global } from 'utils/globals'
+import { useTranslation } from 'react-i18next'
 
-import Toast from 'components/Toast'
-
-import * as Strings from 'utils/strings'
 import { clearAllWeatherData } from 'model/utilsStorage';
 import { AnimatePresence } from 'framer-motion';
+import Toast from 'components/Toast'
 
 export default function Extras() {
+    const { t, i18n } = useTranslation()
     const [toastText, setToastText] = useState<string>()
 
     let timer: NodeJS.Timer
@@ -22,7 +22,7 @@ export default function Extras() {
     }, [])
     function handleButtonClick() {
         clearAllWeatherData()
-        setToastText(Strings.TextClearCacheSuccess)
+        setToastText(t("text_cache_weatherdata_clear_success"))
         Global.shouldReload = true
         timer = setTimeout(() => {
             setToastText(undefined)
@@ -30,8 +30,8 @@ export default function Extras() {
     }
     return (
         <div className={styles.settingsCategory}>
-            <h2>{Strings.TextExtras}</h2>
-            <button onClick={handleButtonClick}>{Strings.TextClearCache}</button>
+            <h2>{t("title_extras")}</h2>
+            <button onClick={handleButtonClick}>{t("text_cache_weatherdata_clear")}</button>
             <AnimatePresence>
                 {toastText && 
                     <Toast text={toastText}/>

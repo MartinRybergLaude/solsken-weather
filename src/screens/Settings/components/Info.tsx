@@ -1,17 +1,18 @@
 import React from 'react'
 import styles from './Settings.module.scss'
 
-import * as Strings from 'utils/strings'
+import { useTranslation } from 'react-i18next'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle, faGlobe} from '@fortawesome/free-solid-svg-icons'
 import { faGithub , faTwitter, faInstagram} from '@fortawesome/free-brands-svg-icons'
 
 export default function Info() {
+    const { t, i18n } = useTranslation()
     return (
         <div className={styles.settingsCategory}>
-            <h2>Information</h2>
-            <p className={styles.categoryDesc}>Weather data from 
+            <h2>{t("title_info")}</h2>
+            <p className={styles.categoryDesc}>{t("text_weatherdata_from")} 
                 <a className={styles.link} href="http://opendata.smhi.se/apidocs/metfcst/index.html"> SMHI Open Data Api.</a>
             </p>
             <div className={styles.contactWrapper}>
@@ -25,7 +26,7 @@ export default function Info() {
                 <a href="https://martinryberglaude.com/" className={styles.itemContact + " " + styles.itemContactLink}>
                     <FontAwesomeIcon className={styles.icon} icon={faGlobe}/>
                     <div>
-                        <p>Website</p>
+                        <p>{t("text_website")}</p>
                         <p>martinryberglaude.com</p>
                     </div>
                 </a>

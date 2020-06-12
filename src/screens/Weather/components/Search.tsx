@@ -4,17 +4,19 @@ import styles from './Search.module.scss'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-import * as Strings from 'utils/strings'
+import { useTranslation } from 'react-i18next'
 
 import searchLocations from 'model/searchLocations'
 import TypeLocations from 'model/Photon/TypesLocation'
 import LocationType from 'model/TypesLocation'
-import { setItem, getItem } from 'model/utilsStorage';
+import { setItem, getItem } from 'model/utilsStorage'
 
 interface PropsForSearch {
     reloadLocations: Function
 }
 export default function Search(props: PropsForSearch) {
+    const { t, i18n } = useTranslation()
+
     const mainRef = useRef<HTMLDivElement>(null)
     const inputRef = useRef<HTMLInputElement>(null)
     const [locations, setLocations] = useState<TypeLocations | null>()
@@ -91,11 +93,11 @@ export default function Search(props: PropsForSearch) {
             <div ref={mainRef} className={styles.search}>
                 <form onSubmit={handleSearch}>
                     <div className={styles.inputWrapper}>
-                        <input ref={inputRef} className={styles.input} onChange={handleInputChange} placeholder={Strings.TextSearch} />
+                        <input ref={inputRef} className={styles.input} onChange={handleInputChange} placeholder={t("text_search")} />
                         <FontAwesomeIcon className={styles.icon} icon={faSearch}/>
                     </div>
                     {showSearchBtn &&
-                        <button type="submit" className={styles.btnSearch}>{Strings.TextSearchShort}</button>
+                        <button type="submit" className={styles.btnSearch}>{t("text_search_short")}</button>
                     }
                 </form>
                 
@@ -114,6 +116,7 @@ interface PropsForListedLocations {
 }
 
 export function ListedLocations(props: PropsForListedLocations) {
+    const { t, i18n } = useTranslation();
 
     function handleLocationClick(name: string, country: string, lon: number, lat: number) {
         const location: LocationType = {name, country, lon, lat}
@@ -137,7 +140,7 @@ export function ListedLocations(props: PropsForListedLocations) {
     } else if (!props.locations || !props.locations.features || props.locations.features.length <= 0) {
         return (
             <div className={styles.error}>
-                <p>{Strings.ErrorLocationNotFound}</p>
+                <p>{t("error_search_find_location")}</p>
             </div>
         )
     } else {

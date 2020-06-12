@@ -2,12 +2,13 @@ import React from 'react'
 import styles from './Settings.module.scss'
 
 import { Global } from 'utils/globals'
-import * as Strings from 'utils/strings'
+import { useTranslation } from 'react-i18next'
 
 import Dropdown, {Option} from 'components/Dropdown'
 
-
 export default function SettingsUnits() {
+    const { t, i18n } = useTranslation()
+
     const [unitTempr, setUnitTempr] = React.useState(
         localStorage.getItem('unitTempr') || 'c'
     )
@@ -114,29 +115,29 @@ export default function SettingsUnits() {
     ]
     return (
         <div className={styles.settingsCategory}>
-            <h2>{Strings.Units}</h2>
+            <h2>{t("title_units")}</h2>
             <div className={styles.itemSettings}>
-                <label>{Strings.Temperature}</label>
+                <label>{t("grid_temperature")}</label>
                 <Dropdown value={unitTempr} onChange={onChangeTempr} options={temprOptions}/>
             </div>
             <div className={styles.itemSettings}>
-                <label>{Strings.Wind}</label>
+                <label>{t("grid_wind")}</label>
                 <Dropdown value={unitWind} onChange={onChangeWind} options={windOptions}/>
             </div>
             <div className={styles.itemSettings}>
-                <label>{Strings.Precipitation}</label>
+                <label>{t("grid_prec")}</label>
                 <Dropdown value={unitPrec} onChange={onChangePrec} options={precOptions}/>
             </div>
             <div className={styles.itemSettings}>
-                <label>{Strings.Pressure}</label>
+                <label>{t("grid_pressure")}</label>
                 <Dropdown value={unitPressure} onChange={onChangePressure} options={pressureOptions}/>
             </div>
             <div className={styles.itemSettings}>
-                <label>{Strings.Visibility}</label>
+                <label>{t("grid_vis")}</label>
                 <Dropdown value={unitVis} onChange={onChangeVis} options={visOptions}/>
             </div>
             <div className={styles.itemSettings}>
-                <label>{Strings.TimeFormat}</label>
+                <label>{t("grid_time_format")}</label>
                 <Dropdown value={unitTime} onChange={onChangeTime} options={timeOptions}/>
             </div>
         </div>

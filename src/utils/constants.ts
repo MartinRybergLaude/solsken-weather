@@ -1,4 +1,4 @@
-import * as Strings from 'utils/strings'
+import i18n from 'i18n'
 export const fetchSettings = {
     method: "GET",
     mode: "cors" as RequestMode
@@ -69,4 +69,4 @@ export const WiStrongwind = "wi-strong-wind"
 export const WiThermometer = "wi-thermometer"
 export const WiHorizon = "wi-horizon-alt"
 
-export const Days = [Strings.Sun,Strings.Mon,Strings.Tue,Strings.Wed,Strings.Thu,Strings.Fri,Strings.Sat];
+export const Days = [i18n.t("day_sun"),i18n.t("day_mon"),i18n.t("day_tue"),i18n.t("day_wed"),i18n.t("day_thu"),i18n.t("day_fri"),i18n.t("day_sat")];

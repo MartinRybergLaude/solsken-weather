@@ -1,4 +1,4 @@
-import * as Strings from 'utils/strings'
+import i18n from 'i18n'
 import * as Consts from 'utils/constants'
 
 export interface WeatherData {
@@ -65,33 +65,33 @@ export enum Unit {
     Percent = "percent",
 }
 export const TextList = [
-    Strings.Clear,
-    Strings.AlmostClear,
-    Strings.VaryingCloudiness,
-    Strings.HalfClear,
-    Strings.Cloudy,
-    Strings.Overcast,
-    Strings.Fog,
-    Strings.LightRainShowers,
-    Strings.ModerateRainShowers,
-    Strings.HeavyRainShowers,
-    Strings.ThunderStorm,
-    Strings.LightSleetShowers,
-    Strings.ModerateSleetShowers,
-    Strings.HeavySleetShowers,
-    Strings.LightSnowShowers,
-    Strings.ModerateSnowShowers,
-    Strings.HeavySnowShowers,
-    Strings.LightRain,
-    Strings.ModerateRain,
-    Strings.HeavyRain,
-    Strings.Thunder,
-    Strings.LightSleet,
-    Strings.ModerateSleet,
-    Strings.HeavySleet,
-    Strings.LightSnow,
-    Strings.ModerateSnow,
-    Strings.HeavySnow
+    i18n.t("w_clear"),
+    i18n.t("w_almost_clear"),
+    i18n.t("w_varying_cloudiness"),
+    i18n.t("w_half_clear"),
+    i18n.t("w_cloudy"),
+    i18n.t("w_overcast"),
+    i18n.t("w_fog"),
+    i18n.t("w_light_rain_showers"),
+    i18n.t("w_moderate_rain_showers"),
+    i18n.t("w_heavy_rain_showers"),
+    i18n.t("w_thunderstorm"),
+    i18n.t("w_light_sleet_showers"),
+    i18n.t("w_moderate_sleet_showers"),
+    i18n.t("w_heavy_sleet_showers"),
+    i18n.t("w_light_snow_showers"),
+    i18n.t("w_moderate_snow_showers"),
+    i18n.t("w_heavy_snow_showers"),
+    i18n.t("w_light_rain"),
+    i18n.t("w_moderate_rain"),
+    i18n.t("w_heavy_rain"),
+    i18n.t("w_thunder"),
+    i18n.t("w_light_sleet"),
+    i18n.t("w_moderate_sleet"),
+    i18n.t("w_heavy_sleet"),
+    i18n.t("w_light_snow"),
+    i18n.t("w_moderate_snow"),
+    i18n.t("w_heavy_snow")
 ]
 export const IconListDay = [
     Consts.WiDayClear,

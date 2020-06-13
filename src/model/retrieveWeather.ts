@@ -15,12 +15,11 @@ export default async function retrieveWeather(lon: string, lat: string, location
         const weatherData = await fetchWeatherSMHI(lon, lat)
         const weatherDataParsedWithCity = await getCity(weatherData, locationName)
         const weatherDataCleaned = await cleanHours(weatherDataParsedWithCity)
-        const data = weatherDataCleaned
-        if (setCachedWeatherData(data)) {
+        if (setCachedWeatherData(weatherDataCleaned)) {
             console.log("Data cached sucessfully")
         }
         console.log("Applied new data")
-        return data
+        return weatherDataCleaned
     }
 }
 async function getCity(weatherData: WeatherData, locationName: string | null): Promise<WeatherData> {

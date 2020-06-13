@@ -4,7 +4,7 @@ import * as Consts from 'utils/constants'
 import i18n from 'i18n'
 
 export default async function formatWeather(data: WeatherTypes.WeatherData): Promise<FormattedWeatherTypes.FormattedWeatherData> {
-    
+
     let formattedData = {} as FormattedWeatherTypes.FormattedWeatherData
     formattedData.city = data.city
 
@@ -24,12 +24,12 @@ export default async function formatWeather(data: WeatherTypes.WeatherData): Pro
             dayOfWeek = Consts.Days[new Date(day.date).getDay()];
         }
         formattedDay.dayOfWeek = dayOfWeek
-        formattedDay.sunrise = getHourString(new Date(day.sunrise))
-        formattedDay.sunset = getHourString(new Date(day.sunset))
+        formattedDay.sunrise = getHourString(data.units.clockUnit, new Date(day.sunrise))
+        formattedDay.sunset = getHourString(data.units.clockUnit, new Date(day.sunset))
         formattedDay.icon = day.icon
         formattedDay.text = day.text
-        formattedDay.tempHigh = getTemperatureString(day.tempHigh)
-        formattedDay.tempLow = getTemperatureString(day.tempLow)
+        formattedDay.tempHigh = getTemperatureString(data.units.temprUnit, day.tempHigh)
+        formattedDay.tempLow = getTemperatureString(data.units.temprUnit, day.tempLow)
 
         day.hours.forEach(hour => {
             formattedDay.hours.push(parseHour(hour))
@@ -37,46 +37,48 @@ export default async function formatWeather(data: WeatherTypes.WeatherData): Pro
         formattedData.days.push(formattedDay)
     }
     return formattedData
-}
-function parseHour(hour: WeatherTypes.Hour): FormattedWeatherTypes.Hour {
-    let formattedHour = {} as FormattedWeatherTypes.Hour
 
-    formattedHour.hour = getHourString(new Date(hour.date))
-    formattedHour.text = hour.text
-    formattedHour.icon = hour.icon
-    formattedHour.tempr = getTemperatureString(hour.tempr)
-    formattedHour.feelslike = getTemperatureString(hour.feelslike)
-    formattedHour.precMean = getPrecString(hour.precMean)
-    formattedHour.wind = getWindString(hour.wind)
-    formattedHour.gusts = getWindString(hour.gusts)
-    formattedHour.windDir = getWindDirString(hour.windDir)
-    formattedHour.windDirDeg = hour.windDir.toString()
-    formattedHour.humidity = hour.humidity + "%"
-    formattedHour.vis = getVisibilityString(hour.vis)
-    formattedHour.pressure = getPressureString(hour.pressure)
-    formattedHour.cloud = hour.cloud + " %"
-    return formattedHour
-}
-function getPressureString(pressure: number): string {
-    switch(localStorage.getItem("unitPressure")) {
-        case "hpa":
-            return round(pressure, 0) + " hPa"
-        case "bar":
-            return round(pressure / 1000, 2) + " bar"
-        case "at":
-            return round(pressure / 1013.2501, 2) + " at"
-        default:
-            return round(pressure, 0) + " hPa"        
+    function parseHour(hour: WeatherTypes.Hour): FormattedWeatherTypes.Hour {
+        let formattedHour = {} as FormattedWeatherTypes.Hour
+    
+        formattedHour.hour = getHourString(data.units.clockUnit, new Date(hour.date))
+        formattedHour.text = hour.text
+        formattedHour.icon = hour.icon
+        formattedHour.tempr = getTemperatureString(data.units.temprUnit, hour.tempr)
+        formattedHour.feelslike = getTemperatureString(data.units.temprUnit, hour.feelslike)
+        formattedHour.precMean = getPrecString(data.units.precUnit, hour.precMean)
+        formattedHour.wind = getWindString(data.units.windUnit, hour.wind)
+        formattedHour.gusts = getWindString(data.units.windUnit, hour.gusts)
+        formattedHour.windDir = getWindDirString(hour.windDir)
+        formattedHour.windDirDeg = hour.windDir.toString()
+        formattedHour.humidity = hour.humidity + "%"
+        formattedHour.vis = getVisibilityString(data.units.visUnit, hour.vis)
+        formattedHour.pressure = getPressureString(data.units.pressureUnit, hour.pressure)
+        formattedHour.cloud = hour.cloud + "%"
+        return formattedHour
     }
 }
-function getVisibilityString(vis: number): string {
-    switch(localStorage.getItem("unitVis")) {
-        case "km":
-            return round(vis, 1) + " km"
-        case "miles":
-            return round(vis / 1.609, 1) + " miles"
+
+function getPressureString(unitPressure: string, pressure: number): string {
+    switch(unitPressure) {
+        case Consts.pressureUnits.hpa:
+            return pressure + " hPa"
+        case Consts.pressureUnits.bar:
+            return pressure + " bar"
+        case Consts.pressureUnits.at:
+            return pressure + " at"
         default:
-            return round(vis, 1) + " km"         
+            return pressure + " hPa"        
+    }
+}
+function getVisibilityString(unitVis: string, vis: number): string {
+    switch(unitVis) {
+        case Consts.visUnits.km:
+            return vis + " km"
+        case Consts.visUnits.miles:
+            return vis + " miles"
+        default:
+            return vis + " km"         
     }
 }
 function getWindDirString(dir: number): string {
@@ -90,17 +92,17 @@ function getWindDirString(dir: number): string {
     if(isBetween(dir, 292.5, 337.5)) return i18n.t("dir_NW")
     return i18n.t("text_NA")
 }
-function getWindString(wind: number): string {
-    switch(localStorage.getItem("unitWind")) {
-        case "ms":
-            return round(wind, 1) + " m/s"
-        case "kmh":
-            return round(wind * 3.6, 1) + " km/h"
-        case "mph":
-            return round(wind * 2.237, 1) + " mph"
-        case "kts":
-            return round(wind * 1.944, 1) + " kts"
-        case "b":
+function getWindString(unitWind: string, wind: number): string {
+    switch(unitWind) {
+        case Consts.windUnits.ms:
+            return wind + " m/s"
+        case Consts.windUnits.kmh:
+            return wind + " km/h"
+        case Consts.windUnits.mph:
+            return wind + " mph"
+        case Consts.windUnits.kts:
+            return wind + " kts"
+        case Consts.windUnits.b:
             if (wind < 0.3) return "0 B";
             else if (wind >= 0.3 && wind < 1.6) return "1 B";
             else if (wind >= 1.6 && wind < 3.4) return "2 B";
@@ -116,38 +118,38 @@ function getWindString(wind: number): string {
             else if (wind >= 32.7) return "12 B";
             else return "0 B";
         default:
-            return round(wind, 2) + "m/s"        
+            return wind + "m/s"        
     }
 }
-function getPrecString(prec: number): string {
-    switch(localStorage.getItem("unitPrec")) {
-        case "mmh":
-            return round(prec, 0) + " mm/h"
-        case "cmh":
-            return round(prec / 10, 2) + " cm/h"
-        case "inh":
-            return round(prec / 25.4, 2) + " in/h"
+function getPrecString(unitPrec: string, prec: number): string {
+    switch(unitPrec) {
+        case Consts.precUnits.mmh:
+            return prec + " mm/h"
+        case Consts.precUnits.cmh:
+            return prec + " cm/h"
+        case Consts.precUnits.inh:
+            return prec + " in/h"
         default:
-            return round(prec, 0) + " mm/h"         
+            return prec + " mm/h"         
     }
 }
-function getTemperatureString(tempr: number): string {
-    switch(localStorage.getItem("unitTempr")) {
-        case "c":
-            return round(tempr, 0) + "°"
-        case "f":
-            return round((1.8 * tempr) + 32, 0) + "°"
-        case "k":
-            return round(tempr + 273.15, 2) + " K"
+function getTemperatureString(unitTempr: string, tempr: number): string {
+    switch(unitTempr) {
+        case Consts.temprUnits.c:
+            return tempr + "°"
+        case Consts.temprUnits.f:
+            return tempr + "°"
+        case Consts.temprUnits.k:
+            return tempr + " K"
         default:
-            return round(tempr, 0) + "°"            
+            return tempr + "°"            
     }
 }
-function getHourString(date: Date): string {
+function getHourString(unitTime: string, date: Date): string {
     let minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes()
 
 
-    switch(localStorage.getItem("unitTime")) {
+    switch(unitTime) {
         case "24h": {
             let hours = (date.getHours() < 10 ? "0" : "") + date.getHours()
             return hours + ":" + minutes
@@ -172,8 +174,4 @@ function isSameDay(d1: Date, d2: Date) {
     return d1.getFullYear() === d2.getFullYear() &&
       d1.getMonth() === d2.getMonth() &&
       d1.getDate() === d2.getDate()
-}
-function round(value: number, precision: number) {
-    let multiplier = Math.pow(10, precision || 0)
-    return Math.round(value * multiplier) / multiplier
 }

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import styles from './ScreenDay.module.scss'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faChartBar } from '@fortawesome/free-solid-svg-icons'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import Bowser from 'bowser'
 
@@ -35,6 +35,7 @@ function ScreenDay(props: Props) {
                     <FontAwesomeIcon className={styles.toolbarIcon} icon={faArrowLeft} onClick={() => props.history.push("/")} />
                     <h2 className={styles.toolbarText}>{day?.dayOfWeek}</h2>
                 </div>
+                <FontAwesomeIcon className={styles.toolbarIcon} icon={faChartBar} onClick={() => props.history.push("/charts/" + props.match.params.id)}/>
             </div>
             <div className={styles.containerScroll}>
                 <div className={styles.wrapperSun}>

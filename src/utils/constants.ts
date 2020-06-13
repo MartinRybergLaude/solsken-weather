@@ -8,33 +8,34 @@ export const apiBaseBigDataCloud = "https://api.bigdatacloud.net/data/reverse-ge
 export const apiBasePhoton = "https://photon.komoot.de/api/?q="
 
 export enum windUnits {
-    ms,
-    kmh,
-    mph,
-    kts,
-    bf
+    ms = "ms",
+    kmh = "kmh",
+    mph = "mph",
+    kts = "kts",
+    b = "b"
 }
 export enum temprUnits {
-    c,
-    f
+    c = "c",
+    f = "f",
+    k = "k"
 }
 export enum precUnits {
-    mmh,
-    cmh,
-    inh
+    mmh = "mmh",
+    cmh = "cmh",
+    inh = "inh"
 }
 export enum pressureUnits {
-    hpa,
-    bar,
-    at
+    hpa = "hpa",
+    bar = "bar",
+    at = "at"
 }
 export enum visUnits {
-    km,
-    miles
+    km = "km",
+    miles = "miles"
 }
 export enum clockUnits {
-    twentyfour,
-    twelve,
+    twentyfour = "24h",
+    twelve = "12h", 
 }
 export const WiNA = "wi-na"
 

@@ -14,17 +14,26 @@ import ScreenHours from 'screens/Day/ScreenDay'
 
 import { FormattedWeatherData } from 'model/TypesFormattedWeather'
 import retrieveWeather from 'model/retrieveWeather'
+import changeUnitsWeather from 'model/changeUnitsWeather'
 import formatWeather from 'model/formatWeather'
 import { WeatherData } from 'model/TypesWeather'
 import { getItem, clearExpiredWeatherData } from 'model/utilsStorage'
 import LocationType from 'model/TypesLocation'
+import ScreenCharts from 'screens/Charts/ScreenCharts'
 
 const variantsPages = ({
     visible: { opacity: 1, scale: 1 },
     hidden: { opacity: 0, scale: 0.95 }
 });
 
-let weatherData: WeatherData | undefined
+interface DataVariants {
+    standard: WeatherData | undefined
+    units: WeatherData | undefined
+}
+const weatherData: DataVariants = ({
+    standard: undefined,
+    units: undefined
+})
 
 function App() {
     const { t } = useTranslation()
@@ -37,20 +46,20 @@ function App() {
     }, [])
 
     function getSelectedLocation() {
-        weatherData = undefined
+        weatherData.standard = undefined
         setTextLoading(undefined)
         setFormattedWeatherData(undefined)
         const selectedLocation = getItem("selectedLoc")
         if (selectedLocation) {
             const selectedLocationParsed = JSON.parse(selectedLocation) as LocationType
-            retrieveLocData(selectedLocationParsed.lon, selectedLocationParsed.lat, selectedLocationParsed.name)
+            retrieveWeatherData(selectedLocationParsed.lon.toFixed(2), selectedLocationParsed.lat.toFixed(2), selectedLocationParsed.name)
         } else {
             checkLocationPermission()
         }
     }
     function checkLocationPermission() {
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(retrieveCurrentLocData, locationErrorCallback, {maximumAge:60000, timeout:10000})
+            navigator.geolocation.getCurrentPosition(getPositionSuccessCallback, locationErrorCallback, {maximumAge:60000, timeout:10000})
         } else {
             displayError(t("error_location_not_supported"))
         }
@@ -58,26 +67,23 @@ function App() {
     function locationErrorCallback() {
         displayError(t("error_location_cant_get"))
     }
-    async function retrieveCurrentLocData(pos: Position) {
-       
+    function getPositionSuccessCallback(pos: Position) {
         const lon = pos.coords.longitude.toFixed(2)
         const lat = pos.coords.latitude.toFixed(2)
-        retrieveWeather(lon, lat, null)
-        .then(data => {
-            weatherData = data
-            return formatWeather(data)
-        })
-        .then(formattedData => applyData(formattedData))
-        .catch(error => displayError(error.message))
+        retrieveWeatherData(lon, lat, null)
     }
-    async function retrieveLocData(lon: number, lat: number, locationName: string) {
-        retrieveWeather(lon.toFixed(2), lat.toFixed(2), locationName)
-        .then(data => {
-            weatherData = data
-            return formatWeather(data)
-        })
-        .then(formattedData => applyData(formattedData))
-        .catch(error => displayError(error.message))
+
+    async function retrieveWeatherData(lon: string, lat: string, locationName: string | null) {
+        try {
+            const data = await retrieveWeather(lon, lat, locationName)
+            weatherData.standard = data
+            const dataChangedUnits = await changeUnitsWeather(data)
+            weatherData.units = dataChangedUnits
+            const dataFormatted = await formatWeather(dataChangedUnits)
+            applyData(dataFormatted)
+        } catch(e) {
+            displayError(e.message)
+        }
     }
 
     function applyData(data: FormattedWeatherData) {
@@ -86,13 +92,19 @@ function App() {
 
     // Used for when units are changed through settings
     async function reapplyUnits() {
-        if (weatherData != null) {
+        if (weatherData.standard != null) {
             // Data exists, just re-format
             setFormattedWeatherData(undefined)
             setTextLoading(undefined)
-            formatWeather(weatherData)
-            .then(formattedData => applyData(formattedData)) 
-            .catch(error => displayError(error.message))
+            try {
+                const dataChangedUnits = await changeUnitsWeather(weatherData.standard)
+                weatherData.units = dataChangedUnits
+                const dataFormatted = await formatWeather(dataChangedUnits)
+                applyData(dataFormatted)
+            } catch(e) {
+                displayError(e.message)
+            }
+            
         } else {
             // Data does not exist, get new data
             getSelectedLocation()
@@ -121,6 +133,9 @@ function App() {
                             </Route>
                             <Route path="/day/:id">
                                 <ScreenHours weatherData={formattedWeatherData}/>
+                            </Route>
+                            <Route path="/charts/:id">
+                                <ScreenCharts weatherData={weatherData.units}/>
                             </Route>
                             <Route path="/settings">
                                 <ScreenSettings />

@@ -9,7 +9,9 @@
     height: 100%;
 }
 .loading p {
-    color: $color-text-primary-inv;
+    font-size: 16px;
+    font-weight: 700;
+    color: $color-error;
 }
 .ldsEllipsis {
     margin: 0 auto;

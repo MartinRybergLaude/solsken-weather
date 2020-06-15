@@ -17,7 +17,7 @@ import retrieveWeather from 'model/retrieveWeather'
 import changeUnitsWeather from 'model/changeUnitsWeather'
 import formatWeather from 'model/formatWeather'
 import { WeatherData } from 'model/TypesWeather'
-import { getItem, clearExpiredWeatherData } from 'model/utilsStorage'
+import { getItem, setItem, clearExpiredWeatherData, clearAllWeatherData } from 'model/utilsStorage'
 import LocationType from 'model/TypesLocation'
 import ScreenCharts from 'screens/Charts/ScreenCharts'
 
@@ -41,10 +41,18 @@ function App() {
     const [textLoading, setTextLoading] = useState<string>()
     const [formattedWeatherData, setFormattedWeatherData] = useState<FormattedWeatherData>()
     useEffect(() => {
+        handleVersionMismatch()
         clearExpiredWeatherData()
         getSelectedLocation() 
     }, [])
 
+    function handleVersionMismatch() {
+        const version = process.env.REACT_APP_VERSION?.toString()
+        if (version && version !== getItem("version")) {
+            clearAllWeatherData()
+            setItem("version", version)
+        }
+    }
     function getSelectedLocation() {
         weatherData.standard = undefined
         setTextLoading(undefined)
@@ -82,7 +90,7 @@ function App() {
             const dataFormatted = await formatWeather(dataChangedUnits)
             applyData(dataFormatted)
         } catch(e) {
-            displayError(e.message)
+            displayError(t("error_generic"))
         }
     }
 
@@ -102,7 +110,7 @@ function App() {
                 const dataFormatted = await formatWeather(dataChangedUnits)
                 applyData(dataFormatted)
             } catch(e) {
-                displayError(e.message)
+                displayError(t("error_generic"))
             }
             
         } else {

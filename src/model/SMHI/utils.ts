@@ -137,11 +137,13 @@ function parseHour(time: WeatherTypesSMHI.TimeSery, sunrise: Date, sunset: Date)
                 hour.cloud = param.values[0]
                 break    
             case WeatherTypesSMHI.Name.Wsymb2:
-                hour.text = WeatherTypesSMHI.TextList[param.values[0] - 1]
+                const wsymb2Num = param.values[0]
+                const correctedForIndex = wsymb2Num - 1
+                hour.text = WeatherTypesSMHI.TextList[correctedForIndex]
                 if (new Date(hour.date).getHours() >= new Date(sunrise).getHours() && new Date(hour.date).getHours() <= new Date(sunset).getHours()){
-                    hour.icon = WeatherTypesSMHI.IconListDay[param.values[0] - 1]
+                    hour.icon = WeatherTypesSMHI.IconListDay[correctedForIndex]
                 } else {
-                    hour.icon = WeatherTypesSMHI.IconListNight[param.values[0] - 1]
+                    hour.icon = WeatherTypesSMHI.IconListNight[correctedForIndex]
                 }
                 break                           
         }

@@ -3,9 +3,10 @@ import Chart, { LinearScale, LinearTickOptions } from 'chart.js';
 
 interface Props {
     data: {} | undefined
-    beginAtZero: boolean
     barType: string
     precision: number
+    max?: number
+    min?: number
 }
 Chart.defaults.global.defaultFontColor = "#fff"
 Chart.defaults.global.defaultFontFamily = "Roboto, sans-serif"
@@ -28,7 +29,8 @@ export default function LineGraph(props: Props) {
                     yAxes: [{
                         stacked: false,
                         ticks: {
-                            beginAtZero: props.beginAtZero,
+                            suggestedMax: props.max,
+                            suggestedMin: props.min,
                             precision: props.precision
                         } as LinearTickOptions,
                         gridLines: {

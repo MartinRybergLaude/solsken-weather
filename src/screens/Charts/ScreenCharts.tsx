@@ -7,7 +7,7 @@ import { Day, WeatherData } from 'model/TypesWeather'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FormattedWeatherData, Day as FormattedDay } from 'model/TypesFormattedWeather'
-import LineGraph from 'components/LineGraph'
+import LineGraph from 'components/Graph'
 import { AnimatePresence, motion } from 'framer-motion'
 
 interface Props extends RouteComponentProps<any> {
@@ -20,6 +20,7 @@ interface Data {
     precData: {}
     pressureData: {}
     humidityData: {}
+    visData: {}
 }
 const variantsGraphs = ({
     visible: { opacity: 1 },
@@ -48,12 +49,14 @@ function ScreenCharts(props: Props) {
         const precData = initPrec(day, labels)
         const pressureData = initPressure(day, labels)
         const humidityData = initHumidity(day, labels)
+        const visData = initVis(day, labels)
         const initialisedData: Data = {
             temprData: temprData,
             windData: windData,
             precData: precData,
             pressureData: pressureData,
-            humidityData: humidityData
+            humidityData: humidityData,
+            visData: visData
         }
         timer = setTimeout(() => {
             setData(initialisedData)
@@ -77,11 +80,24 @@ function ScreenCharts(props: Props) {
                         exit="hidden" 
                         variants={variantsGraphs}
                         transition={{ type: "spring", stiffness: 2000, damping: 100 }}>
-                            <LineGraph data={data?.temprData} beginAtZero={false} barType="line" precision={0}/>
-                            <LineGraph data={data?.windData} beginAtZero={true} barType="line" precision={1}/>
-                            <LineGraph data={data?.precData} beginAtZero={true} barType="bar" precision={1}/>
-                            <LineGraph data={data?.pressureData} beginAtZero={false} barType="line" precision={0}/>
-                            <LineGraph data={data?.humidityData} beginAtZero={false} barType="line" precision={0}/>
+                            <div className={styles.wrapperGraph}>
+                                <LineGraph data={data?.temprData} barType="line" precision={0}/>
+                            </div>
+                            <div className={styles.wrapperGraph}>
+                                <LineGraph data={data?.windData} min={0} barType="line" precision={1}/>
+                            </div>
+                            <div className={styles.wrapperGraph}>
+                                <LineGraph data={data?.precData} min={0} barType="bar" precision={1}/>
+                            </div>
+                            <div className={styles.wrapperGraph}>
+                                <LineGraph data={data?.pressureData} barType="line" precision={0}/>
+                            </div>
+                            <div className={styles.wrapperGraph}>
+                                <LineGraph data={data?.humidityData} min={0} max={100} barType="line" precision={0}/>
+                            </div>
+                            <div className={styles.wrapperGraph}>
+                                <LineGraph data={data?.visData} min={0} barType="line" precision={0}/>
+                            </div>
                         </motion.div>
                     }          
                 </AnimatePresence>
@@ -129,7 +145,7 @@ function ScreenCharts(props: Props) {
                   label: t("grid_wind"),
                   fill: false,
                   backgroundColor: 'rgba(90, 194, 161, 0.2)',
-                  borderColor: 'rgba(90, 194, 161,1)',
+                  borderColor: 'rgba(90, 194, 161, 1)',
                   data: windList
                 },
                 {
@@ -207,5 +223,24 @@ function ScreenCharts(props: Props) {
               ]
         }
     }
+    function initVis(day: Day, labels: Array<string>) {
+        let visList: Array<number> = []
+        day.hours.forEach(hour => {
+            visList.push(hour.vis)
+        });
+        return {
+            labels: labels,
+            datasets: [
+                {
+                  label: t("grid_vis"),
+                  fill: true,
+                  backgroundColor: 'rgba(90, 194, 161, 0.2)',
+                  borderColor: 'rgba(90, 194, 161, 1)',
+                  data: visList
+                }
+              ]
+        }
+    }
+
 }
 export default withRouter(ScreenCharts)

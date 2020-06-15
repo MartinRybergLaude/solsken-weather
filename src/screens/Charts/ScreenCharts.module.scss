@@ -4,8 +4,12 @@
     background: #000;
 }
 .containerCharts {
-    max-width: 512px;
     margin: 0 auto;
+    width: 96%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     height: calc(100% - 56px);
     overflow-y: auto;
     &::-webkit-scrollbar {
@@ -14,6 +18,10 @@
     }
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
+}
+.wrapperGraph {
+    width: 100%;
+    max-width: 608px;
 }
 .toolbar {
     height: 56px;

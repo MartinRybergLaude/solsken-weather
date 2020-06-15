@@ -29,7 +29,6 @@ const variantsGraphs = ({
 function ScreenCharts(props: Props) {
     const { t } = useTranslation()
     const [data, setData] = useState<Data>()
-    let timer: NodeJS.Timeout
     
     useEffect(() => {
         if (props.weatherData?.days[props.match.params.id] == null || props.formattedWeatherData?.days[props.match.params.id] == null) {
@@ -37,7 +36,7 @@ function ScreenCharts(props: Props) {
         } else {
             init(props.weatherData.days[props.match.params.id], props.formattedWeatherData?.days[props.match.params.id])
         }
-    }, [props.weatherData])
+    }, [props])
 
     function init(day: Day, formattedDay: FormattedDay) {
         let labels: Array<string> = []
@@ -58,7 +57,7 @@ function ScreenCharts(props: Props) {
             humidityData: humidityData,
             visData: visData
         }
-        timer = setTimeout(() => {
+        setTimeout(() => {
             setData(initialisedData)
         }, 100)
     }

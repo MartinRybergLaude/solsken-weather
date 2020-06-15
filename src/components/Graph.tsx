@@ -71,7 +71,7 @@ export default function LineGraph(props: Props) {
             }
         })
         
-    }, [props.data, chartRef.current])
+    }, [props])
     return (
         <canvas ref={chartRef}/>
     )

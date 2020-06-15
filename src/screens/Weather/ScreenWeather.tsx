@@ -5,7 +5,7 @@ import { Global } from 'utils/globals'
 
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faBars } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faBars, faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 
 import * as Data from 'model/TypesFormattedWeather'
 import FragmentLoading from 'screens/Weather/fragments/FragmentLoading'
@@ -52,7 +52,10 @@ function ScreenWeather(props: Props) {
         <div className="screen">
             <div className={styles.toolbar}>
                 <FontAwesomeIcon className={styles.toolbarIcon} icon={faBars} onClick={() => setShowSidebar(!showSidebar)}/>
-                <h2 className={styles.toolbarText}>{props.weatherData?.city}</h2>
+                <div className={styles.wrapperCenter}>
+                    <h2 className={styles.toolbarText}>{props.weatherData?.city}</h2>
+                    <FontAwesomeIcon className={styles.centerIcon} icon={faSyncAlt} onClick={() => props.reloadWeatherDataCallback()}/>
+                </div>
                 <FontAwesomeIcon className={styles.toolbarIcon} icon={faCog} onClick={() => props.history.push("/settings")}/>
             </div>
             <FragmentLoading text={props.textLoading} show={props.weatherData ? true : false}/>

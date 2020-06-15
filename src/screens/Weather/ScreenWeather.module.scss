@@ -20,14 +20,21 @@
 .toolbarText {
     white-space: nowrap;
     text-overflow: ellipsis;
-    overflow: hidden;
     font-size: 16px;
+    overflow: hidden;
 }
-.wrapperCity {
-    flex-shrink: 1;
+.wrapperCenter {
     display: flex;
     align-items: center;
     justify-content: center;
+    overflow: hidden;
+}
+.centerIcon {
+    color: $color-text-primary;
+    margin-left: 16px;
+    &:hover {
+        cursor: pointer;
+    }
 }
 .cover {
     position: absolute;

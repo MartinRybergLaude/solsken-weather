@@ -1,13 +1,211 @@
-import React from 'react'
-import { WeatherData } from 'model/TypesWeather'
+import React, { useEffect, useState } from 'react'
+import styles from './ScreenCharts.module.scss'
 
-interface Props {
+import { useTranslation } from 'react-i18next'
+import { RouteComponentProps, withRouter } from 'react-router-dom'
+import { Day, WeatherData } from 'model/TypesWeather'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { FormattedWeatherData, Day as FormattedDay } from 'model/TypesFormattedWeather'
+import LineGraph from 'components/LineGraph'
+import { AnimatePresence, motion } from 'framer-motion'
+
+interface Props extends RouteComponentProps<any> {
     weatherData: WeatherData | undefined
+    formattedWeatherData: FormattedWeatherData | undefined
 }
-export default function ScreenCharts(props: Props) {
+interface Data {
+    temprData: {}
+    windData: {}
+    precData: {}
+    pressureData: {}
+    humidityData: {}
+}
+const variantsGraphs = ({
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 }
+});
+function ScreenCharts(props: Props) {
+    const { t } = useTranslation()
+    const [data, setData] = useState<Data>()
+    let timer: NodeJS.Timeout
+    
+    useEffect(() => {
+        if (props.weatherData?.days[props.match.params.id] == null || props.formattedWeatherData?.days[props.match.params.id] == null) {
+            props.history.push("/")
+        } else {
+            init(props.weatherData.days[props.match.params.id], props.formattedWeatherData?.days[props.match.params.id])
+        }
+    }, [props.weatherData])
+
+    function init(day: Day, formattedDay: FormattedDay) {
+        let labels: Array<string> = []
+        formattedDay.hours.forEach(hour => {
+            labels.push(hour.hour)
+        });
+        const temprData = initTempr(day, labels)
+        const windData = initWind(day, labels)
+        const precData = initPrec(day, labels)
+        const pressureData = initPressure(day, labels)
+        const humidityData = initHumidity(day, labels)
+        const initialisedData: Data = {
+            temprData: temprData,
+            windData: windData,
+            precData: precData,
+            pressureData: pressureData,
+            humidityData: humidityData
+        }
+        timer = setTimeout(() => {
+            setData(initialisedData)
+        }, 100)
+    }
+    
     return (
-        <div>
-            
-        </div>
+            <div className={"screen " + styles.containerMain}>
+                <div className={styles.toolbar}>
+                    <div className={styles.toolbarContent}>
+                        <FontAwesomeIcon className={styles.toolbarIcon} icon={faArrowLeft} onClick={() => props.history.goBack()} />
+                        <h2 className={styles.toolbarText}>{t("title_charts")}</h2>
+                    </div>
+                </div>
+                <AnimatePresence>
+                    {data && 
+                        <motion.div
+                        className={styles.containerCharts}
+                        initial="hidden" 
+                        animate="visible" 
+                        exit="hidden" 
+                        variants={variantsGraphs}
+                        transition={{ type: "spring", stiffness: 2000, damping: 100 }}>
+                            <LineGraph data={data?.temprData} beginAtZero={false} barType="line" precision={0}/>
+                            <LineGraph data={data?.windData} beginAtZero={true} barType="line" precision={1}/>
+                            <LineGraph data={data?.precData} beginAtZero={true} barType="bar" precision={1}/>
+                            <LineGraph data={data?.pressureData} beginAtZero={false} barType="line" precision={0}/>
+                            <LineGraph data={data?.humidityData} beginAtZero={false} barType="line" precision={0}/>
+                        </motion.div>
+                    }          
+                </AnimatePresence>
+                
+            </div>
     )
+    function initTempr(day: Day, labels: Array<string>): {} {
+        let temprList: Array<number> = []
+        let feelsLikeList: Array<number> = []
+        day.hours.forEach(hour => {
+            temprList.push(hour.tempr)
+            feelsLikeList.push(hour.feelslike)
+        });
+        return {
+            labels: labels,
+            datasets: [
+                {
+                  label: t("grid_temperature"),
+                  fill: true,
+                  backgroundColor: 'rgba(243, 89, 89, 0.2)',
+                  borderColor: 'rgba(243, 89, 89,1)',
+                  data: temprList
+                },
+                {
+                  label: t("grid_feels_like"),
+                  fill: false,
+                  backgroundColor: 'rgba(255, 153, 102, 0.2)',
+                  borderColor: 'rgba(255, 153, 102,1)',
+                  data: feelsLikeList
+                }
+              ]
+        }
+    }
+    function initWind(day: Day, labels: Array<string>) {
+        let windList: Array<number> = []
+        let gustsList: Array<number> = []
+        day.hours.forEach(hour => {
+            windList.push(hour.wind)
+            gustsList.push(hour.gusts)
+        });
+        return {
+            labels: labels,
+            datasets: [
+                {
+                  label: t("grid_wind"),
+                  fill: false,
+                  backgroundColor: 'rgba(90, 194, 161, 0.2)',
+                  borderColor: 'rgba(90, 194, 161,1)',
+                  data: windList
+                },
+                {
+                  label: t("grid_gusts"),
+                  fill: true,
+                  backgroundColor: 'rgba(230, 230, 240, 0.2)',
+                  borderColor: 'rgba(230, 230, 240,1)',
+                  data: gustsList
+                }
+              ]
+        }
+    }
+    function initPrec(day: Day, labels: Array<string>) {
+        let precMeanList: Array<number> = []
+        let precMaxList: Array<number> = []
+        let precMinList: Array<number> = []
+        day.hours.forEach(hour => {
+            precMeanList.push(hour.precMean)
+            precMaxList.push(hour.precMax)
+            precMinList.push(hour.precMin)
+        });
+        return {
+            labels: labels,
+            datasets: [
+                {
+                  label: t("grid_prec") + " " + t("text_mean"),
+                  fill: false,
+                  backgroundColor: 'rgba(7, 111, 244, 1)',
+                  borderColor: 'rgba(7, 111, 244, 1)',
+                  data: precMeanList
+                },
+                {
+                  label: t("text_max"),
+                  fill: true,
+                  backgroundColor: 'rgba(7, 111, 244, 0.4)',
+                  borderColor: 'rgba(7, 111, 244, 1)',
+                  data: precMaxList
+                }
+              ]
+        }
+    }
+    function initPressure(day: Day, labels: Array<string>) {
+        let pressureList: Array<number> = []
+        day.hours.forEach(hour => {
+            pressureList.push(hour.pressure)
+        });
+        return {
+            labels: labels,
+            datasets: [
+                {
+                  label: t("grid_pressure"),
+                  fill: true,
+                  backgroundColor: 'rgba(92, 26, 212, 0.2)',
+                  borderColor: 'rgba(92, 26, 212, 1)',
+                  data: pressureList
+                }
+              ]
+        }
+    }
+    function initHumidity(day: Day, labels: Array<string>) {
+        let humidityList: Array<number> = []
+        day.hours.forEach(hour => {
+            humidityList.push(hour.humidity)
+        });
+        return {
+            labels: labels,
+            datasets: [
+                {
+                  label: t("grid_humidity"),
+                  fill: true,
+                  backgroundColor: 'rgba(7, 111, 244, 0.2)',
+                  borderColor: 'rgba(7, 111, 244, 1)',
+                  data: humidityList
+                }
+              ]
+        }
+    }
 }
+export default withRouter(ScreenCharts)

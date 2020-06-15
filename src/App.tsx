@@ -135,7 +135,7 @@ function App() {
                                 <ScreenHours weatherData={formattedWeatherData}/>
                             </Route>
                             <Route path="/charts/:id">
-                                <ScreenCharts weatherData={weatherData.units}/>
+                                <ScreenCharts weatherData={weatherData.units} formattedWeatherData={formattedWeatherData}/>
                             </Route>
                             <Route path="/settings">
                                 <ScreenSettings />

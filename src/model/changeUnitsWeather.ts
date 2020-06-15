@@ -75,25 +75,25 @@ function changeVisUnit(unitVis: string | null, vis: number): number {
 function changePressureUnit(unitPressure: string | null, pressure: number): number {
     switch(unitPressure) {
         case Consts.pressureUnits.hpa:
-            return round(pressure, 0)
+            return round(pressure, 1)
         case Consts.pressureUnits.bar:
             return round(pressure / 1000, 2)
         case Consts.pressureUnits.at:
             return round(pressure / 1013.2501, 2)
         default:
-            return round(pressure, 0)      
+            return round(pressure, 1)      
     }
 }
 function changePrecUnit(unitPrec: string | null, prec: number): number {
     switch(unitPrec) {
         case Consts.precUnits.mmh:
-            return round(prec, 0)
+            return round(prec, 1)
         case Consts.precUnits.cmh:
             return round(prec / 10, 2)
         case Consts.precUnits.inh:
             return round(prec / 25.4, 2)
         default:
-            return round(prec, 0)        
+            return round(prec, 1)        
     }
 }
 function changeWindUnit(unitWind: string | null, wind: number): number {
@@ -122,7 +122,7 @@ function changeWindUnit(unitWind: string | null, wind: number): number {
             else if (wind >= 32.7) return 12;
             else return 0;
         default:
-            return round(wind, 2)              
+            return round(wind, 1)              
         
     }
 }

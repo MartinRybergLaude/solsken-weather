@@ -102,8 +102,9 @@ export function clearExpiredWeatherData() {
         } else {
             try {
                 // Test if item is weather data
-                let data = JSON.parse(value) as WeatherData
-                if (Date.now() >= new Date(data.expires).getTime()) {
+                let data = JSON.parse(value)
+                let casted = data as WeatherData
+                if (casted.latTwoDecimal && Date.now() >= new Date(data.expires).getTime()) {
                     localStorage.removeItem(key)
                 }
             } catch {

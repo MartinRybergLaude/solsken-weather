@@ -24,8 +24,8 @@ export default async function formatWeather(data: WeatherTypes.WeatherData): Pro
             dayOfWeek = Consts.Days[new Date(day.date).getDay()];
         }
         formattedDay.dayOfWeek = dayOfWeek
-        formattedDay.sunrise = getHourString(data.units.clockUnit, new Date(day.sunrise))
-        formattedDay.sunset = getHourString(data.units.clockUnit, new Date(day.sunset))
+        formattedDay.sunrise = getHourString(data.units.timeUnit, new Date(day.sunrise))
+        formattedDay.sunset = getHourString(data.units.timeUnit, new Date(day.sunset))
         formattedDay.icon = day.icon
         formattedDay.text = day.text
         formattedDay.tempHigh = getTemperatureString(data.units.temprUnit, day.tempHigh)
@@ -40,8 +40,7 @@ export default async function formatWeather(data: WeatherTypes.WeatherData): Pro
 
     function parseHour(hour: WeatherTypes.Hour): FormattedWeatherTypes.Hour {
         let formattedHour = {} as FormattedWeatherTypes.Hour
-    
-        formattedHour.hour = getHourString(data.units.clockUnit, new Date(hour.date))
+        formattedHour.hour = getHourString(data.units.timeUnit, new Date(hour.date))
         formattedHour.text = hour.text
         formattedHour.icon = hour.icon
         formattedHour.tempr = getTemperatureString(data.units.temprUnit, hour.tempr)
@@ -150,11 +149,11 @@ function getHourString(unitTime: string, date: Date): string {
 
 
     switch(unitTime) {
-        case "24h": {
+        case "twentyfour": {
             let hours = (date.getHours() < 10 ? "0" : "") + date.getHours()
             return hours + ":" + minutes
         }
-        case "12h": {
+        case "twelve": {
             let hours = date.getHours()
             const ampm = hours >= 12 ? " pm" : " am"
             hours = hours % 12

@@ -17,14 +17,14 @@ export default async function changeUnitsWeather(weatherDataImported: WeatherDat
     if (!unitPrec) unitPrec = Consts.precUnits.mmh
     if (!unitPressure) unitPressure = Consts.pressureUnits.hpa
     if (!unitVis) unitVis = Consts.visUnits.km
-    if (!unitTime) unitTime = Consts.clockUnits.twentyfour
+    if (!unitTime) unitTime = Consts.timeUnits.twentyfour
 
     const unitTemprEnum = unitTempr as keyof typeof Consts.temprUnits
     const unitWindEnum = unitWind as keyof typeof Consts.windUnits
     const unitPrecEnum = unitPrec as keyof typeof Consts.precUnits
     const unitPressureEnum = unitPressure as keyof typeof Consts.pressureUnits
     const unitVisEnum = unitVis as keyof typeof Consts.visUnits
-    const unitTimeEnum = unitTime as keyof typeof Consts.clockUnits
+    const unitTimeEnum = unitTime as keyof typeof Consts.timeUnits
 
     weatherData.units = {
         temprUnit: Consts.temprUnits[unitTemprEnum],
@@ -32,7 +32,7 @@ export default async function changeUnitsWeather(weatherDataImported: WeatherDat
         precUnit: Consts.precUnits[unitPrecEnum],
         pressureUnit: Consts.pressureUnits[unitPressureEnum],
         visUnit: Consts.visUnits[unitVisEnum],
-        clockUnit: Consts.clockUnits[unitTimeEnum]
+        timeUnit: Consts.timeUnits[unitTimeEnum]
     }
     
     weatherData.days.forEach(day => {

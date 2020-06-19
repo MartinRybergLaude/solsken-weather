@@ -1,4 +1,4 @@
-import { temprUnits, windUnits, precUnits, pressureUnits, visUnits, clockUnits } from "../utils/constants";
+import { temprUnits, windUnits, precUnits, pressureUnits, visUnits, timeUnits } from "../utils/constants";
 
 export interface WeatherData {
     expires: Date
@@ -14,7 +14,7 @@ export interface Units {
     precUnit: precUnits,
     pressureUnit: pressureUnits,
     visUnit: visUnits,
-    clockUnit: clockUnits
+    timeUnit: timeUnits
 }
 export interface Day {
     date: Date,

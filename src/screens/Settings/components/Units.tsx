@@ -110,8 +110,8 @@ export default function SettingsUnits() {
         {value: "miles", label: "miles"}
     ]
     const timeOptions: Option[] = [
-        {value: "24h", label: "24h"},
-        {value: "12h", label: "12h"}
+        {value: "twentyfour", label: "24h"},
+        {value: "twelve", label: "12h"}
     ]
     return (
         <div className={styles.settingsCategory}>

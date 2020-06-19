@@ -33,9 +33,9 @@ export enum visUnits {
     km = "km",
     miles = "miles"
 }
-export enum clockUnits {
-    twentyfour = "24h",
-    twelve = "12h", 
+export enum timeUnits {
+    twentyfour = "twentyfour",
+    twelve = "twelve", 
 }
 export const WiNA = "wi-na"
 

@@ -1,5 +1,5 @@
 import * as WeatherTypesSMHI from './types'
-import {fetchSettings, apiBaseSMHI, temprUnits, windUnits, precUnits, pressureUnits, visUnits, clockUnits} from '../../utils/constants'
+import {fetchSettings, apiBaseSMHI, temprUnits, windUnits, precUnits, pressureUnits, visUnits, timeUnits} from '../../utils/constants'
 import * as WeatherTypesUni from 'model/TypesWeather'
 import SunCalc from 'suncalc'
 
@@ -41,7 +41,7 @@ async function parseWeatherSMHI(weatherData: WeatherTypesSMHI.WeatherData, lon: 
         precUnit: precUnits.mmh,
         pressureUnit: pressureUnits.hpa,
         visUnit: visUnits.km,
-        clockUnit: clockUnits.twentyfour
+        timeUnit: timeUnits.twentyfour
     }
     weatherDataUni.expires = expires
     weatherDataUni.latTwoDecimal = lat.toFixed(2)

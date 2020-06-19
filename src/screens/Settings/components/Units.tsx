@@ -3,6 +3,7 @@ import styles from './Settings.module.scss'
 
 import { Global } from 'utils/globals'
 import { useTranslation } from 'react-i18next'
+import { getItem, setItem } from 'model/utilsStorage'
 
 import Dropdown, {Option} from 'components/Dropdown'
 
@@ -10,40 +11,40 @@ export default function SettingsUnits() {
     const { t } = useTranslation()
 
     const [unitTempr, setUnitTempr] = React.useState(
-        localStorage.getItem('unitTempr') || 'c'
+        getItem('unitTempr') || 'c'
     )
     const [unitWind, setUnitWind] = React.useState(
-        localStorage.getItem('unitWind') || 'ms'
+        getItem('unitWind') || 'ms'
     )
     const [unitPrec, setUnitPrec] = React.useState(
-        localStorage.getItem('unitPrec') || 'mmh'
+        getItem('unitPrec') || 'mmh'
     )
     const [unitPressure, setUnitPressure] = React.useState(
-        localStorage.getItem('unitPressure') || 'hpa'
+        getItem('unitPressure') || 'hpa'
     )
     const [unitVis, setUnitVis] = React.useState(
-        localStorage.getItem('unitVis') || 'km'
+        getItem('unitVis') || 'km'
     )
     const [unitTime, setUnitTime] = React.useState(
-        localStorage.getItem('unitTime') || '24h'
+        getItem('unitTime') || 'twentyfour'
     )
     React.useEffect(() => {
-        localStorage.setItem('unitTempr', unitTempr)
+        setItem('unitTempr', unitTempr)
     }, [unitTempr])
     React.useEffect(() => {
-        localStorage.setItem('unitWind', unitWind)
+        setItem('unitWind', unitWind)
     }, [unitWind])
     React.useEffect(() => {
-        localStorage.setItem('unitPrec', unitPrec)
+        setItem('unitPrec', unitPrec)
     }, [unitPrec])
     React.useEffect(() => {
-        localStorage.setItem('unitPressure', unitPressure)
+        setItem('unitPressure', unitPressure)
     }, [unitPressure])
     React.useEffect(() => {
-        localStorage.setItem('unitVis', unitVis)
+        setItem('unitVis', unitVis)
     }, [unitVis])
     React.useEffect(() => {
-        localStorage.setItem('unitTime', unitTime)
+        setItem('unitTime', unitTime)
     }, [unitTime])
 
     const onChangeTempr = (option: Option) => {

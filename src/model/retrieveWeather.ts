@@ -47,9 +47,7 @@ async function cleanHours(data: WeatherData): Promise<WeatherData> {
     function isDateNotOlderByDay(date: Date): boolean {
         const current = new Date()
         date = new Date(date)
-        return date.getFullYear() >= current.getFullYear() &&
-          date.getMonth() >= current.getMonth() &&
-          date.getDate() >= current.getDate()
+        return date >= current
     }
     return data
 }

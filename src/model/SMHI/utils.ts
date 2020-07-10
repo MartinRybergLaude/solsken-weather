@@ -46,6 +46,7 @@ async function parseWeatherSMHI(weatherData: WeatherTypesSMHI.WeatherData, lon: 
     weatherDataUni.expires = expires
     weatherDataUni.latTwoDecimal = lat.toFixed(2)
     weatherDataUni.lonTwoDecimal = lon.toFixed(2)
+    weatherDataUni.source = "smhi"
 
     weatherDataUni.days = parseDays(weatherData.timeSeries, lon, lat)
     

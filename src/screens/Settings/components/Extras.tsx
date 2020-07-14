@@ -13,7 +13,7 @@ export default function Extras() {
     const { t } = useTranslation()
     const [toastText, setToastText] = useState<string>()
     const [dataSrc, setDataSrc] = React.useState(
-        getItem('dataSrc') || 'owm'
+        getItem('dataSrc') || 'smhi'
     )
     React.useEffect(() => {
         setItem('dataSrc', dataSrc)
@@ -43,8 +43,8 @@ export default function Extras() {
         }
     }
     const srcOptions: Option[] = [
-        {value: "owm", label: "OpenWeatherMap"},
-        {value: "smhi", label: "SMHI"}
+        {value: "smhi", label: "SMHI"},
+        {value: "owm", label: "OpenWeatherMap"}
     ]
     return (
         <div className={styles.settingsCategory}>

@@ -10,7 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 import ScreenWeather from 'screens/Weather/ScreenWeather'
 import ScreenSettings from 'screens/Settings/ScreenSettings'
-import ScreenHours from 'screens/Day/ScreenDay'
+import ScreenDay from 'screens/Day/ScreenDay'
 
 import { FormattedWeatherData } from 'model/TypesFormattedWeather'
 import retrieveWeather from 'model/retrieveWeather'
@@ -136,11 +136,11 @@ function App() {
 
                         <Switch location={props.location}>
                             <Route exact path="/">
-                                <ScreenWeather textLoading={textLoading} weatherData={formattedWeatherData} 
+                                <ScreenWeather textLoading={textLoading} weatherDataFormatted={formattedWeatherData} weatherData={weatherData.standard}
                                 reapplyUnitsCallback={reapplyUnits} reloadWeatherDataCallback={getSelectedLocation} changedLocation={getSelectedLocation}/>
                             </Route>
                             <Route path="/day/:id">
-                                <ScreenHours weatherData={formattedWeatherData}/>
+                                <ScreenDay weatherDataFormatted={formattedWeatherData} weatherData={weatherData.standard}/>
                             </Route>
                             <Route path="/charts/:id">
                                 <ScreenCharts weatherData={weatherData.units} formattedWeatherData={formattedWeatherData}/>

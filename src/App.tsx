@@ -6,7 +6,8 @@ import 'weathericons/css/weather-icons-wind.min.css'
 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { motion, AnimatePresence } from "framer-motion"
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import i18n from 'i18n'
 
 import ScreenWeather from 'screens/Weather/ScreenWeather'
 import ScreenSettings from 'screens/Settings/ScreenSettings'
@@ -41,11 +42,18 @@ function App() {
     const [textLoading, setTextLoading] = useState<string>()
     const [formattedWeatherData, setFormattedWeatherData] = useState<FormattedWeatherData>()
     useEffect(() => {
+        handleFirstTimeSetup()
         handleVersionMismatch()
         clearExpiredWeatherData()
         getSelectedLocation() 
     }, [])
 
+    function handleFirstTimeSetup() {
+        const lang = i18n.language
+        if (!getItem("version") && lang.substring(0,2) === "sv") {
+            setItem("dataSrc", "smhi")
+        }
+    }
     function handleVersionMismatch() {
         const version = process.env.REACT_APP_VERSION?.toString()
         if (version && version !== getItem("version")) {

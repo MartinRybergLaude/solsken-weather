@@ -9,6 +9,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FormattedWeatherData, Day as FormattedDay } from 'model/TypesFormattedWeather'
 import LineGraph from 'components/Graph'
 import { AnimatePresence, motion } from 'framer-motion'
+import { getItem } from 'model/utilsStorage'
 
 interface Props extends RouteComponentProps<any> {
     weatherData: WeatherData | undefined
@@ -26,10 +27,11 @@ const variantsGraphs = ({
     visible: { opacity: 1 },
     hidden: { opacity: 0 }
 });
+
 function ScreenCharts(props: Props) {
     const { t } = useTranslation()
     const [data, setData] = useState<Data>()
-    
+    const displayChart = getItem("dataSrc") === "smhi"
     useEffect(() => {
         if (props.weatherData?.days[props.match.params.id] == null || props.formattedWeatherData?.days[props.match.params.id] == null) {
             props.history.push("/")
@@ -85,18 +87,22 @@ function ScreenCharts(props: Props) {
                             <div className={styles.wrapperGraph}>
                                 <LineGraph data={data?.windData} min={0} barType="line" precision={1}/>
                             </div>
-                            <div className={styles.wrapperGraph}>
-                                <LineGraph data={data?.precData} min={0} barType="bar" precision={1}/>
-                            </div>
+                            {displayChart &&
+                                <div className={styles.wrapperGraph}>
+                                    <LineGraph data={data?.precData} min={0} barType="bar" precision={1}/>
+                                </div>
+                            }
                             <div className={styles.wrapperGraph}>
                                 <LineGraph data={data?.pressureData} barType="line" precision={0}/>
                             </div>
                             <div className={styles.wrapperGraph}>
                                 <LineGraph data={data?.humidityData} min={0} max={100} barType="line" precision={0}/>
                             </div>
-                            <div className={styles.wrapperGraph}>
-                                <LineGraph data={data?.visData} min={0} barType="line" precision={0}/>
-                            </div>
+                            {displayChart &&
+                                <div className={styles.wrapperGraph}>
+                                    <LineGraph data={data?.visData} min={0} barType="line" precision={0}/>
+                                </div>
+                            }
                         </motion.div>
                     }          
                 </AnimatePresence>

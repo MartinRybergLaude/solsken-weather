@@ -13,7 +13,7 @@ export default function Extras() {
     const { t } = useTranslation()
     const [toastText, setToastText] = useState<string>()
     const [dataSrc, setDataSrc] = React.useState(
-        getItem('dataSrc') || 'smhi'
+        getItem('dataSrc') || 'owm'
     )
     React.useEffect(() => {
         setItem('dataSrc', dataSrc)

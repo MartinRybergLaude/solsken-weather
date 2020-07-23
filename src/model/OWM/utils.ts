@@ -8,7 +8,7 @@ import SunCalc from 'suncalc'
 export default async function fetchWeatherOWM(lon: string, lat: string): Promise<WeatherTypesUni.WeatherData> {
     const lang = i18n.language
     let url
-    if (lang === "sv") {
+    if (lang.substring(0,2) === "sv") {
         url = `${apiBaseOWM}lat=${lat}&lon=${lon}&lang=sv&appid=d90d4b91224a30ca61ad2301254be9e3&units=metric`
     } else {
         url = `${apiBaseOWM}lat=${lat}&lon=${lon}&appid=d90d4b91224a30ca61ad2301254be9e3&units=metric`
@@ -110,7 +110,7 @@ function parseHour(time: WeatherTypesOWM.List): WeatherTypesUni.Hour {
     }
     hour.wind = time.wind.speed
     hour.windDir = time.wind.deg
-    hour.text = time.weather[0].description
+    hour.text = capitalizeFirstLetter(time.weather[0].description)
     switch (time.weather[0].icon) {
         case "11d":
             hour.icon = Consts.WiThunderstorm
@@ -152,7 +152,9 @@ function parseHour(time: WeatherTypesOWM.List): WeatherTypesUni.Hour {
     }
     return hour
 }
-
+function capitalizeFirstLetter(string: String) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 function isSameDay(d1: Date, d2: Date) {
     return d1.getFullYear() === d2.getFullYear() &&
       d1.getMonth() === d2.getMonth() &&

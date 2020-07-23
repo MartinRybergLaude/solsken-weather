@@ -63,7 +63,7 @@ export default function Hour(props: Props) {
                     </div>
                     <div className={styles.right}>
                         <p className={styles.temprText}>{props.hourFormatted.tempr}</p>
-                        <i className={styles.weatherIcon + " wi " + props.hourFormatted.icon}/>
+                        <i className={" wi " + props.hourFormatted.icon}/>
                     </div>    
                 </div>
                 {isMountedVis &&

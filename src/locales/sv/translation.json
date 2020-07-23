@@ -1,6 +1,6 @@
 {
-    "error_generic": "Ett fel inträffade!",
-    "error_location_cant_get": "Kunde inte hämta din position.",
+    "error_generic": "Ett fel inträffade! Testa att byta väderkälla i inställningarna.",
+    "error_location_cant_get": "Kunde inte hämta din position. Har du satt på platsåtkomst?",
     "error_location_not_supported": "Din enhet stödjer inte hämtande av din position.",
     "error_search_location": "Kunde inte söka.",
     "error_search_find_location": "Platsen hittades inte.",

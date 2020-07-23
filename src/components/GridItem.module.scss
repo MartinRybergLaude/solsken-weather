@@ -9,6 +9,11 @@
     align-items: center;
     justify-content: center;
 }
+.fakeItem {
+    height: 80px;
+    width: 80px;
+    opacity: 0;
+}
 .itemAlt {
     background: none;
 }

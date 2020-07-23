@@ -7,14 +7,16 @@ import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCog, faBars, faSyncAlt } from '@fortawesome/free-solid-svg-icons'
 
-import * as Data from 'model/TypesFormattedWeather'
+import * as FormattedWeatherData from 'model/TypesFormattedWeather'
 import FragmentLoading from 'screens/Weather/fragments/FragmentLoading'
 import FragmentWeather from './fragments/FragmentWeather'
 import FragmentSidebar from 'screens/Weather/fragments/FragmentSidebar'
 import { AnimatePresence, motion } from 'framer-motion'
+import { WeatherData } from 'model/TypesWeather'
 
 interface Props extends RouteComponentProps{
-    weatherData: Data.FormattedWeatherData | undefined
+    weatherDataFormatted: FormattedWeatherData.FormattedWeatherData | undefined
+    weatherData: WeatherData | undefined
     reapplyUnitsCallback: Function
     reloadWeatherDataCallback: Function
     changedLocation: Function
@@ -59,8 +61,8 @@ function ScreenWeather(props: Props) {
                 <FontAwesomeIcon className={styles.toolbarIcon} icon={faCog} onClick={() => props.history.push("/settings")}/>
             </div>
             <FragmentLoading text={props.textLoading} show={props.weatherData ? true : false}/>
-            {props.weatherData && 
-                <FragmentWeather weatherData={props.weatherData}/>
+            {props.weatherDataFormatted && props.weatherData && 
+                <FragmentWeather weatherDataFormatted={props.weatherDataFormatted} weatherData={props.weatherData}/>
             }
             <FragmentSidebar visible={showSidebar} setVisibility={setSidebarVis}/>
             

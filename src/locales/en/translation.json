@@ -14,6 +14,7 @@
     "text_cache_weatherdata_clear_success": "Successfully cleared cached weather data",
     "text_weatherdata_from": "Weather data from",
     "text_website": "Website",
+    "text_data_source": "Data source",
     "text_NA": "N/A",
     "text_mean": "Mean",
     "text_max": "Max",

@@ -1,12 +1,12 @@
 import { WeatherData } from "model/TypesWeather"
 
-export function getCachedWeatherData(lon: string, lat: string): WeatherData | null {
+export function getCachedWeatherData(lon: string, lat: string, src: string): WeatherData | null {
     lon = parseFloat(lon).toFixed(2)
     lat = parseFloat(lat).toFixed(2)
 
     if(!storageAvailable) return null
     try {
-        let dataString = localStorage.getItem(lon + lat)
+        let dataString = localStorage.getItem(lon + lat + src)
         if (dataString == null) return null
         
         let data = JSON.parse(dataString) as WeatherData
@@ -15,7 +15,7 @@ export function getCachedWeatherData(lon: string, lat: string): WeatherData | nu
             return data
         } else {
             // Too old or corrupted
-            localStorage.removeItem(lon + lat)
+            localStorage.removeItem(lon + lat + src)
             return null
         }
     } catch {
@@ -26,7 +26,7 @@ export function setCachedWeatherData(data: WeatherData): boolean {
     if(!storageAvailable) return false
     while(true) {
         try {
-            localStorage.setItem(data.lonTwoDecimal + data.latTwoDecimal, JSON.stringify(data))
+            localStorage.setItem(data.lonTwoDecimal + data.latTwoDecimal + data.source, JSON.stringify(data))
             return true
         } catch (e) {
             if (e instanceof DOMException && (

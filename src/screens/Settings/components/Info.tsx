@@ -6,14 +6,17 @@ import { useTranslation } from 'react-i18next'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserCircle, faGlobe} from '@fortawesome/free-solid-svg-icons'
 import { faGithub , faTwitter, faInstagram} from '@fortawesome/free-brands-svg-icons'
+import { getItem } from 'model/utilsStorage'
 
 export default function Info() {
     const { t } = useTranslation()
+    const version = getItem("version")
     return (
         <div className={styles.settingsCategory}>
             <h2>{t("title_info")}</h2>
+            <p className={styles.categoryDesc}>v. {version}</p>
             <p className={styles.categoryDesc}>{t("text_weatherdata_from")} 
-                <a className={styles.link} href="http://opendata.smhi.se/apidocs/metfcst/index.html"> SMHI Open Data Api.</a>
+                <a className={styles.link} href="http://opendata.smhi.se/apidocs/metfcst/index.html"> SMHI Open Data Api</a> & <a className={styles.link} href="https://openweathermap.org/api"> OpenWeatherMap.</a>
             </p>
             <div className={styles.contactWrapper}>
                 <div className={styles.itemContact + " " + styles.first}>

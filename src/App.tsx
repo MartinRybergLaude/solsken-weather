@@ -50,7 +50,7 @@ function App() {
 
     function handleFirstTimeSetup() {
         const lang = i18n.language
-        if (!getItem("version") && lang.substring(0,2) === "sv") {
+        if (getItem("version") == null && lang.substring(0,2) === "sv") {
             setItem("dataSrc", "smhi")
         }
     }

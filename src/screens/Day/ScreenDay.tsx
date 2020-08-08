@@ -30,6 +30,12 @@ function ScreenDay(props: Props) {
             props.history.push("/")
         }
     }, [props])
+
+    function formatDate(): string {
+        if (day == null) return ""
+        const date = new Date(day.date)
+        return date.getDate() + " " + Consts.Months[date.getMonth()]
+    }
     
     return (
         <div className={"screen " + styles.containerHours}>
@@ -41,10 +47,13 @@ function ScreenDay(props: Props) {
                 <FontAwesomeIcon className={styles.toolbarIcon} icon={faChartBar} onClick={() => props.history.push("/charts/" + props.match.params.id)}/>
             </div>
             <div className={styles.containerScroll}>
-                <div className={styles.wrapperSun}>
-                    <p>{dayFormatted?.sunrise}</p>
-                    <i className={"wi " + Consts.WiHorizon}/>
-                    <p>{dayFormatted?.sunset}</p>
+                <div className={styles.containerTop}>
+                    <div className={styles.wrapperSun}>
+                        <p>{dayFormatted?.sunrise}</p>
+                        <i className={"wi " + Consts.WiHorizon}/>
+                        <p>{dayFormatted?.sunset}</p>
+                    </div>
+                    <p>{formatDate()}</p>
                 </div>
                 {day && dayFormatted?.hours.map((hour, index) => {
                     return (

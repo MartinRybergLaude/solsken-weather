@@ -73,3 +73,4 @@ export const WiThermometer = "wi-thermometer"
 export const WiHorizon = "wi-horizon-alt"
 
 export const Days = [i18n.t("day_sun"),i18n.t("day_mon"),i18n.t("day_tue"),i18n.t("day_wed"),i18n.t("day_thu"),i18n.t("day_fri"),i18n.t("day_sat")];
+export const Months = [i18n.t("month_jan"), i18n.t("month_feb"), i18n.t("month_mar"), i18n.t("month_apr"), i18n.t("month_may"), i18n.t("month_jun"), i18n.t("month_jul"), i18n.t("month_aug"), i18n.t("month_sep"), i18n.t("month_oct"), i18n.t("month_nov"), i18n.t("month_dec")];

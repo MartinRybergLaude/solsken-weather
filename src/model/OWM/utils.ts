@@ -146,6 +146,8 @@ function parseHour(time: WeatherTypesOWM.List): WeatherTypesUni.Hour {
             hour.icon = Consts.WiNightCloudy
             break
         case "04d":
+            hour.icon = Consts.WiCloud
+            break;
         case "04n":
             hour.icon = Consts.WiCloud
             break

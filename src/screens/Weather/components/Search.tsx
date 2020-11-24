@@ -1,8 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import styles from './Search.module.scss'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { FaSearch } from "react-icons/fa";
 
 import { useTranslation } from 'react-i18next'
 
@@ -94,7 +93,7 @@ export default function Search(props: PropsForSearch) {
                 <form onSubmit={handleSearch}>
                     <div className={styles.inputWrapper}>
                         <input ref={inputRef} className={styles.input} onChange={handleInputChange} placeholder={t("text_search")} />
-                        <FontAwesomeIcon className={styles.icon} icon={faSearch}/>
+                        <FaSearch className={styles.icon} />
                     </div>
                     {showSearchBtn &&
                         <button type="submit" className={styles.btnSearch}>{t("text_search_short")}</button>

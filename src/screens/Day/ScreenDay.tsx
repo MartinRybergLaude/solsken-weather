@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react'
 import styles from './ScreenDay.module.scss'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faChartBar } from '@fortawesome/free-solid-svg-icons'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import Bowser from 'bowser'
 
 import * as Consts from 'utils/constants'
+
+import { FiArrowLeft, FiBarChart } from "react-icons/fi"
 
 import * as FormattedWeatherData from 'model/TypesFormattedWeather'
 import Hour from './components/Hour'
@@ -41,10 +41,10 @@ function ScreenDay(props: Props) {
         <div className={"screen " + styles.containerHours}>
             <div className={styles.toolbar}>
                 <div className={styles.toolbarWrapperTitle}>
-                    <FontAwesomeIcon className={styles.toolbarIcon} icon={faArrowLeft} onClick={() => props.history.push("/")} />
+                    <FiArrowLeft className={styles.toolbarIcon} onClick={() => props.history.push("/")} />
                     <h2 className={styles.toolbarText}>{dayFormatted?.dayOfWeek}</h2>
                 </div>
-                <FontAwesomeIcon className={styles.toolbarIcon} icon={faChartBar} onClick={() => props.history.push("/charts/" + props.match.params.id)}/>
+                <FiBarChart className={styles.toolbarIcon} onClick={() => props.history.push("/charts/" + props.match.params.id)}/>
             </div>
             <div className={styles.containerScroll}>
                 <div className={styles.containerTop}>

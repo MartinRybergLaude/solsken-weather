@@ -4,8 +4,9 @@ import styles from './ScreenWeather.module.scss'
 import { Global } from 'utils/globals'
 
 import { RouteComponentProps, withRouter } from 'react-router-dom'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog, faBars, faSyncAlt } from '@fortawesome/free-solid-svg-icons'
+
+import { FiMenu, FiSettings } from 'react-icons/fi'
+import { MdRefresh } from 'react-icons/md'
 
 import * as FormattedWeatherData from 'model/TypesFormattedWeather'
 import FragmentLoading from 'screens/Weather/fragments/FragmentLoading'
@@ -53,12 +54,12 @@ function ScreenWeather(props: Props) {
     return (
         <div className="screen">
             <div className={styles.toolbar}>
-                <FontAwesomeIcon className={styles.toolbarIcon} icon={faBars} onClick={() => setShowSidebar(!showSidebar)}/>
+                <FiMenu className={styles.toolbarIcon} onClick={() => setShowSidebar(!showSidebar)}/>
                 <div className={styles.wrapperCenter}>
                     <h2 className={styles.toolbarText}>{props.weatherData?.city}</h2>
-                    <FontAwesomeIcon className={styles.centerIcon} icon={faSyncAlt} onClick={() => props.reloadWeatherDataCallback()}/>
+                    <MdRefresh className={styles.centerIcon} onClick={() => props.reloadWeatherDataCallback()}/>
                 </div>
-                <FontAwesomeIcon className={styles.toolbarIcon} icon={faCog} onClick={() => props.history.push("/settings")}/>
+                <FiSettings className={styles.toolbarIcon} onClick={() => props.history.push("/settings")}/>
             </div>
             <FragmentLoading text={props.textLoading} show={props.weatherData ? true : false}/>
             {props.weatherDataFormatted && props.weatherData && 
@@ -66,7 +67,7 @@ function ScreenWeather(props: Props) {
             }
             <FragmentSidebar visible={showSidebar} setVisibility={setSidebarVis}/>
             
-            <AnimatePresence>
+            <AnimatePresence>S
                 {showSidebar &&
                     <motion.div
                         key="cover"

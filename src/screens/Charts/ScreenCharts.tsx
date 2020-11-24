@@ -4,12 +4,12 @@ import styles from './ScreenCharts.module.scss'
 import { useTranslation } from 'react-i18next'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { Day, WeatherData } from 'model/TypesWeather'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FormattedWeatherData, Day as FormattedDay } from 'model/TypesFormattedWeather'
 import LineGraph from 'components/Graph'
 import { AnimatePresence, motion } from 'framer-motion'
 import { getItem } from 'model/utilsStorage'
+
+import { FiArrowLeft } from 'react-icons/fi'
 
 interface Props extends RouteComponentProps<any> {
     weatherData: WeatherData | undefined
@@ -68,7 +68,7 @@ function ScreenCharts(props: Props) {
             <div className={"screen " + styles.containerMain}>
                 <div className={styles.toolbar}>
                     <div className={styles.toolbarContent}>
-                        <FontAwesomeIcon className={styles.toolbarIcon} icon={faArrowLeft} onClick={() => props.history.goBack()} />
+                        <FiArrowLeft className={styles.toolbarIcon} onClick={() => props.history.goBack()} />
                         <h2 className={styles.toolbarText}>{t("title_charts")}</h2>
                     </div>
                 </div>

@@ -1,81 +1,81 @@
 @import "src/variables";
 
 .settingsCategory {
+  margin-top: 16px;
+  padding-bottom: 16px;
+  border-bottom: 2px solid rgba($color-text-primary, 0.2);
+  & h2 {
+    display: block;
+    margin-top: 24px;
+    margin-left: 16px;
+    margin-bottom: 0;
+    text-align: left;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  & button {
     margin-top: 16px;
-    padding-bottom: 16px;
-    border-bottom: 2px solid rgba($color-text-primary, 0.2);
-    & h2 {
-        display: block;
-        margin-top: 24px;
-        margin-left: 16px;
-        margin-bottom: 0;
-        text-align: left;
-        font-weight: 700;
-        font-size: 14px;
-    }
-    & button {
-        margin-top: 16px;
-        width: 96%;
-        background: rgba($color-text-primary, 0.2);
-        border: none;
-    }
-    .link {
-        color: $color-text-primary;
-        text-decoration: underline;
-    }
-    &:last-of-type {
-        border-bottom: none;
-    }
+    width: 96%;
+    background: rgba($color-text-primary, 0.2);
+    border: none;
+  }
+  .link {
+    color: $color-text-primary;
+    text-decoration: underline;
+  }
+  &:last-of-type {
+    border-bottom: none;
+  }
 }
 .contactWrapper {
-    margin: 0 auto;
-    width: 96%;
-    margin-top: 16px;
-    padding: 24px;
-    border-radius: 8px;
-    background-color: rgba($color-text-primary, 0.2);
+  margin: 0 auto;
+  width: 96%;
+  margin-top: 16px;
+  padding: 24px;
+  border-radius: 8px;
+  background-color: rgba($color-text-primary, 0.2);
 }
 .itemContact {
-    margin-top: 24px;
-    display: flex;
-    justify-content: left;
-    align-items: center;
-    text-decoration: none;
-    width: 100%;
-    .icon {
-        font-size: 32px;
-        color: $color-text-primary;
+  margin-top: 24px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  text-decoration: none;
+  width: 100%;
+  .icon {
+    font-size: 24px;
+    color: $color-text-primary;
+  }
+  & div {
+    margin-left: 24px;
+  }
+  & p {
+    text-align: left;
+    &:first-of-type {
+      font-weight: 700;
     }
-    & div {
-        margin-left: 24px;
-    }
-    & p {
-        text-align: left;
-        &:first-of-type {
-            font-weight: 700;
-        }
-    }
+  }
 }
 .first {
-    margin-top: 0;
+  margin-top: 0;
 }
 .categoryDesc {
-    margin-top: 16px;
-    margin-left: 16px;
-    text-align: left;
+  margin-top: 16px;
+  margin-left: 16px;
+  text-align: left;
 }
 .itemContactLink:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 .itemSettings {
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .itemSettings label {
-    margin-left: 16px;
+  margin-left: 16px;
 }
 .itemSettings select {
-    margin-right: 16px;
+  margin-right: 16px;
 }

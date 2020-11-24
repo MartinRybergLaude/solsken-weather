@@ -1,51 +1,52 @@
 @import "src/variables";
 
 .containerMain {
-    background: #000;
+  background: #000;
 }
 .containerCharts {
-    margin: 0 auto;
-    width: 96%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-wrap: wrap;
-    height: calc(100% - 56px);
-    overflow-y: auto;
-    &::-webkit-scrollbar {
-        display: none;
-        width: 0 !important;
-    }
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+  margin: 0 auto;
+  width: 96%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  height: calc(100% - 56px);
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+  }
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
 }
 .wrapperGraph {
-    width: 100%;
-    max-width: 608px;
+  width: 100%;
+  max-width: 608px;
 }
 .toolbar {
-    height: 56px;
-    width: 100%;
-    background: $color-backgroundAlt;
+  height: 56px;
+  width: 100%;
+  background: $color-backgroundAlt;
 }
 .toolbarContent {
-    margin: 0 auto;
-    max-width: 512px;
-    display: flex;
-    align-items: center;
-    justify-content: left;
+  margin: 0 auto;
+  max-width: 512px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  height: 100%;
 }
 .toolbarIcon {
-    color: $color-text-primary;
-    font-size: 1.4rem;
-    margin-right: 1rem;
-    margin-left: 1rem;
-    cursor: pointer;
+  color: $color-text-primary;
+  font-size: 1.6rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  cursor: pointer;
 }
 .toolbarText {
-    font-size: 1.2rem;
-    margin-left: 0.5rem;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }

@@ -17,7 +17,7 @@
 }
 .search {
   border-radius: 8px;
-  background-color: $color-text-primary;
+  background-color: $color-text-primary-inv;
   padding: 16px;
   position: absolute;
   top: 12px;
@@ -33,9 +33,9 @@
 }
 .input {
   width: 100%;
-  color: $color-text-primary-inv;
+  color: $color-text-primary;
   &::placeholder {
-    color: $color-text-secondary-inv;
+    color: $color-text-secondary;
     opacity: 1;
   }
 }
@@ -53,9 +53,9 @@
   & p {
     font-size: 16px;
     text-align: left;
-    color: $color-text-primary-inv;
+    color: $color-text-primary;
     &:last-of-type {
-      color: $color-text-secondary-inv;
+      color: $color-text-secondary;
     }
   }
   &:hover {

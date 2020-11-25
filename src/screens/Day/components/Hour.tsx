@@ -12,7 +12,7 @@ interface Props {
     animateExpand: boolean
 }
 const variants = {
-    open: { height: "auto" },
+    open: { height: 260 },
     closed: { height: 72 },
   }
 export default function Hour(props: Props) {
@@ -22,7 +22,7 @@ export default function Hour(props: Props) {
     function setExpanded() {
         if (isExpandedVis) {
             setExpandedVis(false)
-            setTimeout(() => setMountedVis(false), 50)
+            setTimeout(() => setMountedVis(false), 100)
         } else {
             setExpandedVis(true)
             setMountedVis(true)
@@ -35,6 +35,7 @@ export default function Hour(props: Props) {
             onClick={() => setExpanded()}
             animate={isExpandedVis ? "open" : "closed"}
             variants={variants}
+            transition={{ type: "spring", stiffness: 1000, damping: 100 }}
             initial={false}>
                 <div className={styles.preview}>
                     <div className={styles.left}>
@@ -47,7 +48,9 @@ export default function Hour(props: Props) {
                     </div>    
                 </div>
                 {isMountedVis &&
+                  <div className={styles.containerExpanded}>
                     <Grid altStyle={true} dataFormatted={props.hourFormatted} data={props.hour}/>
+                  </div>
                 }
             </motion.div>
         )
@@ -67,7 +70,9 @@ export default function Hour(props: Props) {
                     </div>    
                 </div>
                 {isMountedVis &&
+                  <div className={styles.containerExpanded}>
                     <Grid altStyle={true} dataFormatted={props.hourFormatted} data={props.hour}/>
+                  </div>
                 }
             </div>
         )

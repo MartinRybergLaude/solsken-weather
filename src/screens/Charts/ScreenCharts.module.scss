@@ -24,9 +24,11 @@
   max-width: 608px;
 }
 .toolbar {
-  height: 56px;
+  height: 62px;
   width: 100%;
-  background: $color-backgroundAlt;
+  background: $color-background;
+  border-bottom-left-radius: 50% 15%;
+  border-bottom-right-radius: 50% 15%;
 }
 .toolbarContent {
   margin: 0 auto;

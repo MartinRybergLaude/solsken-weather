@@ -9,14 +9,16 @@ interface Props extends RouteComponentProps{
 }
 export function Day(props: Props) {
     return (
+      <div className={styles.dayContainer}>
+        <p className={styles.dayName}>{props.data.dayOfWeek}</p>
         <div className={styles.day} onClick={() => props.history.push("/day/" + props.index)}>
-            <p className={styles.dayName}>{props.data.dayOfWeek}</p>
             <i className={styles.icon + " wi " + props.data.icon}/>
             <div className={styles.temprs}>
                 <p>{props.data.tempHigh}</p>
                 <p>{props.data.tempLow}</p>
             </div>
         </div>
+      </div>
     )
 }
 export default withRouter(Day)

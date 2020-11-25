@@ -28,8 +28,8 @@ export default function ContainerWeather(props: Props) {
                 </div>
                 <Grid dataFormatted={props.weatherDataFormatted.days[0].hours[0]}
                 data={props.weatherData.days[0].hours[0]}/>
-                <Days data={props.weatherDataFormatted}/>
             </div>
+            <Days data={props.weatherDataFormatted}/>
         </div>
     )
 }

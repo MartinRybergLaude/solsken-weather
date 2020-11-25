@@ -12,6 +12,7 @@ interface Props {
 export default function Days(props: Props) {
     
     return (
+      <div className={styles.containerMain}>
         <div className={styles.containerScroll}>
             <div className={styles.containerDays}>
                 {props.data.days.map((day, index) => {
@@ -19,5 +20,6 @@ export default function Days(props: Props) {
                 })}
             </div>
         </div>
+      </div>
     )
 }

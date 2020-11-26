@@ -6,7 +6,7 @@ export default async function retrieveCity(data: WeatherData): Promise<WeatherDa
     const lon = data.lonTwoDecimal
     const lat = data.latTwoDecimal
     const userLang = navigator.language.substring(0,2) 
-    console.log(`${apiBaseBigDataCloud}latitude=${lat}&longitude=${lon}&localityLanguage=${userLang}`)
+    //console.log(`${apiBaseBigDataCloud}latitude=${lat}&longitude=${lon}&localityLanguage=${userLang}`)
     const response = await fetch(`${apiBaseBigDataCloud}latitude=${lat}&longitude=${lon}&localityLanguage=${userLang}`, fetchSettings)
     const jsonResult = await response.json()
     const localityData = await castLocalityData(jsonResult)

@@ -4,7 +4,7 @@ import * as WeatherTypesUni from 'model/TypesWeather'
 import SunCalc from 'suncalc'
 
 export default async function fetchWeatherSMHI(lon: string, lat: string): Promise<WeatherTypesUni.WeatherData> {
-    console.log(`${apiBaseSMHI}lon/${lon}/lat/${lat}/data.json`)
+    //console.log(`${apiBaseSMHI}lon/${lon}/lat/${lat}/data.json`)
     let expires = new Date()
     const response = await fetch(`${apiBaseSMHI}lon/${lon}/lat/${lat}/data.json`, fetchSettings)
     const weatherJSON = await parseResponse(response)

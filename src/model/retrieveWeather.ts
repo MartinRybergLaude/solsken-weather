@@ -46,9 +46,8 @@ async function getCity(weatherData: WeatherData, locationName: string | null): P
     }
 }
 async function cleanHours(data: WeatherData): Promise<WeatherData> {
-    data.days = data.days.filter(day => isDateNotOlderByDay(day.date))
-
-    data.days.forEach(day => {
+  
+    data.days.forEach(day => { 
         day.hours = day.hours.filter(hour => isDateNotOlderBy30min(hour.date))
     });
 
@@ -58,11 +57,6 @@ async function cleanHours(data: WeatherData): Promise<WeatherData> {
         } else {
             return false
         }
-    }
-    function isDateNotOlderByDay(date: Date): boolean {
-        const current = new Date()
-        date = new Date(date)
-        return date >= current
     }
     return data
 }

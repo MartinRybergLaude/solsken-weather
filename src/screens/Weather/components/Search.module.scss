@@ -1,12 +1,10 @@
-@import "src/variables";
-
 .cover {
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba($color-text-primary-inv, 0.2);
+  background-color: rgba(var(--color-text-primary), 0.2);
   transition: 100ms ease;
 }
 .coverInactive {
@@ -17,7 +15,7 @@
 }
 .search {
   border-radius: 8px;
-  background-color: $color-text-primary-inv;
+  background-color: var(--color-background-dark);
   padding: 16px;
   position: absolute;
   top: 12px;
@@ -33,15 +31,15 @@
 }
 .input {
   width: 100%;
-  color: $color-text-primary;
+  color: var(--color-text-primary);
   &::placeholder {
-    color: $color-text-secondary;
+    color: var(--color-text-secondary);
     opacity: 1;
   }
 }
 .icon {
   margin-left: 8px;
-  color: $color-primary;
+  color: var(--color-primary);
 }
 .btnSearch {
   margin-top: 16px;
@@ -53,9 +51,9 @@
   & p {
     font-size: 16px;
     text-align: left;
-    color: $color-text-primary;
+    color: var(--color-text-primary);
     &:last-of-type {
-      color: $color-text-secondary;
+      color: var(--color-text-secondary);
     }
   }
   &:hover {
@@ -73,7 +71,7 @@
   align-items: center;
   & p {
     margin: auto;
-    color: $color-error;
+    color: var(--color-error);
   }
 }
 .ldsEllipsis {
@@ -89,7 +87,7 @@
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: $color-background-dark;
+  background: var(--color-background-dark);
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .ldsEllipsis div:nth-child(1) {

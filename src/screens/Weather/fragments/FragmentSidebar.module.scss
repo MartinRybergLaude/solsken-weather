@@ -1,5 +1,3 @@
-@import "src/variables";
-
 .containerMain {
   position: absolute;
   top: 0;
@@ -8,7 +6,7 @@
   z-index: 10;
   width: 80%;
   height: 100%;
-  background-color: $color-backgroundAlt;
+  background-color: var(--color-background-alt);
   padding: 12px;
   overflow-y: auto;
   &::-webkit-scrollbar {

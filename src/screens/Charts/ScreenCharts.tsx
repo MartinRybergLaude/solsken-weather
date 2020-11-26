@@ -156,8 +156,8 @@ function ScreenCharts(props: Props) {
                 {
                   label: t("grid_gusts"),
                   fill: true,
-                  backgroundColor: 'rgba(230, 230, 240, 0.2)',
-                  borderColor: 'rgba(230, 230, 240,1)',
+                  backgroundColor: 'rgba(167, 167, 167, 0.2)',
+                  borderColor: 'rgb(167, 167, 167)',
                   data: gustsList
                 }
               ]

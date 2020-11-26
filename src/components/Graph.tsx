@@ -15,6 +15,15 @@ export default function LineGraph(props: Props) {
     const chartRef = useRef<HTMLCanvasElement>(null)
 
     useEffect(() => {
+
+        const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (userPrefersDark) {
+          var gridColor = "#292929"
+          var legendColor = "#ffffff"
+        } else {
+          gridColor = "#e4e4e4"
+          legendColor = "#212121"
+        } 
         const current = chartRef.current
         if (!current) return
         const context = current.getContext("2d")
@@ -29,13 +38,14 @@ export default function LineGraph(props: Props) {
                     yAxes: [{
                         stacked: false,
                         ticks: {
+                            fontColor: legendColor,
                             suggestedMax: props.max,
                             suggestedMin: props.min,
                             precision: props.precision
                         } as LinearTickOptions,
                         gridLines: {
                             zeroLineWidth: 0,
-                            color: "#292929"
+                            color: gridColor
                         }
                     }],
                     xAxes: [{
@@ -43,7 +53,7 @@ export default function LineGraph(props: Props) {
                         gridLines: {
                             zeroLineWidth: 0,
                             drawBorder: false, 
-                            color: "#292929"
+                            color: gridColor
                         }
                     }]
                 } as LinearScale,
@@ -65,7 +75,8 @@ export default function LineGraph(props: Props) {
                         usePointStyle: true,
                         padding: 20,
                         fontStyle: "bold",
-                        fontSize: 14
+                        fontSize: 14,
+                        fontColor: legendColor
                     }
                 }
             }

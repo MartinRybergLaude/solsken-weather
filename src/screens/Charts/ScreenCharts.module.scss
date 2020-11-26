@@ -1,7 +1,5 @@
-@import "src/variables";
-
 .containerMain {
-  background: #000;
+  background: var(--color-background-alt);
 }
 .containerCharts {
   margin: 0 auto;
@@ -26,7 +24,7 @@
 .toolbar {
   height: 62px;
   width: 100%;
-  background: $color-background;
+  background: var(--color-background);
   border-bottom-left-radius: 50% 15%;
   border-bottom-right-radius: 50% 15%;
 }
@@ -39,7 +37,7 @@
   height: 100%;
 }
 .toolbarIcon {
-  color: $color-text-primary;
+  color: var(--color-white);
   font-size: 1.6rem;
   margin-right: 1rem;
   margin-left: 1rem;

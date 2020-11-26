@@ -1,5 +1,3 @@
-@import "src/variables";
-
 .dayContainer {
   margin-right: 16px;
   height: 100%;
@@ -7,14 +5,17 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
+  &:last-of-type {
+    margin-right: 0;
+  }
 }
 .day {
   height: 124px;
   min-width: 88px;
   max-width: 88px;
   border-radius: 12px;
-  border: 3px solid $color-text-primary;
-  color: $color-text-primary;
+  background-color: var(--color-background-dark);
+  color: var(--color-text-primary);
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -30,10 +31,18 @@
     transform: scale(0.95);
   }
 }
+@media (prefers-color-scheme: dark) {
+  .day {
+    border: 3px solid var(--color-text-primary);
+    background: none;
+  }
+}
 .dayName {
+  color: var(--color-text-primary);
   white-space: nowrap;
   text-overflow: ellipsis;
   font-weight: 500;
+  padding-top: 16px;
 }
 .temprs {
   width: 100%;
@@ -43,6 +52,7 @@
   flex-direction: column;
 }
 .temprs p {
+  color: var(--color-text-primary);
   font-size: 16px;
   &:first-of-type {
     font-weight: 900;

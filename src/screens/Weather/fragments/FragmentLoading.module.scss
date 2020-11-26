@@ -1,7 +1,5 @@
-@import "src/variables";
-
 .loading {
-  background-color: $color-backgroundAlt;
+  background-color: var(--color-background-alt);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -11,7 +9,7 @@
 .loading p {
   font-size: 16px;
   font-weight: 700;
-  color: $color-error;
+  color: var(--color-error);
 }
 .ldsEllipsis {
   margin: 0 auto;
@@ -26,7 +24,7 @@
   width: 13px;
   height: 13px;
   border-radius: 50%;
-  background: $color-background-dark;
+  background: var(--color-background-dark);
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .ldsEllipsis div:nth-child(1) {

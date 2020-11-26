@@ -4,11 +4,12 @@ import styles from './ScreenCharts.module.scss'
 import { useTranslation } from 'react-i18next'
 import { RouteComponentProps, withRouter } from 'react-router-dom'
 import { Day, WeatherData } from 'model/TypesWeather'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import { FormattedWeatherData, Day as FormattedDay } from 'model/TypesFormattedWeather'
 import LineGraph from 'components/Graph'
 import { AnimatePresence, motion } from 'framer-motion'
+import { getItem } from 'model/utilsStorage'
+
+import { FiArrowLeft } from 'react-icons/fi'
 
 interface Props extends RouteComponentProps<any> {
     weatherData: WeatherData | undefined
@@ -26,10 +27,11 @@ const variantsGraphs = ({
     visible: { opacity: 1 },
     hidden: { opacity: 0 }
 });
+
 function ScreenCharts(props: Props) {
     const { t } = useTranslation()
     const [data, setData] = useState<Data>()
-    
+    const displayChart = getItem("dataSrc") === "smhi"
     useEffect(() => {
         if (props.weatherData?.days[props.match.params.id] == null || props.formattedWeatherData?.days[props.match.params.id] == null) {
             props.history.push("/")
@@ -66,7 +68,7 @@ function ScreenCharts(props: Props) {
             <div className={"screen " + styles.containerMain}>
                 <div className={styles.toolbar}>
                     <div className={styles.toolbarContent}>
-                        <FontAwesomeIcon className={styles.toolbarIcon} icon={faArrowLeft} onClick={() => props.history.goBack()} />
+                        <FiArrowLeft className={styles.toolbarIcon} onClick={() => props.history.goBack()} />
                         <h2 className={styles.toolbarText}>{t("title_charts")}</h2>
                     </div>
                 </div>
@@ -85,18 +87,22 @@ function ScreenCharts(props: Props) {
                             <div className={styles.wrapperGraph}>
                                 <LineGraph data={data?.windData} min={0} barType="line" precision={1}/>
                             </div>
-                            <div className={styles.wrapperGraph}>
-                                <LineGraph data={data?.precData} min={0} barType="bar" precision={1}/>
-                            </div>
+                            {displayChart &&
+                                <div className={styles.wrapperGraph}>
+                                    <LineGraph data={data?.precData} min={0} barType="bar" precision={1}/>
+                                </div>
+                            }
                             <div className={styles.wrapperGraph}>
                                 <LineGraph data={data?.pressureData} barType="line" precision={0}/>
                             </div>
                             <div className={styles.wrapperGraph}>
                                 <LineGraph data={data?.humidityData} min={0} max={100} barType="line" precision={0}/>
                             </div>
-                            <div className={styles.wrapperGraph}>
-                                <LineGraph data={data?.visData} min={0} barType="line" precision={0}/>
-                            </div>
+                            {displayChart &&
+                                <div className={styles.wrapperGraph}>
+                                    <LineGraph data={data?.visData} min={0} barType="line" precision={0}/>
+                                </div>
+                            }
                         </motion.div>
                     }          
                 </AnimatePresence>

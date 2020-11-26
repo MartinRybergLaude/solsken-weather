@@ -6,11 +6,12 @@ import 'weathericons/css/weather-icons-wind.min.css'
 
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { motion, AnimatePresence } from "framer-motion"
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from 'react-i18next'
+import i18n from 'i18n'
 
 import ScreenWeather from 'screens/Weather/ScreenWeather'
 import ScreenSettings from 'screens/Settings/ScreenSettings'
-import ScreenHours from 'screens/Day/ScreenDay'
+import ScreenDay from 'screens/Day/ScreenDay'
 
 import { FormattedWeatherData } from 'model/TypesFormattedWeather'
 import retrieveWeather from 'model/retrieveWeather'
@@ -23,7 +24,7 @@ import ScreenCharts from 'screens/Charts/ScreenCharts'
 
 const variantsPages = ({
     visible: { opacity: 1, scale: 1 },
-    hidden: { opacity: 0, scale: 0.95 }
+    hidden: { opacity: 0, scale: 1.01 }
 });
 
 interface DataVariants {
@@ -41,11 +42,18 @@ function App() {
     const [textLoading, setTextLoading] = useState<string>()
     const [formattedWeatherData, setFormattedWeatherData] = useState<FormattedWeatherData>()
     useEffect(() => {
+        handleFirstTimeSetup()
         handleVersionMismatch()
         clearExpiredWeatherData()
         getSelectedLocation() 
     }, [])
 
+    function handleFirstTimeSetup() {
+        const lang = i18n.language
+        if (getItem("version") == null && lang.substring(0,2) === "sv") {
+            setItem("dataSrc", "smhi")
+        }
+    }
     function handleVersionMismatch() {
         const version = process.env.REACT_APP_VERSION?.toString()
         if (version && version !== getItem("version")) {
@@ -136,11 +144,11 @@ function App() {
 
                         <Switch location={props.location}>
                             <Route exact path="/">
-                                <ScreenWeather textLoading={textLoading} weatherData={formattedWeatherData} 
+                                <ScreenWeather textLoading={textLoading} weatherDataFormatted={formattedWeatherData} weatherData={weatherData.standard}
                                 reapplyUnitsCallback={reapplyUnits} reloadWeatherDataCallback={getSelectedLocation} changedLocation={getSelectedLocation}/>
                             </Route>
                             <Route path="/day/:id">
-                                <ScreenHours weatherData={formattedWeatherData}/>
+                                <ScreenDay weatherDataFormatted={formattedWeatherData} weatherData={weatherData.standard}/>
                             </Route>
                             <Route path="/charts/:id">
                                 <ScreenCharts weatherData={weatherData.units} formattedWeatherData={formattedWeatherData}/>

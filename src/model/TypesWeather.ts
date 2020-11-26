@@ -6,6 +6,7 @@ export interface WeatherData {
     units: Units,
     lonTwoDecimal: string,
     latTwoDecimal: string,
+    source: string
     city: string
 }
 export interface Units {

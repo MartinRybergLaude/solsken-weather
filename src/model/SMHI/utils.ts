@@ -4,7 +4,7 @@ import * as WeatherTypesUni from 'model/TypesWeather'
 import SunCalc from 'suncalc'
 
 export default async function fetchWeatherSMHI(lon: string, lat: string): Promise<WeatherTypesUni.WeatherData> {
-    console.log(`${apiBaseSMHI}lon/${lon}/lat/${lat}/data.json`)
+    //console.log(`${apiBaseSMHI}lon/${lon}/lat/${lat}/data.json`)
     let expires = new Date()
     const response = await fetch(`${apiBaseSMHI}lon/${lon}/lat/${lat}/data.json`, fetchSettings)
     const weatherJSON = await parseResponse(response)
@@ -23,7 +23,7 @@ export default async function fetchWeatherSMHI(lon: string, lat: string): Promis
                 expiresSet = true
             } catch { }
         }
-        if(!expiresSet) expires.setHours(expires.getHours() + 1)
+        if(!expiresSet || isNaN(expires.getHours())) expires.setHours(expires.getHours() + 1)
         console.log("Expires: " + expires.getHours() + ":" + expires.getMinutes())
         return response.json()        
     }
@@ -46,6 +46,7 @@ async function parseWeatherSMHI(weatherData: WeatherTypesSMHI.WeatherData, lon: 
     weatherDataUni.expires = expires
     weatherDataUni.latTwoDecimal = lat.toFixed(2)
     weatherDataUni.lonTwoDecimal = lon.toFixed(2)
+    weatherDataUni.source = "smhi"
 
     weatherDataUni.days = parseDays(weatherData.timeSeries, lon, lat)
     

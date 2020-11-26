@@ -1,56 +1,64 @@
 @import "src/variables";
 
 .containerHours {
-    max-width: 512px;
-    margin: 0 auto;
+  max-width: 512px;
+  margin: 0 auto;
 }
 .containerScroll {
-    overflow-y: auto;
-    height: calc(100% - 56px);
-    &::-webkit-scrollbar {
-        display: none;
-        width: 0 !important;
-    }
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
+  overflow-y: auto;
+  height: calc(100% - 56px);
+  &::-webkit-scrollbar {
+    display: none;
+    width: 0 !important;
+  }
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.containerTop {
+  margin: 0 auto;
+  width: 80%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
 .toolbar {
-    height: 56px;
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  height: 56px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .toolbarWrapperTitle {
-    display: flex;
-    align-items: center;
-    justify-content: left;
+  display: flex;
+  align-items: center;
+  justify-content: left;
 }
 .toolbarIcon {
-    color: $color-text-primary;
-    font-size: 1.4rem;
-    margin-right: 1rem;
-    margin-left: 1rem;
-    cursor: pointer;
+  color: $color-text-primary;
+  font-size: 1.6rem;
+  margin-right: 1rem;
+  margin-left: 1rem;
+  cursor: pointer;
 }
 .toolbarText {
-    font-size: 1.2rem;
-    margin-left: 0.5rem;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
+  font-size: 1rem;
+  margin-left: 0.5rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .wrapperSun {
-    margin-right: 16px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    & i {
-        color: $color-text-primary;
-        font-size: 24px;
-        margin: 16px;
-    }
-    & p:first-of-type {
-        font-weight: 700;
-    }
+  margin-right: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  & i {
+    color: $color-text-primary;
+    font-size: 24px;
+    margin: 16px;
+  }
+  & p:first-of-type {
+    font-weight: 700;
+  }
 }

@@ -1,127 +1,134 @@
 @import "src/variables";
 
 .cover {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba($color-text-primary-inv, 0.2);
-    transition: 100ms ease;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba($color-text-primary-inv, 0.2);
+  transition: 100ms ease;
 }
 .coverInactive {
-    position: absolute;
-    top: 0; left: 0; right: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
 }
 .search {
-    border-radius: 4px;
-    background-color: $color-text-primary;
-    box-shadow: 0 5px 5px 0 rgba(154,160,185,.05),0 5px 30px 0 rgba(166,173,201,.22);
-    padding: 16px;
-    position: absolute;
-    top: 12px; left: 12px; right: 12px;
+  border-radius: 8px;
+  background-color: $color-text-primary-inv;
+  padding: 16px;
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  right: 12px;
 }
 .inputWrapper {
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    flex-wrap: nowrap;
-    width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: nowrap;
+  width: 100%;
 }
 .input {
-    width: 100%;
+  width: 100%;
+  color: $color-text-primary;
+  &::placeholder {
+    color: $color-text-secondary;
+    opacity: 1;
+  }
 }
 .icon {
-    margin-left: 8px;
-    color: $color-primary;
+  margin-left: 8px;
+  color: $color-primary;
 }
 .btnSearch {
-    margin-top: 16px;
-    width: 100%;
+  margin-top: 16px;
+  width: 100%;
 }
 .location {
-    width: 100%;
-    margin-top: 24px;
-    & p {
-        font-size: 16px;
-        text-align: left;
-        color: $color-text-primary-inv;
-        &:last-of-type {
-            color: $color-text-secondary-inv
-        }
+  width: 100%;
+  margin-top: 24px;
+  & p {
+    font-size: 16px;
+    text-align: left;
+    color: $color-text-primary;
+    &:last-of-type {
+      color: $color-text-secondary;
     }
-    &:hover {
-        cursor: pointer;
-    }
+  }
+  &:hover {
+    cursor: pointer;
+  }
 }
 .loading {
-    width: 100%;
+  width: 100%;
 }
 .error {
-    width: 100%;
-    height: 80px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    & p {
-      margin: auto;
-      color: $color-error;
-    }
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & p {
+    margin: auto;
+    color: $color-error;
+  }
 }
 .ldsEllipsis {
-    margin: 0 auto;
-    display: block;
-    position: relative;
-    width: 80px;
-    height: 80px;
+  margin: 0 auto;
+  display: block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.ldsEllipsis div {
+  position: absolute;
+  top: 33px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: $color-background-dark;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.ldsEllipsis div:nth-child(1) {
+  left: 8px;
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.ldsEllipsis div:nth-child(2) {
+  left: 8px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.ldsEllipsis div:nth-child(3) {
+  left: 32px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.ldsEllipsis div:nth-child(4) {
+  left: 56px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
   }
-  .ldsEllipsis div {
-    position: absolute;
-    top: 33px;
-    width: 13px;
-    height: 13px;
-    border-radius: 50%;
-    background: $color-background-dark;
-    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+  100% {
+    transform: scale(1);
   }
-  .ldsEllipsis div:nth-child(1) {
-    left: 8px;
-    animation: lds-ellipsis1 0.6s infinite;
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
   }
-  .ldsEllipsis div:nth-child(2) {
-    left: 8px;
-    animation: lds-ellipsis2 0.6s infinite;
+  100% {
+    transform: scale(0);
   }
-  .ldsEllipsis div:nth-child(3) {
-    left: 32px;
-    animation: lds-ellipsis2 0.6s infinite;
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
   }
-  .ldsEllipsis div:nth-child(4) {
-    left: 56px;
-    animation: lds-ellipsis3 0.6s infinite;
+  100% {
+    transform: translate(24px, 0);
   }
-  @keyframes lds-ellipsis1 {
-    0% {
-      transform: scale(0);
-    }
-    100% {
-      transform: scale(1);
-    }
-  }
-  @keyframes lds-ellipsis3 {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(0);
-    }
-  }
-  @keyframes lds-ellipsis2 {
-    0% {
-      transform: translate(0, 0);
-    }
-    100% {
-      transform: translate(24px, 0);
-    }
-  }
-  
+}

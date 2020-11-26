@@ -1,54 +1,60 @@
 @import "src/variables";
 
 .hour {
-    user-select: none;
-    transition: none;
-    overflow-y: hidden;
-    width: 90%;
-    margin: 0 auto;
-    margin-bottom: 16px;
-    padding: 16px 24px;
+  position: relative;
+  user-select: none;
+  transition: none;
+  overflow-y: hidden;
+  width: 90%;
+  margin: 0 auto;
+  margin-bottom: 16px;
+  padding: 16px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  flex-direction: column;
+  background-color: rgba($color-text-primary, 0.2);
+  border: 2px solid rgba($color-text-primary, 0);
+  border-radius: 8px;
+  .left p {
+    text-align: left;
+  }
+  .right {
     display: flex;
     align-items: center;
-    justify-content: left;
-    flex-direction: column;
-    background-color: rgba($color-text-primary, 0.2);
-    border: 2px solid rgba($color-text-primary, 0);
-    border-radius: 8px;
-    .left p {
-        text-align: left;
+    justify-content: center;
+    & p {
+      margin-right: 16px;
     }
-    .right {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        & p {
-            margin-right: 16px;
-        }
-        & i {
-            font-size: 24px;
-            width: 24px;
-            color: $color-text-primary;
-        }
+    & i {
+      font-size: 24px;
+      width: 24px;
+      color: $color-text-primary;
     }
-    .hourText {
-        font-weight: 700;
-    }
-    .temprText {
-        font-weight: 400;
-        font-size: 16px;
-    }
+  }
+  .hourText {
+    font-weight: 700;
+  }
+  .temprText {
+    font-weight: 400;
+    font-size: 16px;
+  }
 }
 .hour:hover {
-    cursor: pointer;
+  cursor: pointer;
 }
 .preview {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .expanded {
-    margin-top: 24px;
-    width: 100%;
+  margin-top: 24px;
+  width: 100%;
+}
+.containerExpanded {
+  position: absolute;
+  top: 48px;
+  width: 90%;
 }

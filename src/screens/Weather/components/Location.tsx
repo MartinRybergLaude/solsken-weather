@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import styles from './Location.module.scss'
 
 import { useTranslation } from 'react-i18next'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faMapMarkerAlt, faLocationArrow, faTimes } from '@fortawesome/free-solid-svg-icons'
+import { FaMapMarkerAlt, FaLocationArrow, FaTimes } from 'react-icons/fa'
 
 import Dialog from 'components/Dialog'
 import { AnimatePresence } from 'framer-motion'
@@ -51,15 +50,15 @@ export default function Location(props: Props) {
             <div className={styleString} >
                 <div onClick={onClick}>
                     {props.index >= 0 ?
-                        <FontAwesomeIcon className={styles.icon} icon={faMapMarkerAlt}/>
+                        <FaMapMarkerAlt className={styles.icon} />
                     :
-                        <FontAwesomeIcon className={styles.icon} icon={faLocationArrow}/>
+                        <FaLocationArrow className={styles.icon} />
                     }
                     <p>{props.title}</p>
                 </div>
                 
                 {props.index >= 0 &&
-                    <FontAwesomeIcon onClick={onClickDelete} className={styles.icon + " " + styles.iconRight} icon={faTimes}/>
+                    <FaTimes onClick={onClickDelete} className={styles.icon + " " + styles.iconRight}/>
                 }
             </div>
         </div>

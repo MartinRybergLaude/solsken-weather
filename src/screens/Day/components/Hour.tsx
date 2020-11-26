@@ -3,14 +3,16 @@ import styles from './Hour.module.scss'
 import { motion } from 'framer-motion'
 import * as FormattedWeatherData from 'model/TypesFormattedWeather'
 import Grid from 'components/Grid'
+import * as WeatherData from 'model/TypesWeather'
 
 
 interface Props {
-    hour: FormattedWeatherData.Hour
+    hour: WeatherData.Hour
+    hourFormatted: FormattedWeatherData.Hour
     animateExpand: boolean
 }
 const variants = {
-    open: { height: "auto" },
+    open: { height: 260 },
     closed: { height: 72 },
   }
 export default function Hour(props: Props) {
@@ -20,7 +22,7 @@ export default function Hour(props: Props) {
     function setExpanded() {
         if (isExpandedVis) {
             setExpandedVis(false)
-            setTimeout(() => setMountedVis(false), 50)
+            setTimeout(() => setMountedVis(false), 100)
         } else {
             setExpandedVis(true)
             setMountedVis(true)
@@ -33,19 +35,22 @@ export default function Hour(props: Props) {
             onClick={() => setExpanded()}
             animate={isExpandedVis ? "open" : "closed"}
             variants={variants}
+            transition={{ type: "spring", stiffness: 1000, damping: 100 }}
             initial={false}>
                 <div className={styles.preview}>
                     <div className={styles.left}>
-                        <p className={styles.hourText}>{props.hour.hour}</p>
-                        <p>{props.hour.text}</p>
+                        <p className={styles.hourText}>{props.hourFormatted.hour}</p>
+                        <p>{props.hourFormatted.text}</p>
                     </div>
                     <div className={styles.right}>
-                        <p className={styles.temprText}>{props.hour.tempr}</p>
-                        <i className={styles.weatherIcon + " wi " + props.hour.icon}/>
+                        <p className={styles.temprText}>{props.hourFormatted.tempr}</p>
+                        <i className={styles.weatherIcon + " wi " + props.hourFormatted.icon}/>
                     </div>    
                 </div>
                 {isMountedVis &&
-                    <Grid altStyle={true} data={props.hour}/>
+                  <div className={styles.containerExpanded}>
+                    <Grid altStyle={true} dataFormatted={props.hourFormatted} data={props.hour}/>
+                  </div>
                 }
             </motion.div>
         )
@@ -56,16 +61,18 @@ export default function Hour(props: Props) {
             onClick={() => (setMountedVis(!isMountedVis))}>
                 <div className={styles.preview}>
                     <div className={styles.left}>
-                        <p className={styles.hourText}>{props.hour.hour}</p>
-                        <p>{props.hour.text}</p>
+                        <p className={styles.hourText}>{props.hourFormatted.hour}</p>
+                        <p>{props.hourFormatted.text}</p>
                     </div>
                     <div className={styles.right}>
-                        <p className={styles.temprText}>{props.hour.tempr}</p>
-                        <i className={styles.weatherIcon + " wi " + props.hour.icon}/>
+                        <p className={styles.temprText}>{props.hourFormatted.tempr}</p>
+                        <i className={" wi " + props.hourFormatted.icon}/>
                     </div>    
                 </div>
                 {isMountedVis &&
-                    <Grid altStyle={true} data={props.hour}/>
+                  <div className={styles.containerExpanded}>
+                    <Grid altStyle={true} dataFormatted={props.hourFormatted} data={props.hour}/>
+                  </div>
                 }
             </div>
         )

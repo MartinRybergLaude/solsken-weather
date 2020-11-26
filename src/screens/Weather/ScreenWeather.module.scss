@@ -2,45 +2,49 @@
 
 // Toolbar
 .toolbar {
-    height: 56px;
-    width: 100%;
-    max-width: 512px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
+  height: 56px;
+  width: 100%;
+  max-width: 512px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
 }
 .toolbarIcon {
-    color: $color-text-primary;
-    font-size: 1.4rem;
-    margin-right: 16px;
-    margin-left: 16px;
-    cursor: pointer;
+  color: $color-text-primary;
+  font-size: 1.4rem;
+  margin-right: 16px;
+  margin-left: 16px;
+  cursor: pointer;
 }
 .toolbarText {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-size: 16px;
-    overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  overflow: hidden;
 }
 .wrapperCenter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 .centerIcon {
-    color: $color-text-primary;
-    margin-left: 16px;
-    &:hover {
-        cursor: pointer;
-    }
+  font-size: 1.4rem;
+  color: $color-text-primary;
+  margin-left: 16px;
+  &:hover {
+    cursor: pointer;
+  }
 }
 .cover {
-    position: absolute;
-    top: 0; bottom: 0; left: 0; right: 0;
-    z-index: 5;
-    width: 100%;
-    height: 100%;
-    background-color: rgba($color-text-primary-inv, 0.6);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 5;
+  width: 100%;
+  height: 100%;
+  background-color: rgba($color-text-primary-inv, 0.6);
 }

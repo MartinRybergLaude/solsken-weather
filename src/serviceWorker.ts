@@ -64,6 +64,13 @@ function registerValidSW(swUrl: string, config?: Config) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
+      let refreshing = false;
+        navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+            window.location.reload()
+            refreshing = true
+        }
+      })
       registration.onupdatefound = () => {
         const installingWorker = registration.installing;
         if (installingWorker == null) {
@@ -75,7 +82,7 @@ function registerValidSW(swUrl: string, config?: Config) {
               // At this point, the updated precached content has been fetched,
               // but the previous service worker will still serve the older
               // content until all client tabs are closed.
-              (window.self as unknown as ServiceWorkerGlobalScope).skipWaiting();
+              
               // Execute callback
               if (config && config.onUpdate) {
                 config.onUpdate(registration);

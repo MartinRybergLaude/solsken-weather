@@ -83,7 +83,7 @@ function App() {
     function locationErrorCallback() {
         displayError(t("error_location_cant_get"))
     }
-    function getPositionSuccessCallback(pos: Position) {
+    function getPositionSuccessCallback(pos: any) {
         const lon = pos.coords.longitude.toFixed(2)
         const lat = pos.coords.latitude.toFixed(2)
         retrieveWeatherData(lon, lat, null)

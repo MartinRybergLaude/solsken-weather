@@ -37,6 +37,9 @@
   color: var(--color-white);
   font-size: 32px;
 }
+.copyText {
+  margin: 0 16px;
+}
 @media (min-height: 640px) {
   .containerTopInfo {
     display: block;

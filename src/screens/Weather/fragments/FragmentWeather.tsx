@@ -42,9 +42,10 @@ export default function ContainerWeather(props: Props) {
                         </div>
                     </div>
                 </div>
-                <Grid dataFormatted={props.weatherDataFormatted.days[0].hours[0]}
-                data={props.weatherData.days[0].hours[0]}/>
-                <p className={styles.copyText}>{getSourceText()}</p>
+                <div className={styles.containerGrid}>
+                    <Grid dataFormatted={props.weatherDataFormatted.days[0].hours[0]} data={props.weatherData.days[0].hours[0]}/>
+                    <p className={styles.copyText}>{getSourceText()}</p>
+                </div>
             </div>
             <Days data={props.weatherDataFormatted}/>
         </div>

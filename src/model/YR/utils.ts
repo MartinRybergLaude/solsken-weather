@@ -7,6 +7,7 @@ import i18n from 'i18n'
 
 export default async function fetchWeatherYR(lon: string, lat: string): Promise<WeatherTypesUni.WeatherData> {
     let expires = new Date()
+    console.log(`${apiBaseYR}lat=${lat}&lon=${lon}`)
     const response = await fetch(`${apiBaseYR}lat=${lat}&lon=${lon}`, fetchSettings)
     const weatherJSON = await parseResponse(response)
     const weatherDataYR = await castWeatherYR(weatherJSON)

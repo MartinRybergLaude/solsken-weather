@@ -126,7 +126,7 @@ export function clearAllWeatherData() {
                 // Test if item is weather data
                 let data = JSON.parse(value)
                 let casted = data as WeatherData
-                if (casted.latTwoDecimal) {
+                if (casted.latTwoDecimal != null) {
                     localStorage.removeItem(key)
                 }
             } catch {

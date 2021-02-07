@@ -28,6 +28,7 @@
     "grid_prec": "Nederbörd",
     "grid_pressure": "Lufttryck",
     "grid_vis": "Synlighet",
+    "grid_fog": "Dimma",
     "grid_humidity": "Luftfuktighet",
     "grid_gusts": "Vindbyar",
     "grid_wind": "Vind",

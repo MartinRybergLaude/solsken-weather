@@ -21,6 +21,7 @@ export interface Hour {
     windDirDeg: string,
     pressure: string,
     vis: string,
+    fog: string,
     humidity: string,
     gusts: string,
     cloud: string,

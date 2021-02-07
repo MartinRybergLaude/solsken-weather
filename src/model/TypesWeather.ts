@@ -37,6 +37,7 @@ export interface Hour {
     windDir: WindDir,
     pressure: number,
     vis: number,
+    fog: number,
     humidity: number,
     gusts: number,
     cloud: number,

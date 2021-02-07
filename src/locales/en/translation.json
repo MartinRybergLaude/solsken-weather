@@ -28,6 +28,7 @@
     "grid_prec": "Precipitation",
     "grid_pressure": "Pressure",
     "grid_vis": "Visibility",
+    "grid_fog": "Fog area",
     "grid_humidity": "Humidity",
     "grid_gusts": "Gusts",
     "grid_wind": "Wind",

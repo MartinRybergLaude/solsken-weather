@@ -23,14 +23,18 @@ export default function Grid(props: Props) {
         rowClassName = styles.row + " " + styles.rowAlt
     }
 
-    if (getItem("dataSrc") === "smhi") {
+    if (getItem("dataSrc") === "smhi" || "yr") {
         return (
             <div className={gridClassName}>
                 <div className={rowClassName}>
                     <GridItem altStyle={props.altStyle} icon={Consts.WiUmbrella} text={t("grid_prec")} value={props.dataFormatted.precMean} />
                     <GridItem altStyle={props.altStyle} icon={Consts.WiWind + " towards-" + props.dataFormatted.windDirDeg + "-deg"} text={props.dataFormatted.windDir} value={props.dataFormatted.wind} />
                     <GridItem altStyle={props.altStyle} icon={Consts.WiBarometer} text={t("grid_pressure")} value={props.dataFormatted.pressure} />
+                    {getItem("dataSrc") === "yr" ?
+                    <GridItem altStyle={props.altStyle} icon={Consts.WiFog} text={t("grid_fog")} value={props.dataFormatted.fog} />
+                    :
                     <GridItem altStyle={props.altStyle} icon={Consts.WiFog} text={t("grid_vis")} value={props.dataFormatted.vis} />
+                    }
                 </div>
                 <div className={rowClassName}>
                     <GridItem altStyle={props.altStyle} icon={Consts.WiRaindrop} text={t("grid_humidity")} value={props.dataFormatted.humidity} />

@@ -52,6 +52,7 @@ export default async function formatWeather(data: WeatherTypes.WeatherData): Pro
         formattedHour.windDirDeg = hour.windDir.toString()
         formattedHour.humidity = hour.humidity + "%"
         formattedHour.vis = getVisibilityString(data.units.visUnit, hour.vis)
+        formattedHour.fog = hour.fog + "%"
         formattedHour.pressure = getPressureString(data.units.pressureUnit, hour.pressure)
         formattedHour.cloud = hour.cloud + "%"
         return formattedHour

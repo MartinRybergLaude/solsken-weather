@@ -28,6 +28,7 @@
     "grid_prec": "Precipitation",
     "grid_pressure": "Pressure",
     "grid_vis": "Visibility",
+    "grid_fog": "Fog area",
     "grid_humidity": "Humidity",
     "grid_gusts": "Gusts",
     "grid_wind": "Wind",
@@ -90,5 +91,8 @@
     "w_heavy_sleet": "Heavy sleet",
     "w_light_snow": "Light snow",
     "w_moderate_snow": "Moderate snow",
-    "w_heavy_snow": "Heavy snow"
+    "w_heavy_snow": "Heavy snow",
+    "c_smhi": "Weather forecast delivered by SMHI",
+    "c_yr": "Weather forecast from Yr, delivered by the Norwegian Meteorological Institute and NRK",
+    "c_owm": "Weather forecast delivered by Open Weather Map"
 }

@@ -43,17 +43,30 @@ export default async function formatWeather(data: WeatherTypes.WeatherData): Pro
         formattedHour.hour = getHourString(data.units.timeUnit, new Date(hour.date))
         formattedHour.text = hour.text
         formattedHour.icon = hour.icon
-        formattedHour.tempr = getTemperatureString(data.units.temprUnit, hour.tempr)
-        formattedHour.feelslike = getTemperatureString(data.units.temprUnit, hour.feelslike)
-        formattedHour.precMean = getPrecString(data.units.precUnit, hour.precMean)
-        formattedHour.wind = getWindString(data.units.windUnit, hour.wind)
-        formattedHour.gusts = getWindString(data.units.windUnit, hour.gusts)
-        formattedHour.windDir = getWindDirString(hour.windDir)
-        formattedHour.windDirDeg = hour.windDir.toString()
-        formattedHour.humidity = hour.humidity + "%"
-        formattedHour.vis = getVisibilityString(data.units.visUnit, hour.vis)
-        formattedHour.pressure = getPressureString(data.units.pressureUnit, hour.pressure)
-        formattedHour.cloud = hour.cloud + "%"
+        if (hour.tempr == null || isNaN(hour.tempr)) formattedHour.tempr = "N/A"
+        else formattedHour.tempr = getTemperatureString(data.units.temprUnit, hour.tempr)
+        if (hour.feelslike == null || isNaN(hour.feelslike)) formattedHour.feelslike = "N/A"
+        else formattedHour.feelslike = getTemperatureString(data.units.temprUnit, hour.feelslike)
+        if (hour.precMean == null || isNaN(hour.precMean)) formattedHour.precMean = "N/A"
+        else formattedHour.precMean = getPrecString(data.units.precUnit, hour.precMean)
+        if (hour.wind == null || isNaN(hour.wind)) formattedHour.wind = "N/A"
+        else formattedHour.wind = getWindString(data.units.windUnit, hour.wind)
+        if (hour.gusts == null || isNaN(hour.gusts)) formattedHour.gusts = "N/A"
+        else formattedHour.gusts = getWindString(data.units.windUnit, hour.gusts)
+        if (hour.windDir == null || isNaN(hour.windDir)) formattedHour.windDir = "N/A"
+        else formattedHour.windDir = getWindDirString(hour.windDir)
+        if (hour.windDir == null || isNaN(hour.windDir)) formattedHour.windDirDeg = "N/A"
+        else formattedHour.windDirDeg = hour.windDir.toString()
+        if (hour.humidity == null || isNaN(hour.humidity)) formattedHour.humidity = "N/A"
+        else formattedHour.humidity = hour.humidity + "%"
+        if (hour.vis == null || isNaN(hour.vis)) formattedHour.vis = "N/A"
+        else formattedHour.vis = getVisibilityString(data.units.visUnit, hour.vis)
+        if (hour.fog == null || isNaN(hour.fog)) formattedHour.fog = "N/A"
+        else formattedHour.fog = hour.fog + "%"
+        if (hour.pressure == null || isNaN(hour.pressure)) formattedHour.pressure = "N/A" 
+        else formattedHour.pressure = getPressureString(data.units.pressureUnit, hour.pressure)
+        if (hour.cloud == null || isNaN(hour.cloud)) formattedHour.cloud = "N/A"
+        else formattedHour.cloud = hour.cloud + "%"
         return formattedHour
     }
 }

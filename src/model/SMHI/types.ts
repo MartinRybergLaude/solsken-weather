@@ -92,7 +92,7 @@ export const TextList = [
     i18n.t("w_light_snow"),
     i18n.t("w_moderate_snow"),
     i18n.t("w_heavy_snow")
-]
+] 
 export const IconListDay = [
     Consts.WiDayClear,
     Consts.WiDaySmallCloudy,

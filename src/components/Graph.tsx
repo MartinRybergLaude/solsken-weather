@@ -50,6 +50,9 @@ export default function LineGraph(props: Props) {
                     }],
                     xAxes: [{
                         stacked: true,
+                        ticks: {
+                            fontColor: legendColor
+                        },
                         gridLines: {
                             zeroLineWidth: 0,
                             drawBorder: false, 

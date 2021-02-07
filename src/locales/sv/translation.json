@@ -28,6 +28,7 @@
     "grid_prec": "Nederbörd",
     "grid_pressure": "Lufttryck",
     "grid_vis": "Synlighet",
+    "grid_fog": "Dimma",
     "grid_humidity": "Luftfuktighet",
     "grid_gusts": "Vindbyar",
     "grid_wind": "Vind",
@@ -90,5 +91,8 @@
     "w_heavy_sleet": "Kraftigt snöblandat regn",
     "w_light_snow": "Lätt snöfall",
     "w_moderate_snow": "Måttligt snöfall",
-    "w_heavy_snow": "Kraftigt snöfall"
+    "w_heavy_snow": "Kraftigt snöfall",
+    "c_smhi": "Väderprognosen levereras av SMHI",
+    "c_yr": "Väderprognosen från Yr, levererat av Meteorologisk institutt och NRK",
+    "c_owm": "Väderprognosen levereras av Open Weather Map"
 }

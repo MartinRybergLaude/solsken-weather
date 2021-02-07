@@ -7,8 +7,7 @@ import i18n from 'i18n'
 
 export default async function fetchWeatherYR(lon: string, lat: string): Promise<WeatherTypesUni.WeatherData> {
     let expires = new Date()
-    console.log(`${apiBaseYR}lat=${lat}&lon=${lon}`)
-    const response = await fetch(`${apiBaseYR}lat=${lat}&lon=${lon}`)
+    const response = await fetch(`${apiBaseYR}lat=${lat}&lon=${lon}`, fetchSettings)
     const weatherJSON = await parseResponse(response)
     const weatherDataYR = await castWeatherYR(weatherJSON)
     const weatherDataParsed = await parseWeatherYR(weatherDataYR, parseFloat(lon), parseFloat(lat), expires)
@@ -52,7 +51,6 @@ async function parseWeatherYR(weatherData: WeatherTypesYR.WeatherData, lon: numb
     weatherDataUni.source = "yr"
 
     weatherDataUni.days = parseDays(weatherData.properties.timeseries, lon, lat)
-    console.log(weatherDataUni)
     return weatherDataUni
 }
 function parseDays(times: WeatherTypesYR.Timesery[], lon: number, lat: number): WeatherTypesUni.Day[] {
@@ -74,10 +72,9 @@ function parseDays(times: WeatherTypesYR.Timesery[], lon: number, lat: number): 
         iterationDay.sunset = sunTimes.sunset
 
         iterationDay.icon = getDayIcon(times[i])
-        if (iterationDay.icon == Consts.WiNA && i + 1 < times.length) {
+        if (iterationDay.icon === Consts.WiNA && i + 1 < times.length) {
             iterationDay.icon = getDayIcon(times[i + 1])
         }
-        console.log(times[i].time)
 
         // Iterate each hour
         for (const time2 of times) {

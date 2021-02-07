@@ -67,7 +67,6 @@ export default async function formatWeather(data: WeatherTypes.WeatherData): Pro
         else formattedHour.pressure = getPressureString(data.units.pressureUnit, hour.pressure)
         if (hour.cloud == null || isNaN(hour.cloud)) formattedHour.cloud = "N/A"
         else formattedHour.cloud = hour.cloud + "%"
-        console.log(formattedHour)
         return formattedHour
     }
 }

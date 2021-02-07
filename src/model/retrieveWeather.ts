@@ -33,7 +33,7 @@ export default async function retrieveWeather(lon: string, lat: string, location
 async function getWeatherData(lon: string, lat: string, src: string): Promise<WeatherData> {
     if (src === "smhi") {
         return fetchWeatherSMHI(lon, lat)
-    } else if (src == "owm") {
+    } else if (src === "owm") {
         return fetchWeatherOWM(lon, lat)
     } else {
         return fetchWeatherYR(lon, lat)

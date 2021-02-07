@@ -31,7 +31,7 @@ const variantsGraphs = ({
 function ScreenCharts(props: Props) {
     const { t } = useTranslation()
     const [data, setData] = useState<Data>()
-    const displayChart = getItem("dataSrc") === "smhi"
+    const displayChart = getItem("dataSrc") === "smhi" || "yr"
     useEffect(() => {
         if (props.weatherData?.days[props.match.params.id] == null || props.formattedWeatherData?.days[props.match.params.id] == null) {
             props.history.push("/")

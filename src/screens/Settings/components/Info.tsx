@@ -15,7 +15,9 @@ export default function Info() {
             <h2>{t("title_info")}</h2>
             <p className={styles.categoryDesc}>v. {version}</p>
             <p className={styles.categoryDesc}>{t("text_weatherdata_from")} 
-                <a className={styles.link} href="http://opendata.smhi.se/apidocs/metfcst/index.html"> SMHI Open Data Api</a> & <a className={styles.link} href="https://openweathermap.org/api"> OpenWeatherMap.</a>
+                <a className={styles.link} href="http://opendata.smhi.se/apidocs/metfcst/index.html"> SMHI Open Data Api</a> ,
+                <a className={styles.link} href="https://openweathermap.org/api"> OpenWeatherMap</a>, & 
+                <a className={styles.link} href="https://developer.yr.no/"> Norwegian Meteorological Institute and NRK.</a>
             </p>
             <div className={styles.contactWrapper}>
                 <div className={styles.itemContact + " " + styles.first}>

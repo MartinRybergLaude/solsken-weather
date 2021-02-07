@@ -43,7 +43,7 @@ export default function Extras() {
         }
     }
     const srcOptions: Option[] = [
-        {value: "smhi", label: "SMHI"},
+        {value: "smhi", label: "SMHI (Nordics)"},
         {value: "owm", label: "OpenWeatherMap"},
         {value: "yr", label: "YR.no"}
     ]

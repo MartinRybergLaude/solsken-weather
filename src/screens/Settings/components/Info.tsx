@@ -27,11 +27,11 @@ export default function Info() {
                         <p>Stockholm, Sweden</p>
                     </div>
                 </div>
-                <a href="https://martinryberglaude.com/" className={styles.itemContact + " " + styles.itemContactLink}>
+                <a href="https://mrlaude.com/" className={styles.itemContact + " " + styles.itemContactLink}>
                     <FaGlobe className={styles.icon} />
                     <div>
                         <p>{t("text_website")}</p>
-                        <p>martinryberglaude.com</p>
+                        <p>mrlaude.com</p>
                     </div>
                 </a>
                 <a href="https://github.com/MartinRybergLaude" className={styles.itemContact + " " + styles.itemContactLink}>

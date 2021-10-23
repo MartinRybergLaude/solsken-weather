@@ -109,7 +109,7 @@ function parseHour(time: WeatherTypesYR.Timesery, sunrise: Date, sunset: Date): 
         hour.precMean= time.data.next_1_hours.details.precipitation_amount
     hour.wind = time.data.instant.details.wind_speed
     hour.gusts = time.data.instant.details.wind_speed_of_gust
-    hour.windDir = time.data.instant.details.wind_from_direction
+    hour.windDir = Math.round(time.data.instant.details.wind_from_direction)
     hour.pressure = time.data.instant.details.air_pressure_at_sea_level
     hour.fog = time.data.instant.details.fog_area_fraction
     hour.humidity = time.data.instant.details.relative_humidity

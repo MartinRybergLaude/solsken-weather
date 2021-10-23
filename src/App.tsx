@@ -21,6 +21,7 @@ import { WeatherData } from 'model/TypesWeather'
 import { getItem, setItem, clearExpiredWeatherData, clearAllWeatherData } from 'model/utilsStorage'
 import LocationType from 'model/TypesLocation'
 import ScreenCharts from 'screens/Charts/ScreenCharts'
+import ScreenLoading from 'screens/ScreenLoading'
 
 const variantsPages = ({
     visible: { opacity: 1, scale: 1 },
@@ -130,6 +131,8 @@ function App() {
         setTextLoading(error)
     }
     return (
+        <>
+        <ScreenLoading/>
         <BrowserRouter>
             <Route render={(props: any) => (
                 <AnimatePresence exitBeforeEnter initial={true}>
@@ -163,6 +166,7 @@ function App() {
             )}/>
             
         </BrowserRouter>
+        </>
     );
 }
 

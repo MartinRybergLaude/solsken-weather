@@ -94,5 +94,9 @@
     "w_heavy_snow": "Kraftigt snöfall",
     "c_smhi": "Väderprognosen levereras av SMHI",
     "c_yr": "Väderprognosen från Yr, levererat av Meteorologisk institutt och NRK",
-    "c_owm": "Väderprognosen levereras av Open Weather Map"
+    "c_owm": "Väderprognosen levereras av Open Weather Map",
+    "text_update_short": "Uppdatering tillgänglig",
+    "text_update_long": "Vänligen uppdatera appen.",
+    "text_updating": "Uppdaterar...",
+    "text_update_call": "Uppdatera"
 }

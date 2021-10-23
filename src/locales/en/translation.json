@@ -94,5 +94,9 @@
     "w_heavy_snow": "Heavy snow",
     "c_smhi": "Weather forecast delivered by SMHI",
     "c_yr": "Weather forecast from Yr, delivered by the Norwegian Meteorological Institute and NRK",
-    "c_owm": "Weather forecast delivered by Open Weather Map"
+    "c_owm": "Weather forecast delivered by Open Weather Map",
+    "text_update_short": "Update available",
+    "text_update_long": "Please update the app.",
+    "text_updating": "Updating...",
+    "text_update_call": "Update"
 }

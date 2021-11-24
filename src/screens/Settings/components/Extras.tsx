@@ -10,15 +10,7 @@ import Dropdown, {Option} from 'components/Dropdown'
 import { getItem, setItem } from 'model/utilsStorage'
 
 export default function Extras() {
-    const { t } = useTranslation()
-    const [toastText, setToastText] = useState<string>()
-    const [dataSrc, setDataSrc] = React.useState(
-        getItem('dataSrc') || 'yr'
-    )
-    React.useEffect(() => {
-        setItem('dataSrc', dataSrc)
-    }, [dataSrc])
-
+    // For toast timer not to memory leak
     let timer: NodeJS.Timer | undefined = undefined
     useEffect(() => {
         return () => {
@@ -27,6 +19,23 @@ export default function Extras() {
             }
         }
     }, [timer])
+
+    const { t } = useTranslation()
+    const [toastText, setToastText] = useState<string>()
+    const [dataSrc, setDataSrc] = React.useState(
+        getItem('dataSrc') || 'yr'
+    )
+    const [defaultHourView, setDefaultHourView] = React.useState(
+        getItem('defaultHView') || 'simple'
+    )
+
+    useEffect(() => {
+        setItem('dataSrc', dataSrc)
+    }, [dataSrc])
+
+     useEffect(() => {
+        setItem('defaultHView', defaultHourView)
+    }, [defaultHourView])
 
     function handleButtonClick() {
         clearAllWeatherData()
@@ -47,12 +56,20 @@ export default function Extras() {
         {value: "owm", label: "OpenWeatherMap"},
         {value: "yr", label: "YR.no"}
     ]
+    const hourViewOptions: Option[] = [
+        {value: "simple", label: t("text_simple")},
+        {value: "informative", label: t("text_informative")},
+    ]
     return (
         <div className={styles.settingsCategory}>
             <h2>{t("title_extras")}</h2>
             <div className={styles.itemSettings}>
                 <label>{t("text_data_source")}</label>
                 <Dropdown value={dataSrc} onChange={onChangeSrc} options={srcOptions}/>
+            </div>
+            <div className={styles.itemSettings}>
+                <label>{t("text_default_hour_view")}</label>
+                <Dropdown value={defaultHourView} onChange={(option: Option) => setDefaultHourView(option.value)} options={hourViewOptions}/>
             </div>
             <button onClick={handleButtonClick}>{t("text_cache_weatherdata_clear")}</button>
             <AnimatePresence>

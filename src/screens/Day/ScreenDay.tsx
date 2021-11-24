@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import styles from './ScreenDay.module.scss'
 
 import { RouteComponentProps, withRouter } from 'react-router-dom'
-import Bowser from 'bowser'
 
 import * as Consts from 'utils/constants'
 
@@ -11,14 +10,12 @@ import { FiArrowLeft, FiBarChart } from "react-icons/fi"
 import * as FormattedWeatherData from 'model/TypesFormattedWeather'
 import Hour from './components/Hour'
 import { WeatherData } from 'model/TypesWeather'
+import { getItem } from 'model/utilsStorage'
 
 interface Props extends RouteComponentProps<any> {
     weatherDataFormatted: FormattedWeatherData.FormattedWeatherData | undefined | null
     weatherData: WeatherData | undefined | null
 }
-const browser = Bowser.getParser(navigator.userAgent)
-const isMobileFirefox = browser.getEngine().name === "Gecko"
-    && browser.getPlatform().type === "mobile" && browser.getOSName() === "Android"
 
 function ScreenDay(props: Props) {
 
@@ -57,7 +54,7 @@ function ScreenDay(props: Props) {
                 </div>
                 {day && dayFormatted?.hours.map((hour, index) => {
                     return (
-                        <Hour key={index} hourFormatted={hour} hour={day.hours[index]} animateExpand={!isMobileFirefox}/>
+                        <Hour key={index} hourFormatted={hour} hour={day.hours[index]} taller={getItem("defaultHView") === "informative" ? true : false}/>
                     )
                 })}
             </div>

@@ -9,24 +9,34 @@ import * as WeatherData from 'model/TypesWeather'
 interface Props {
     hour: WeatherData.Hour
     hourFormatted: FormattedWeatherData.Hour
-    animateExpand: boolean
+    taller: boolean
 }
-const variants = {
-    open: { height: 260 },
-    closed: { height: 72 },
-  }
 export default function Hour(props: Props) {
+    const variants = {
+        open: { height: 260 },
+        closed: { height:  props.taller ? 160 : 72},
+    }
+
     const [isExpandedVis, setExpandedVis] = useState(false)
-    const [isMountedVis, setMountedVis] = useState(false)
+    const [isMountedVis, setMountedVis] = useState(props.taller)
 
     function setExpanded() {
-        if (isExpandedVis) {
-            setExpandedVis(false)
-            setTimeout(() => setMountedVis(false), 100)
+        if (!props.taller) {
+            if (isExpandedVis) {
+                setExpandedVis(false)
+                setTimeout(() => setMountedVis(false), 100)
+            } else {
+                setExpandedVis(true)
+                setMountedVis(true)
+            }
         } else {
-            setExpandedVis(true)
-            setMountedVis(true)
+            if (isExpandedVis) {
+                setExpandedVis(false)
+            } else {
+                setExpandedVis(true)
+            }
         }
+        
     }
 
     return (

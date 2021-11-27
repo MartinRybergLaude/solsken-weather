@@ -15,7 +15,6 @@ export default function LineGraph(props: Props) {
     const chartRef = useRef<HTMLCanvasElement>(null)
 
     useEffect(() => {
-        console.time("yay")
         const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         if (userPrefersDark) {
           var gridColor = "#292929"
@@ -84,7 +83,6 @@ export default function LineGraph(props: Props) {
                 }
             }
         })
-        console.timeEnd("yay")
         
     }, [props])
     return (

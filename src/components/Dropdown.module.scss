@@ -4,6 +4,7 @@
 }
 .control {
   background-color: rgba(var(--color-white-rgb), 0.2);
+  border: 1px solid rgba(var(--color-white-rgb), 0.4);
   padding: 8px 16px;
   border-radius: 4px;
   color: var(--color-text-primary);
@@ -15,8 +16,7 @@
   border-radius: 4px;
   background-color: var(--color-background-alt);
   color: var(--color-text-primary);
-  box-shadow: 0 5px 5px 0 rgba(154, 160, 185, 0.1),
-    0 5px 30px 0 rgba(166, 173, 201, 0.4);
+  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.1), 0 5px 15px 0 rgba(0, 0, 0, 0.1);
   min-width: 128px;
   top: 0;
   right: 0;

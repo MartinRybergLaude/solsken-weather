@@ -3,8 +3,8 @@
   user-select: none;
   transition: none;
   overflow-y: hidden;
-  width: 90%;
-  margin: 0 auto;
+  width: calc(100% - 32px);
+  margin: 0 16px;
   margin-bottom: 16px;
   padding: 16px 24px;
   display: flex;
@@ -12,10 +12,11 @@
   justify-content: left;
   flex-direction: column;
   background-color: rgba(var(--color-white-rgb), 0.2);
-  border: 2px solid rgba(var(--color-white-rgb), 0);
+  border: 1px solid rgba(var(--color-white-rgb), 0.4);
   border-radius: 8px;
   .left p {
     text-align: left;
+    margin-top: 2px;
   }
   .right {
     display: flex;
@@ -25,6 +26,7 @@
       margin-right: 16px;
     }
     & i {
+      margin-right: 4px;
       font-size: 24px;
       width: 24px;
       color: var(--color-white);

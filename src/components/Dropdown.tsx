@@ -52,8 +52,17 @@ export default function Dropdown(props: Props) {
                     transition={{ type: "spring", stiffness: 2000, damping: 100 }}
                     className={styles.menu}>
                         {props.options.map((option, index) => {
-                            return <p className={styles.option} key={index} onClick={() => handleOptionClick(option)}>{option.label}
-                            </p>
+                            return (
+                            <motion.p
+                                initial={{opacity: 0}}
+                                animate={{opacity: 1}}
+                                exit={{opacity: 0}}
+                                transition={{ delay: 0.05, type: "spring", stiffness: 2000, damping: 100 }}
+                                className={styles.option} 
+                                key={index} 
+                                onClick={() => handleOptionClick(option)}>{option.label}
+                            </motion.p>
+                            )
                         })}
                     </motion.div>
                 }

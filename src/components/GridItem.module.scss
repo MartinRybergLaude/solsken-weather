@@ -2,6 +2,7 @@
   height: 80px;
   width: 80px;
   background-color: rgba(var(--color-white-rgb), 0.2);
+  border: 1px solid rgba(var(--color-white-rgb), 0.4);
   border-radius: 8px;
   display: flex;
   flex-direction: column;
@@ -10,6 +11,7 @@
 }
 .itemAlt {
   background: none;
+  border: none;
 }
 .icon {
   color: var(--color-white);

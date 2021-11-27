@@ -24,9 +24,24 @@ interface Data {
     visData: {}
 }
 const variantsGraphs = ({
-    visible: { opacity: 1 },
-    hidden: { opacity: 0 }
+    visible: { 
+        opacity: 1,
+        transition: {
+            when: "beforeChildren",
+            staggerChildren: 0.1
+        }
+    },
+    hidden: { 
+        opacity: 0,
+        transition: {
+            when: "afterChildren",
+        },
+    }
 });
+const variantsGraph = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+}
 
 function ScreenCharts(props: Props) {
     const { t } = useTranslation()
@@ -36,7 +51,10 @@ function ScreenCharts(props: Props) {
         if (props.weatherData?.days[props.match.params.id] == null || props.formattedWeatherData?.days[props.match.params.id] == null) {
             props.history.push("/")
         } else {
-            init(props.weatherData.days[props.match.params.id], props.formattedWeatherData?.days[props.match.params.id])
+            var timeout = init(props.weatherData.days[props.match.params.id], props.formattedWeatherData?.days[props.match.params.id])
+        }
+        return () => {
+            clearTimeout(timeout)
         }
     }, [props])
 
@@ -59,9 +77,10 @@ function ScreenCharts(props: Props) {
             humidityData: humidityData,
             visData: visData
         }
-        setTimeout(() => {
-            setData(initialisedData)
-        }, 100)
+        return setTimeout(
+            function() { 
+                setData(initialisedData)
+        }, 50);
     }
     
     return (
@@ -81,27 +100,27 @@ function ScreenCharts(props: Props) {
                         exit="hidden" 
                         variants={variantsGraphs}
                         transition={{ type: "spring", stiffness: 2000, damping: 100 }}>
-                            <div className={styles.wrapperGraph}>
+                            <motion.div variants={variantsGraph} className={styles.wrapperGraph}>
                                 <LineGraph data={data?.temprData} barType="line" precision={0}/>
-                            </div>
-                            <div className={styles.wrapperGraph}>
+                            </motion.div>
+                            <motion.div variants={variantsGraph} className={styles.wrapperGraph}>
                                 <LineGraph data={data?.windData} min={0} barType="line" precision={1}/>
-                            </div>
+                            </motion.div>
                             {displayChart &&
-                                <div className={styles.wrapperGraph}>
+                                <motion.div variants={variantsGraph}  className={styles.wrapperGraph}>
                                     <LineGraph data={data?.precData} min={0} barType="bar" precision={1}/>
-                                </div>
+                                </motion.div>
                             }
-                            <div className={styles.wrapperGraph}>
+                            <motion.div variants={variantsGraph} className={styles.wrapperGraph}>
                                 <LineGraph data={data?.pressureData} barType="line" precision={0}/>
-                            </div>
-                            <div className={styles.wrapperGraph}>
+                            </motion.div>
+                            <motion.div variants={variantsGraph} className={styles.wrapperGraph}>
                                 <LineGraph data={data?.humidityData} min={0} max={100} barType="line" precision={0}/>
-                            </div>
+                            </motion.div>
                             {displayChart &&
-                                <div className={styles.wrapperGraph}>
+                                <motion.div variants={variantsGraph} className={styles.wrapperGraph}>
                                     <LineGraph data={data?.visData} min={0} barType="line" precision={0}/>
-                                </div>
+                                </motion.div>
                             }
                         </motion.div>
                     }          

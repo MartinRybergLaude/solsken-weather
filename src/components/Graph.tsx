@@ -15,7 +15,7 @@ export default function LineGraph(props: Props) {
     const chartRef = useRef<HTMLCanvasElement>(null)
 
     useEffect(() => {
-
+        console.time("yay")
         const userPrefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
         if (userPrefersDark) {
           var gridColor = "#292929"
@@ -32,8 +32,8 @@ export default function LineGraph(props: Props) {
             type: props.barType,
             data: props.data,
             options: {
+                animation: false,
                 aspectRatio: 1.6,
-                responsive: true,
                 scales: {
                     yAxes: [{
                         stacked: false,
@@ -84,6 +84,7 @@ export default function LineGraph(props: Props) {
                 }
             }
         })
+        console.timeEnd("yay")
         
     }, [props])
     return (

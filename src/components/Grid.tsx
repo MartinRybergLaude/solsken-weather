@@ -23,7 +23,7 @@ export default function Grid(props: Props) {
         rowClassName = styles.row + " " + styles.rowAlt
     }
     
-    if (getItem("dataSrc") === "smhi" || getItem("dataSrc") === "yr") {
+    if (getItem("dataSrc") !== "owm") {
         return (
             <div className={gridClassName}>
                 <div className={rowClassName}>
@@ -37,7 +37,7 @@ export default function Grid(props: Props) {
                     <GridItem altStyle={props.altStyle} icon={Consts.WiRaindrop} text={t("grid_humidity")} value={props.dataFormatted.humidity} />
                     <GridItem altStyle={props.altStyle} icon={Consts.WiStrongwind} text={t("grid_gusts")} value={props.dataFormatted.gusts} />
                     <GridItem altStyle={props.altStyle} icon={Consts.WiCloudy} text={t("grid_cloud_cover")} value={props.dataFormatted.cloud} />
-                    {getItem("dataSrc") === "yr" ?
+                    {getItem("dataSrc") !== "smhi" && getItem("dataSrc") !== "owm" ?
                     <GridItem altStyle={props.altStyle} icon={Consts.WiFog} text={t("grid_fog")} value={props.dataFormatted.fog} />
                     :
                     <GridItem altStyle={props.altStyle} icon={Consts.WiFog} text={t("grid_vis")} value={props.dataFormatted.vis} />

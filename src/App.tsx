@@ -25,7 +25,7 @@ import ScreenLoading from 'screens/ScreenLoading'
 
 const variantsPages = ({
     visible: { opacity: 1, scale: 1 },
-    hidden: { opacity: 0, scale: 1.01 }
+    hidden: { opacity: 0, scale: 0.99 }
 });
 
 interface DataVariants {

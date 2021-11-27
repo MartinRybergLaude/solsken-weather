@@ -11,7 +11,26 @@ import * as FormattedWeatherData from 'model/TypesFormattedWeather'
 import Hour from './components/Hour'
 import { WeatherData } from 'model/TypesWeather'
 import { getItem } from 'model/utilsStorage'
+import { AnimatePresence, motion } from 'framer-motion'
 
+const variantsHour = {
+  visible: { opacity: 1 },
+  hidden: { opacity: 0 },
+}
+const variants = ({
+    visible: { 
+        opacity: 1,
+        transition: {
+            staggerChildren: 0.05
+        }
+    },
+    hidden: { 
+        opacity: 0,
+        transition: {
+            when: "afterChildren",
+        },
+    }
+});
 interface Props extends RouteComponentProps<any> {
     weatherDataFormatted: FormattedWeatherData.FormattedWeatherData | undefined | null
     weatherData: WeatherData | undefined | null
@@ -43,21 +62,32 @@ function ScreenDay(props: Props) {
                 </div>
                 <FiBarChart className={styles.toolbarIcon} onClick={() => props.history.push("/charts/" + props.match.params.id)}/>
             </div>
-            <div className={styles.containerScroll}>
-                <div className={styles.containerTop}>
-                    <div className={styles.wrapperSun}>
-                        <p>{dayFormatted?.sunrise}</p>
-                        <i className={"wi " + Consts.WiHorizon}/>
-                        <p>{dayFormatted?.sunset}</p>
+            <AnimatePresence>
+                <motion.div 
+                className={styles.containerScroll}
+                initial="hidden" 
+                animate="visible" 
+                exit="hidden" 
+                variants={variants}
+                transition={{ type: "spring", stiffness: 2000, damping: 100 }}>
+                    <div className={styles.containerTop}>
+                        <div className={styles.wrapperSun}>
+                            <p>{dayFormatted?.sunrise}</p>
+                            <i className={"wi " + Consts.WiHorizon}/>
+                            <p>{dayFormatted?.sunset}</p>
+                        </div>
+                        <p>{formatDate()}</p>
                     </div>
-                    <p>{formatDate()}</p>
-                </div>
-                {day && dayFormatted?.hours.map((hour, index) => {
-                    return (
-                        <Hour key={index} hourFormatted={hour} hour={day.hours[index]} taller={getItem("defaultHView") === "informative" ? true : false}/>
-                    )
-                })}
-            </div>
+                    
+                    {day && dayFormatted?.hours.map((hour, index) => {
+                        return (
+                            <motion.div variants={variantsHour} key={index}>
+                                <Hour hourFormatted={hour} hour={day.hours[index]} taller={getItem("defaultHView") === "informative" ? true : false}/>
+                            </motion.div>
+                        )
+                    })}
+                </motion.div>
+            </AnimatePresence>
         </div>
     )
 }

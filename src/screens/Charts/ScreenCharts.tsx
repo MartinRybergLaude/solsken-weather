@@ -27,7 +27,6 @@ const variantsGraphs = ({
     visible: { 
         opacity: 1,
         transition: {
-            when: "beforeChildren",
             staggerChildren: 0.1
         }
     },

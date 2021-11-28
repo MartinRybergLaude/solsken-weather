@@ -9,36 +9,11 @@
   padding: 16px 24px;
   display: flex;
   align-items: center;
-  justify-content: left;
+  justify-content: flex-start;
   flex-direction: column;
   background-color: rgba(var(--color-white-rgb), 0.2);
   border: 1px solid rgba(var(--color-white-rgb), 0.4);
   border-radius: 8px;
-  .left p {
-    text-align: left;
-    margin-top: 2px;
-  }
-  .right {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    & p {
-      margin-right: 16px;
-    }
-    & i {
-      margin-right: 4px;
-      font-size: 24px;
-      width: 24px;
-      color: var(--color-white);
-    }
-  }
-  .hourText {
-    font-weight: 700;
-  }
-  .temprText {
-    font-weight: 400;
-    font-size: 16px;
-  }
 }
 .hour:hover {
   cursor: pointer;
@@ -48,6 +23,35 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  p {
+    text-align: left;
+  }
+}
+.left {
+  width: 72px;
+}
+.weatherIcon {
+  margin-right: 4px;
+  font-size: 24px;
+  width: 24px;
+  color: var(--color-white);
+}
+.row {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: 8px;
+}
+.windIcon {
+  font-size: 26px;
+  color: var(--color-white);
+}
+.value {
+  font-weight: 700;
+}
+.temprText {
+  margin-top: 4px;
+  font-size: 16px;
 }
 .expanded {
   margin-top: 24px;

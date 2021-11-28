@@ -133,7 +133,7 @@ function changeTemprUnit(unitTempr: string | null, tempr: number): number {
         case Consts.temprUnits.f:
             return round((1.8 * tempr) + 32, 0)
         case Consts.temprUnits.k:
-            return round(tempr + 273.15, 2)
+            return round(tempr + 273.15, 0)
         default:
             return round(tempr, 0)
     }

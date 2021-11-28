@@ -1,32 +1,22 @@
 .containerMain {
   background: var(--color-background-alt);
+  overflow-y: auto;
 }
 .containerCharts {
-  margin: 0 auto;
+  margin: 32px auto;
   width: 96%;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
-  height: calc(100% - 56px);
-  overflow-y: auto;
-  &::-webkit-scrollbar {
-    display: none;
-    width: 0 !important;
-  }
-  -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
 }
 .wrapperGraph {
   width: 100%;
-  max-width: 608px;
+  max-width: 800px;
 }
 .toolbar {
   height: 62px;
   width: 100%;
   background: var(--color-background);
-  border-bottom-left-radius: 50% 15%;
-  border-bottom-right-radius: 50% 15%;
 }
 .toolbarContent {
   margin: 0 auto;
@@ -49,4 +39,25 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+}
+.containerChips {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  width: 100%;
+  transform: translate(-50%, 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+@media (min-width: 800px) {
+  .containerChips {
+    position: static;
+    transform: none;
+    left: 0;
+    bottom: 0;
+    margin: 32px 0;
+  }
 }

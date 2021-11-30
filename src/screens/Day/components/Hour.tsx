@@ -53,6 +53,11 @@ export default function Hour(props: Props) {
           </div>
         </div>
         <div>
+          <i
+            className={styles.weatherIcon + ' wi ' + props.hourFormatted.icon}
+          />
+        </div>
+        <div>
           <p className={styles.value}>
             {props.hourFormatted.precMean.split(' ')[0]}
           </p>
@@ -74,11 +79,6 @@ export default function Hour(props: Props) {
               props.hourFormatted.windDirDeg +
               '-deg'
             }
-          />
-        </div>
-        <div>
-          <i
-            className={styles.weatherIcon + ' wi ' + props.hourFormatted.icon}
           />
         </div>
       </div>

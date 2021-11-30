@@ -1,17 +1,12 @@
 import React, { useEffect } from "react";
 import styles from "./ScreenDay.module.scss";
-
 import { RouteComponentProps, withRouter } from "react-router-dom";
-
 import * as Consts from "utils/constants";
-
 import { FiArrowLeft, FiBarChart } from "react-icons/fi";
-
 import * as FormattedWeatherData from "model/TypesFormattedWeather";
 import Hour from "./components/Hour";
 import { WeatherData } from "model/TypesWeather";
 import { getItem } from "model/utilsStorage";
-import { AnimatePresence, motion } from "framer-motion";
 interface Props extends RouteComponentProps<any> {
   weatherDataFormatted:
     | FormattedWeatherData.FormattedWeatherData
@@ -67,14 +62,7 @@ function ScreenDay(props: Props) {
         {day &&
           dayFormatted?.hours.map((hour, index) => {
             return (
-              <Hour
-                key={index}
-                hourFormatted={hour}
-                hour={day.hours[index]}
-                taller={
-                  getItem("defaultHView") === "informative" ? true : false
-                }
-              />
+              <Hour key={index} hourFormatted={hour} hour={day.hours[index]} />
             );
           })}
       </div>

@@ -14,7 +14,7 @@
 }
 .containerTop {
   margin: 0 auto;
-  width: 80%;
+  width: calc(100% - 32px);
   display: flex;
   flex-direction: row;
   justify-content: space-between;

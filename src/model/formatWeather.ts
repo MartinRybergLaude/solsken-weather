@@ -152,7 +152,7 @@ function getTemperatureString(unitTempr: string, tempr: number): string {
         case Consts.temprUnits.f:
             return tempr + "°"
         case Consts.temprUnits.k:
-            return tempr + " K"
+            return tempr + "K"
         default:
             return tempr + "°"            
     }

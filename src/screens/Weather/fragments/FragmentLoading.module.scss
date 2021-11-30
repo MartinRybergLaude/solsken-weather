@@ -7,9 +7,15 @@
   height: 100%;
 }
 .loading p {
-  font-size: 16px;
+  margin: 0 32px;
+  font-size: 18px;
   font-weight: 700;
   color: var(--color-error);
+  &:last-of-type {
+    margin-top: 16px;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+  }
 }
 .ldsEllipsis {
   margin: 0 auto;

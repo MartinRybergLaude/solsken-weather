@@ -1,6 +1,7 @@
 {
     "error_generic": "An error occurred! Try changing weather source in the settings.",
     "error_location_cant_get": "Could not get your location. Have you enabled location permission?",
+    "error_try_sidebar": "Alternatively, use the sidebar to select a location manually.",
     "error_location_not_supported": "Your device does not support location retrieval.",
     "error_search_location": "Could not search",
     "error_search_find_location": "Location not found.",

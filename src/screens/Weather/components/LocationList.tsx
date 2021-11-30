@@ -9,63 +9,76 @@ import { setItem, getItem, deleteItem } from 'model/utilsStorage'
 import { Global } from 'utils/globals'
 
 interface Props {
-    locations: Array<LocationType> | undefined
-    setSidebarVis: (isVisible: boolean) => void
-    reloadLocations: Function
+  locations: Array<LocationType> | undefined
+  setSidebarVis: (isVisible: boolean) => void
+  reloadLocations: Function
 }
 export default function LocationList(props: Props) {
-    const { t } = useTranslation()
+  const { t } = useTranslation()
 
-    const [selectedIndex, setSelectedIndex] = useState<number>()
-    
-    useEffect(() => {
-        const selectedLocIndex = getItem("selectedLocIndex")
-        if (selectedLocIndex) {
-            setSelectedIndex(parseInt(selectedLocIndex))   
-        } else {
-            setSelectedIndex(-1)
-        }
-    }, [])
+  const [selectedIndex, setSelectedIndex] = useState<number>()
 
-    function handleSelectLocation(index: number) {
-        if (index >= 0 && props.locations) {
-            setItem("selectedLoc", JSON.stringify(props.locations[index]))
-            setItem("selectedLocIndex", index.toString())
-            setSelectedIndex(index)
-            Global.selectedLocationChanged = true
-            props.setSidebarVis(false)
-        } else {
-            deleteItem("selectedLoc")
-            setItem("selectedLocIndex", index.toString())
-            setSelectedIndex(index)
-            Global.selectedLocationChanged = true
-            props.setSidebarVis(false)
-        }
+  useEffect(() => {
+    const selectedLocIndex = getItem('selectedLocIndex')
+    if (selectedLocIndex) {
+      setSelectedIndex(parseInt(selectedLocIndex))
+    } else {
+      setSelectedIndex(-1)
     }
-    function handleDeleteLocation(index: number) {
-        if (props.locations) {
-            let data = getItem("locations")
-            if (data) {
-                if (index === selectedIndex) {
-                    setItem("selectedLocIndex", "-1")
-                    setSelectedIndex(-1)
-                    Global.selectedLocationChanged = true
-                    deleteItem("selectedLoc")
-                }
-                let dataParsed = JSON.parse(data) as LocationType[]
-                dataParsed.splice(index, 1)
-                setItem("locations", JSON.stringify(dataParsed))
-            }
-            props.reloadLocations()
-        }
+  }, [])
+
+  function handleSelectLocation(index: number) {
+    if (index >= 0 && props.locations) {
+      setItem('selectedLoc', JSON.stringify(props.locations[index]))
+      setItem('selectedLocIndex', index.toString())
+      setSelectedIndex(index)
+      Global.selectedLocationChanged = true
+      props.setSidebarVis(false)
+    } else {
+      deleteItem('selectedLoc')
+      setItem('selectedLocIndex', index.toString())
+      setSelectedIndex(index)
+      Global.selectedLocationChanged = true
+      props.setSidebarVis(false)
     }
-    
-    return (
-        <div className={styles.containerMain}>
-            <Location onDelete={handleDeleteLocation} onClick={handleSelectLocation} index={-1} selectedIndex={selectedIndex} title={t("text_location_current")}/>
-            {props.locations?.map((location, index) => 
-                <Location onDelete={handleDeleteLocation} onClick={handleSelectLocation} key={index} index={index} selectedIndex={selectedIndex} title={location.name}/>
-            )}
-        </div>
-    )
+  }
+  function handleDeleteLocation(index: number) {
+    if (props.locations) {
+      let data = getItem('locations')
+      if (data) {
+        if (index === selectedIndex) {
+          setItem('selectedLocIndex', '-1')
+          setSelectedIndex(-1)
+          Global.selectedLocationChanged = true
+          deleteItem('selectedLoc')
+        }
+        let dataParsed = JSON.parse(data) as LocationType[]
+        dataParsed.splice(index, 1)
+        setItem('locations', JSON.stringify(dataParsed))
+      }
+      props.reloadLocations()
+    }
+  }
+
+  return (
+    <div className={styles.containerMain}>
+      <Location
+        onDelete={handleDeleteLocation}
+        onClick={handleSelectLocation}
+        index={-1}
+        selectedIndex={selectedIndex}
+        title={t('text_location_current')}
+      />
+      {props.locations?.map((location, index) => (
+        <Location
+          onDelete={handleDeleteLocation}
+          onClick={handleSelectLocation}
+          key={index}
+          index={index}
+          selectedIndex={selectedIndex}
+          title={location.name}
+        />
+      ))}
+    </div>
+  )
 }

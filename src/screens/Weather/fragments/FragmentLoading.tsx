@@ -16,6 +16,8 @@ export default function LoadingScreen(props: Props) {
     let texts = props.text.split('||')
     if (!first && texts.length > 1) {
       return texts[1]
+    } else if (!first) {
+      return ''
     } else {
       return texts[0]
     }

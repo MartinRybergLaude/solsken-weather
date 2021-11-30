@@ -38,7 +38,7 @@ export default function Hour(props: Props) {
       transition={{
         type: 'spring',
         stiffness: 400,
-        damping: 25,
+        damping: 31,
       }}
       initial={false}
     >

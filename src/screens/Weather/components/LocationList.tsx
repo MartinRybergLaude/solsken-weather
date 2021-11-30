@@ -46,12 +46,16 @@ export default function LocationList(props: Props) {
   function handleDeleteLocation(index: number) {
     if (props.locations) {
       let data = getItem('locations')
-      if (data) {
+      if (data && selectedIndex != null) {
         if (index === selectedIndex) {
           setItem('selectedLocIndex', '-1')
           setSelectedIndex(-1)
           Global.selectedLocationChanged = true
           deleteItem('selectedLoc')
+        } else if (index < selectedIndex) {
+          let newIndex = selectedIndex - 1
+          setSelectedIndex(newIndex)
+          setItem('selectedLocIndex', newIndex.toString())
         }
         let dataParsed = JSON.parse(data) as LocationType[]
         dataParsed.splice(index, 1)

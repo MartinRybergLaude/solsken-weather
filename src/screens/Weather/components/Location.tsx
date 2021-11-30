@@ -45,13 +45,13 @@ export default function Location(props: Props) {
     setShowDialog(false)
     timer = setTimeout(() => {
       props.onDelete(props.index)
-    }, 200)
+    }, 100)
   }
 
   return (
     <motion.div
       animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0 }}
+      exit={{ opacity: 0, scale: 0.95 }}
     >
       <AnimatePresence>
         {showDialog && (

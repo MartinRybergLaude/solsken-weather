@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap");
+@import url('https://fonts.googleapis.com/css?family=Roboto:400,500,700&display=swap');
 
 * {
   box-sizing: border-box;
@@ -54,15 +54,16 @@ html {
     --color-text-primary-inv: #212121;
     --color-text-secondary-inv: #8886a7;
     --color-background: #3f9784;
-    --color-background-alt: #000;
+    --color-background-alt: #212124;
     --color-background-dark: #38393b;
     --color-background-cover: #212121;
+    --color-background-cover-rgb: #{hexToRGB(#000)};
     --color-white: #ffffff;
   }
 }
 
 body {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   margin: 0;
   background: var(--color-background);
   text-align: center;
@@ -75,7 +76,7 @@ body {
 }
 
 button {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 h1 {
@@ -94,14 +95,14 @@ h2 {
 }
 
 label {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   color: var(--color-white);
   font-size: 1rem;
   text-align: left;
   display: inline-block;
 }
 input {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   background: none;
   color: var(--color-text-primary-inv);
   padding: 0;
@@ -116,7 +117,7 @@ input {
   }
 }
 button {
-  font-family: "Roboto", sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-color: var(--color-primary);
   border: 2px solid var(--color-primary);
   border-radius: 4px;

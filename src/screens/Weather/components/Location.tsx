@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { FaMapMarkerAlt, FaLocationArrow, FaTimes } from 'react-icons/fa'
 
 import Dialog from 'components/Dialog'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 
 interface Props {
   selectedIndex: number | undefined
@@ -49,7 +49,10 @@ export default function Location(props: Props) {
   }
 
   return (
-    <div>
+    <motion.div
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0 }}
+    >
       <AnimatePresence>
         {showDialog && (
           <Dialog
@@ -79,6 +82,6 @@ export default function Location(props: Props) {
           />
         )}
       </div>
-    </div>
+    </motion.div>
   )
 }

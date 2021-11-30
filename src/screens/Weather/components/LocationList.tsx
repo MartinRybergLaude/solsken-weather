@@ -7,6 +7,7 @@ import Location from './Location'
 import LocationType from 'model/TypesLocation'
 import { setItem, getItem, deleteItem } from 'model/utilsStorage'
 import { Global } from 'utils/globals'
+import { AnimatePresence } from 'framer-motion'
 
 interface Props {
   locations: Array<LocationType> | undefined
@@ -69,16 +70,18 @@ export default function LocationList(props: Props) {
         selectedIndex={selectedIndex}
         title={t('text_location_current')}
       />
-      {props.locations?.map((location, index) => (
-        <Location
-          onDelete={handleDeleteLocation}
-          onClick={handleSelectLocation}
-          key={index}
-          index={index}
-          selectedIndex={selectedIndex}
-          title={location.name}
-        />
-      ))}
+      <AnimatePresence>
+        {props.locations?.map((location, index) => (
+          <Location
+            onDelete={handleDeleteLocation}
+            onClick={handleSelectLocation}
+            key={index}
+            index={index}
+            selectedIndex={selectedIndex}
+            title={location.name}
+          />
+        ))}
+      </AnimatePresence>
     </div>
   )
 }

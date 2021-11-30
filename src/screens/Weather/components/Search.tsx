@@ -55,7 +55,6 @@ export default function Search(props: PropsForSearch) {
     controller = new AbortController()
     signal = controller.signal
     try {
-      console.log(query)
       const locations = await searchLocations(query, signal)
       setLocations(locations)
       setLoading(false)

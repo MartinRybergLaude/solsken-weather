@@ -11,7 +11,7 @@ import { getItem } from 'model/utilsStorage'
 interface Props {
   dataFormatted: FormattedWeatherData.Hour
   data: WeatherData.Hour
-  compact: boolean
+  compact?: boolean
 }
 export default function Grid(props: Props) {
   const { t } = useTranslation()

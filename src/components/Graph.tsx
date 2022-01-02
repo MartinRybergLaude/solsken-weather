@@ -1,40 +1,42 @@
-import React, { useRef, useEffect } from "react";
-import Chart, { LinearScale, LinearTickOptions } from "chart.js";
+import React, { useRef, useEffect } from 'react'
+import Chart, { LinearScale, LinearTickOptions } from 'chart.js'
 
 interface Props {
-  data: {} | undefined;
-  barType: string;
-  precision: number;
-  max?: number;
-  min?: number;
+  data: {} | undefined
+  barType: string
+  precision: number
+  max?: number
+  min?: number
 }
-Chart.defaults.global.defaultFontColor = "#fff";
-Chart.defaults.global.defaultFontFamily = "Roboto, sans-serif";
+Chart.defaults.global.defaultFontColor = '#fff'
+Chart.defaults.global.defaultFontFamily = 'Roboto, sans-serif'
 
 export default function LineGraph(props: Props) {
-  const chartRef = useRef<HTMLCanvasElement>(null);
+  const chartRef = useRef<HTMLCanvasElement>(null)
 
   useEffect(() => {
     const userPrefersDark =
       window.matchMedia &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
+      window.matchMedia('(prefers-color-scheme: dark)').matches
     if (userPrefersDark) {
-      var gridColor = "#292929";
-      var legendColor = "#ffffff";
+      var gridColor = '#292929'
+      var legendColor = '#ffffff'
     } else {
-      gridColor = "#e4e4e4";
-      legendColor = "#212121";
+      gridColor = '#e4e4e4'
+      legendColor = '#212121'
     }
-    const current = chartRef.current;
-    if (!current) return;
-    const context = current.getContext("2d");
-    if (!context) return;
+    const current = chartRef.current
+    if (!current) return
+    const context = current.getContext('2d')
+    if (!context) return
     new Chart(context, {
       type: props.barType,
       data: props.data,
       options: {
         responsive: true,
-        animation: false,
+        animation: {
+          duration: 0,
+        },
         aspectRatio: 1.6,
         scales: {
           yAxes: [
@@ -71,7 +73,7 @@ export default function LineGraph(props: Props) {
         },
         elements: {
           point: {
-            pointStyle: "rectRounded",
+            pointStyle: 'rectRounded',
             borderWidth: 2,
             radius: 0,
           },
@@ -83,13 +85,13 @@ export default function LineGraph(props: Props) {
           labels: {
             usePointStyle: true,
             padding: 20,
-            fontStyle: "bold",
+            fontStyle: 'bold',
             fontSize: 14,
             fontColor: legendColor,
           },
         },
       },
-    });
-  }, [props]);
-  return <canvas ref={chartRef} />;
+    })
+  }, [props])
+  return <canvas ref={chartRef} />
 }

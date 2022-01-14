@@ -66,6 +66,9 @@ function App() {
     if (version && version !== getItem('version')) {
       clearAllWeatherData()
       setItem('version', version)
+      if (getItem('dataSrc') !== ('yr' || 'smhi')) {
+        setItem('dataSrc', 'yr')
+      }
     }
   }
   function getSelectedLocation() {

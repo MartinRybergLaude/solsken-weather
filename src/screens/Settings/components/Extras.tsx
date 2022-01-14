@@ -35,7 +35,7 @@ export default function Extras() {
 
   function getCurrentDataSrc(): string {
     const cached = getItem('dataSrc')
-    if (cached && srcOptions.filter((e) => e.value === cached)) {
+    if (cached && srcOptions.filter((e) => e.value === cached).length > 0) {
       return cached
     } else {
       return 'yr'

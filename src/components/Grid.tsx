@@ -32,7 +32,7 @@ export default function Grid(props: Props) {
             text={t('grid_pressure')}
             value={props.dataFormatted.pressure}
           />
-          {getItem('dataSrc') !== 'smhi' && getItem('dataSrc') !== 'owm' ? (
+          {getItem('dataSrc') !== 'smhi' ? (
             <GridItem
               altStyle={props.compact}
               icon={Consts.WiFog}
@@ -62,7 +62,7 @@ export default function Grid(props: Props) {
         </div>
       </div>
     )
-  } else if (getItem('dataSrc') !== 'owm') {
+  } else {
     return (
       <div className={gridClassName}>
         <div className={rowClassName}>
@@ -130,54 +130,6 @@ export default function Grid(props: Props) {
               value={props.dataFormatted.vis}
             />
           )}
-        </div>
-      </div>
-    )
-  } else {
-    return (
-      <div className={gridClassName}>
-        <div className={rowClassName}>
-          <GridItem
-            altStyle={props.compact}
-            icon={
-              Consts.WiWind +
-              ' towards-' +
-              props.dataFormatted.windDirDeg +
-              '-deg'
-            }
-            text={props.dataFormatted.windDir}
-            value={props.dataFormatted.wind}
-          />
-          <GridItem
-            altStyle={props.compact}
-            icon={Consts.WiBarometer}
-            text={t('grid_pressure')}
-            value={props.dataFormatted.pressure}
-          />
-          <GridItem
-            altStyle={props.compact}
-            icon={Consts.WiThermometer}
-            text={t('grid_feels_like')}
-            value={props.dataFormatted.feelslike}
-          />
-        </div>
-        <div className={rowClassName}>
-          <GridItem
-            altStyle={props.compact}
-            icon={Consts.WiRaindrop}
-            text={t('grid_humidity')}
-            value={props.dataFormatted.humidity}
-          />
-          <FakeGridItem
-            altStyle={props.compact}
-            icon={props.dataFormatted.icon}
-          />
-          <GridItem
-            altStyle={props.compact}
-            icon={Consts.WiCloudy}
-            text={t('grid_cloud_cover')}
-            value={props.dataFormatted.cloud}
-          />
         </div>
       </div>
     )

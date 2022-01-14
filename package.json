@@ -1,7 +1,7 @@
 {
   "homepage": "https://dev.solsken.app",
   "name": "solsken-web",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "private": true,
   "dependencies": {
     "@fortawesome/free-brands-svg-icons": "^5.13.0",

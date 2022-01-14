@@ -4,8 +4,8 @@
 A progressive web app to cover all your weather needs, built with Create React App using Typescript.
 Solsken allows use of two different weather providers, and employs an efficient caching system in accordance with respective weather provider's usage policy.
 
-Live: [solsken.app](https://solsken.app)
-Playstore: [app.solsken.twa](https://play.google.com/store/apps/details?id=app.solsken.twa)
+- Live: [solsken.app](https://solsken.app)
+- Playstore: [app.solsken.twa](https://play.google.com/store/apps/details?id=app.solsken.twa)
 
 ## 📄 Prerequisites
 
@@ -25,8 +25,7 @@ Playstore: [app.solsken.twa](https://play.google.com/store/apps/details?id=app.s
 
 2.  **Install**
 
-<<<<<<< HEAD
-Add a .env file in the root directory and add this:
+    Add a .env file in the root directory and add this:
 
     ```shell
     REACT_APP_VERSION=$npm_package_version
@@ -34,11 +33,6 @@ Add a .env file in the root directory and add this:
     ```
 
     Then open cmd, terminal or powershell in the cloned direcory and install
-
-=======
-Open cmd, terminal or powershell in the cloned direcory and install
-
-> > > > > > > 8028e7d217e272fd63717b1a555050c17c5ce563
 
     ```shell
     cd Solsken-web

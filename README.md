@@ -25,7 +25,8 @@ Playstore: [app.solsken.twa](https://play.google.com/store/apps/details?id=app.s
 
 2.  **Install**
 
-    Add a .env file in the root directory and add this:
+<<<<<<< HEAD
+Add a .env file in the root directory and add this:
 
     ```shell
     REACT_APP_VERSION=$npm_package_version
@@ -33,6 +34,11 @@ Playstore: [app.solsken.twa](https://play.google.com/store/apps/details?id=app.s
     ```
 
     Then open cmd, terminal or powershell in the cloned direcory and install
+
+=======
+Open cmd, terminal or powershell in the cloned direcory and install
+
+> > > > > > > 8028e7d217e272fd63717b1a555050c17c5ce563
 
     ```shell
     cd Solsken-web

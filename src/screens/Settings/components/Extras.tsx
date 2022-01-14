@@ -22,12 +22,20 @@ export default function Extras() {
 
   const { t } = useTranslation()
   const [toastText, setToastText] = useState<string>()
-  const [dataSrc, setDataSrc] = React.useState(getItem('dataSrc') || 'yr')
+  const [dataSrc, setDataSrc] = React.useState(getCurrentDataSrc)
 
   useEffect(() => {
     setItem('dataSrc', dataSrc)
   }, [dataSrc])
 
+  function getCurrentDataSrc(): string {
+    const cached = getItem('dataSrc')
+    if (cached && srcOptions.filter((e) => e.value === cached)) {
+      return cached
+    } else {
+      return 'yr'
+    }
+  }
   function handleButtonClick() {
     clearAllWeatherData()
     setToastText(t('text_cache_weatherdata_clear_success'))

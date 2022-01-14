@@ -9,6 +9,11 @@ import Toast from 'components/Toast'
 import Dropdown, { Option } from 'components/Dropdown'
 import { getItem, setItem } from 'model/utilsStorage'
 
+const srcOptions: Option[] = [
+  { value: 'smhi', label: 'SMHI (Nordics)' },
+  { value: 'yr', label: 'YR.no' },
+]
+
 export default function Extras() {
   // For toast timer not to memory leak
   let timer: NodeJS.Timer | undefined = undefined
@@ -50,10 +55,6 @@ export default function Extras() {
       setDataSrc(option.value)
     }
   }
-  const srcOptions: Option[] = [
-    { value: 'smhi', label: 'SMHI (Nordics)' },
-    { value: 'yr', label: 'YR.no' },
-  ]
   return (
     <div className={styles.settingsCategory}>
       <h2>{t('title_extras')}</h2>

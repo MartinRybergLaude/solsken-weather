@@ -63,6 +63,7 @@ function App() {
   }
   function handleVersionMismatch() {
     const version = process.env.REACT_APP_VERSION?.toString()
+    console.log('Version: ' + version)
     if (version && version !== getItem('version')) {
       clearAllWeatherData()
       console.log('New version: ' + version + ' - cleared weather data')

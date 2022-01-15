@@ -10,6 +10,7 @@
 <p align="center">
     <a href="https://solsken.app">Website</a>
   • <a href="https://play.google.com/store/apps/details?id=app.solsken.twa">Playstore</a>
+  • <a href="https://mrlaude.com/work/solsken">Case study</a>
 </p>
 
 ## Introduction

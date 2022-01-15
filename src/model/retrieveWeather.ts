@@ -2,7 +2,6 @@ import { WeatherData } from 'model/TypesWeather';
 import fetchWeatherSMHI from 'model/SMHI/utils'
 import retrieveCity from 'model/BigDataCloud/utils'
 import { getCachedWeatherData, setCachedWeatherData, getItem} from 'model/utilsStorage';
-import fetchWeatherOWM from './OWM/utils';
 import fetchWeatherYR from './YR/utils';
 
 export default async function retrieveWeather(lon: string, lat: string, locationName: string | null): Promise<WeatherData> {
@@ -33,8 +32,6 @@ export default async function retrieveWeather(lon: string, lat: string, location
 async function getWeatherData(lon: string, lat: string, src: string): Promise<WeatherData> {
     if (src === "smhi") {
         return fetchWeatherSMHI(lon, lat)
-    } else if (src === "owm") {
-        return fetchWeatherOWM(lon, lat)
     } else {
         return fetchWeatherYR(lon, lat)
     }

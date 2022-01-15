@@ -1,12 +1,26 @@
+<p align="center">
+   <img src="https://github.com/MartinRybergLaude/Solsken-PWA/blob/master/public/logo512.png?raw=true" width="64" title="hover text">
+</p>
 <h1 align="center">
-  Solsken PWA ☀️
+  Solsken PWA
 </h1>
-A progressive web app to cover all your weather needs, built with Create React App using Typescript.
-Solsken allows use of two different weather providers, and employs an efficient caching system in accordance with respective weather provider's usage policy.
-<br/><br/>
+<p align="center">
+  A progressive web app to cover all your weather needs, built with React using Typescript.
+</p>
+<p align="center">
+    <a href="https://solsken.app">Website</a>
+  • <a href="https://play.google.com/store/apps/details?id=app.solsken.twa">Playstore</a>
+</p>
 
-- **Live**: [solsken.app](https://solsken.app)
-- **Playstore**: [app.solsken.twa](https://play.google.com/store/apps/details?id=app.solsken.twa)
+## Introduction
+
+The goal of Solsken is to be an effective, usable cross-platform weather app with worldwide support, presenting **all** information the APIs provide. Mobile use is prioritized heavily, and the UI and UX are built to provide an experience as close to native as possible. 
+
+Solsken allows use of two different **weather providers:** 
+- [SMHI](https://opendata.smhi.se/) (for Fennoscandian countries)
+- [YR.no](https://developer.yr.no/) (for worldwide use)
+ 
+Additionally, the app employs an efficient caching system in accordance with respective weather provider's usage policy.
 
 ## 📄 Prerequisites
 
@@ -26,7 +40,7 @@ Solsken allows use of two different weather providers, and employs an efficient 
 
 2.  **Install**
 
-    Add a .env file in the root directory and add this:
+    Add a .env file in the root directory and add this to it:
 
     ```shell
     REACT_APP_VERSION=$npm_package_version

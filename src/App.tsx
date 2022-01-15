@@ -66,7 +66,7 @@ function App() {
     console.log('Version: ' + version)
     if (version && version !== getItem('version')) {
       clearAllWeatherData()
-      console.log('New version: ' + version + ' - cleared weather data')
+      console.log('New version - cleared weather data')
       setItem('version', version)
       if (getItem('dataSrc') !== ('yr' || 'smhi')) {
         setItem('dataSrc', 'yr')

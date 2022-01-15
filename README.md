@@ -3,9 +3,10 @@
 </h1>
 A progressive web app to cover all your weather needs, built with Create React App using Typescript.
 Solsken allows use of two different weather providers, and employs an efficient caching system in accordance with respective weather provider's usage policy.
+<br/><br/>
 
-- Live: [solsken.app](https://solsken.app)
-- Playstore: [app.solsken.twa](https://play.google.com/store/apps/details?id=app.solsken.twa)
+- **Live**: [solsken.app](https://solsken.app)
+- **Playstore**: [app.solsken.twa](https://play.google.com/store/apps/details?id=app.solsken.twa)
 
 ## 📄 Prerequisites
 

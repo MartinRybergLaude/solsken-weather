@@ -4,7 +4,6 @@ export const fetchSettings = {
     mode: "cors" as RequestMode
 }
 export const apiBaseSMHI = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/"
-export const apiBaseOWM = "https://api.openweathermap.org/data/2.5/forecast?"
 export const apiBaseYR = "https://api.met.no/weatherapi/locationforecast/2.0/complete?"
 export const apiBaseBigDataCloud = "https://api.bigdatacloud.net/data/reverse-geocode-client?"
 export const apiBasePhoton = "https://photon.komoot.io/api/?q="

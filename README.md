@@ -5,7 +5,7 @@
   Solsken PWA
 </h1>
 <p align="center">
-  A progressive web app to cover all your weather needs, built with React using Typescript.
+  A progressive web app to cover all your weather needs, built with Reactjs using Typescript.
 </p>
 <p align="center">
     <a href="https://solsken.app">Website</a>

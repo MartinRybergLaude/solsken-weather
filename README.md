@@ -13,7 +13,7 @@
   • <a href="https://mrlaude.com/work/solsken">Case study</a>
 </p>
 
-## Introduction
+## 💡 Introduction
 
 The goal of Solsken is to be an effective, usable cross-platform weather app with worldwide support, presenting **all** information the APIs provide. Mobile use is prioritized heavily, and the UI and UX are built to provide an experience as close to native as possible. 
 
@@ -23,7 +23,7 @@ Solsken allows use of two different **weather providers:**
  
 Additionally, the app employs an efficient caching system in accordance with respective weather provider's usage policy.
 
-## 📄 Prerequisites
+## ✅ Prerequisites
 
 - NodeJS
 - yarn

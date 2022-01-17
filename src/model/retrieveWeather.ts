@@ -57,5 +57,14 @@ async function cleanHours(data: WeatherData): Promise<WeatherData> {
             return false
         }
     }
+
+    data.days = data.days.reduce<WeatherData["days"]>((total, current) => {
+
+        if (current.hours.length > 0) {
+            total.push(current)
+        }
+        return total
+    }, [])
+
     return data
 }

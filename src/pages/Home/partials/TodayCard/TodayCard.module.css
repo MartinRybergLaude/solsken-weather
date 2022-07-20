@@ -1,0 +1,70 @@
+.root {
+  display: grid;
+  grid-template-columns:
+    [full-start] spacing(1) [wrapper-start]
+    minmax(0, auto) [wrapper-end] spacing(1) [full-end];
+  & > * {
+    grid-column: wrapper;
+  }
+  & > .fullWidth {
+    grid-column: full;
+  }
+}
+.location {
+  width: auto;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  gap: spacing(2);
+  & h1 {
+    font-size: 18px;
+  }
+}
+
+.temperature {
+  margin-top: spacing(4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  & h2 {
+    font-size: 96px;
+    font-weight: 400;
+    position: relative;
+    &:after {
+      content: "\00b0";
+      position: absolute;
+      font-size: 56px;
+      top: 0;
+      right: negative(spacing(1));
+    }
+  }
+  & h3 {
+    font-size: 18px;
+    font-weight: 400;
+  }
+}
+
+.weather {
+  margin-top: spacing(4);
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  & div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: spacing(1);
+    & p {
+      font-size: 14px;
+      font-weight: 600;
+    }
+  }
+  & .compensatedIcon {
+    width: spacing(5);
+    height: spacing(5);
+    margin-right: negative(spacing(1));
+  }
+}

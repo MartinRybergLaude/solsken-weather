@@ -1,8 +1,8 @@
 .root {
   display: grid;
   grid-template-columns:
-    [full-start] spacing(1) [wrapper-start]
-    minmax(0, auto) [wrapper-end] spacing(1) [full-end];
+    [full-start] spacing(2) [wrapper-start]
+    minmax(0, auto) [wrapper-end] spacing(2) [full-end];
   & > * {
     grid-column: wrapper;
   }
@@ -11,6 +11,7 @@
   }
 }
 .location {
+  margin-top: spacing(1);
   width: auto;
   display: flex;
   justify-content: start;

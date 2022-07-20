@@ -1,0 +1,19 @@
+.root {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  height: spacing(26);
+}
+.card {
+  margin-top: spacing(2);
+  width: spacing(12);
+  & p {
+    text-align: center;
+  }
+  & svg {
+    margin-top: negative(spacing(1));
+  }
+}
+.maxTemp {
+  font-weight: 700;
+}

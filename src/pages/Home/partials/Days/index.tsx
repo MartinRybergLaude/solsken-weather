@@ -4,7 +4,16 @@ import Day from "./partials/Day";
 function Days() {
   return (
     <div className={styles.root}>
-      <Day />
+      <div className={styles.scrollContainer}>
+        <Day />
+        <Day />
+        <Day />
+        <Day />
+        <Day />
+        <Day />
+        <Day />
+        <Day />
+      </div>
     </div>
   );
 }

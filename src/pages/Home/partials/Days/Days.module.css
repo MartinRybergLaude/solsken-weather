@@ -1,4 +1,27 @@
 .root {
-  position: fixed;
-  bottom: 0;
+  width: 100%;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-top: spacing(2);
+}
+
+.scrollContainer {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  gap: spacing(2);
+  overflow-y: auto;
+  padding-bottom: spacing(4);
+  padding-left: spacing(2);
+  padding-right: spacing(2);
+
+  &::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+    display: none;
+  }
+  scrollbar-width: 0;
+  scrollbar-height: 0;
 }

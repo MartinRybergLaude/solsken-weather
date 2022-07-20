@@ -10,8 +10,10 @@ function Day() {
       <Card className={styles.card}>
         <Container>
           <SunnySVG />
-          <p className={styles.maxTemp}>21</p>
-          <p className={styles.minTemp}>22</p>
+          <div className={styles.temps}>
+            <p className={styles.maxTemp}>21</p>
+            <p className={styles.minTemp}>22</p>
+          </div>
         </Container>
       </Card>
     </div>

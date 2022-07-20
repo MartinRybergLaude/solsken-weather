@@ -1,3 +1,4 @@
+$maxHeight: 760px;
 .root {
   display: grid;
   grid-template-columns:
@@ -19,6 +20,16 @@
   gap: spacing(2);
   & h1 {
     font-size: 18px;
+  }
+}
+
+.compactable {
+  width: 100%;
+  @media (max-height: $maxHeight) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: spacing(5);
   }
 }
 
@@ -44,6 +55,9 @@
     font-size: 18px;
     font-weight: 400;
   }
+  @media (max-height: $maxHeight) {
+    margin: 0;
+  }
 }
 
 .weather {
@@ -67,5 +81,21 @@
     width: spacing(5);
     height: spacing(5);
     margin-right: negative(spacing(1));
+  }
+  @media (max-height: $maxHeight) {
+    margin-top: spacing(3);
+    width: auto;
+    flex-direction: column;
+    align-items: start;
+    height: spacing(17);
+    & div {
+      align-items: center;
+      gap: spacing(1);
+    }
+    & .compensatedContainer {
+      position: relative;
+      top: negative(spacing(1));
+      left: negative(spacing(1));
+    }
   }
 }

@@ -18,6 +18,8 @@
 }
 html {
   height: 100%;
+  width: 100%;
+  overflow-x: hidden;
 }
 body {
   font-family: "Roboto FlexVariable", sans-serif;
@@ -30,9 +32,14 @@ body {
   -webkit-tap-highlight-color: transparent;
   user-select: none;
   margin: 0;
-  overflow: hidden;
+  overflow-x: hidden;
   height: 100%;
+  width: 100%;
   background: var(--color-background);
+}
+#root {
+  height: 100%;
+  width: 100%;
 }
 h1,
 h2,

@@ -1,7 +1,9 @@
 import { ReactNode } from "react";
-import styles from "./Card.module.css";
 import cx from "classnames";
+
 import Spinner from "~/components/Spinner";
+
+import styles from "./Card.module.css";
 
 interface Props {
   children: ReactNode;
@@ -10,13 +12,7 @@ interface Props {
   contentClassName?: string;
   loading?: boolean;
 }
-function Card({
-  children,
-  color = "default",
-  className,
-  contentClassName,
-  loading,
-}: Props) {
+function Card({ children, color = "default", className, contentClassName, loading }: Props) {
   return (
     <div className={cx(styles.root, styles[color], className)}>
       {loading && (
@@ -24,13 +20,7 @@ function Card({
           <Spinner />
         </div>
       )}
-      <div
-        className={cx(
-          styles.content,
-          loading && styles.hidden,
-          contentClassName
-        )}
-      >
+      <div className={cx(styles.content, loading && styles.hidden, contentClassName)}>
         {children}
       </div>
     </div>

@@ -1,12 +1,14 @@
-import Card from "~/components/Card";
-import { HiOutlineLocationMarker } from "react-icons/hi";
-import Icon from "~/components/Icon";
 import { FiUmbrella, FiWind } from "react-icons/fi";
-import BarometerIcon from "~/assets/monochrome/barometer.svg";
-import styles from "./TodayCard.module.css";
+import { HiOutlineLocationMarker } from "react-icons/hi";
 import cx from "classnames";
-import GraphSwitcher from "./partials/GraphSwitcher";
+
+import BarometerIcon from "~/assets/monochrome/barometer.svg";
+import Card from "~/components/Card";
 import Container from "~/components/Container";
+import Icon from "~/components/Icon";
+
+import GraphSwitcher from "./partials/GraphSwitcher";
+import styles from "./TodayCard.module.css";
 
 function TodayCard() {
   return (
@@ -31,11 +33,7 @@ function TodayCard() {
               <p>12m/s</p>
             </div>
             <div className={styles.compensatedContainer}>
-              <Icon
-                IconComponent={BarometerIcon}
-                color="day"
-                className={styles.compensatedIcon}
-              />
+              <Icon IconComponent={BarometerIcon} color="day" className={styles.compensatedIcon} />
               <p>1024hPa</p>
             </div>
           </div>

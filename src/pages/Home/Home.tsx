@@ -2,6 +2,7 @@ import Card from "~/components/Card";
 import Container from "~/components/Container";
 import Layout from "~/containers/Layout";
 import TodayCard from "~/pages/Home/partials/TodayCard";
+
 import Days from "./partials/Days";
 
 function Home() {

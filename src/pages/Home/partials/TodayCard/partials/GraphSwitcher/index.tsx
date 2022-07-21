@@ -1,8 +1,10 @@
-import Card from "~/components/Card";
-import styles from "./GraphSwitcher.module.css";
-import cx from "classnames";
-import Container from "~/components/Container";
 import Slider from "react-slick";
+import cx from "classnames";
+
+import Card from "~/components/Card";
+import Container from "~/components/Container";
+
+import styles from "./GraphSwitcher.module.css";
 
 interface GraphSwitcherProps {
   className?: string;

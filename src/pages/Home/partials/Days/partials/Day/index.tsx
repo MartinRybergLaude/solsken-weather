@@ -1,7 +1,8 @@
-import styles from "./Day.module.css";
 import SunnySVG from "~/assets/weather/clear-day.svg";
 import Card from "~/components/Card";
 import Container from "~/components/Container";
+
+import styles from "./Day.module.css";
 
 function Day() {
   return (

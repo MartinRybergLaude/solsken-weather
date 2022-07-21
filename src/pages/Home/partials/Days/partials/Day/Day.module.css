@@ -1,34 +1,41 @@
 .root {
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
+
   & h3 {
     font-size: 14px;
   }
 }
+
 .card {
-  margin-top: spacing(2);
   width: spacing(12);
+  margin-top: spacing(2);
+
   & p {
-    display: inline-block;
     position: relative;
+    display: inline-block;
     text-align: center;
-    &:after {
-      content: "\00b0";
+
+    &::after {
       position: absolute;
-      font-size: 14px;
       top: 0;
+      font-size: 14px;
+      content: "\00b0";
     }
   }
+
   & svg {
     margin-top: negative(spacing(1));
   }
 }
+
 .temps {
   display: flex;
-  align-items: center;
   flex-direction: column;
+  align-items: center;
 }
+
 .maxTemp {
   font-weight: 700;
 }

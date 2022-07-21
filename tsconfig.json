@@ -21,9 +21,6 @@
         "./*"
       ]
     },
-    "types": [
-      "@honkhonk/vite-plugin-svgr/client"
-    ],
   },
   "include": ["src", "src/App.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]

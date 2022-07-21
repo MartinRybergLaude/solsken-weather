@@ -1,6 +1,7 @@
 import { IconType } from "react-icons";
-import styles from "./Icon.module.css";
 import cx from "classnames";
+
+import styles from "./Icon.module.css";
 
 interface Props {
   IconComponent: IconType | string;
@@ -8,9 +9,7 @@ interface Props {
   color?: "unset" | "primary" | "secondary" | "day";
 }
 function Icon({ IconComponent, className, color = "unset" }: Props) {
-  return (
-    <IconComponent className={cx(styles.root, styles[color], className)} />
-  );
+  return <IconComponent className={cx(styles.root, styles[color], className)} />;
 }
 
 export default Icon;

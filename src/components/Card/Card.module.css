@@ -1,36 +1,44 @@
 .root {
-  border-radius: spacing(2);
   position: relative;
+  border-radius: spacing(2);
 }
+
 .default {
-  background: var(--color-card);
   color: var(--color-text-primary);
+  background: var(--color-card);
 }
+
 .day {
-  background: var(--color-day);
   color: var(--color-day-dark);
+  background: var(--color-day);
 }
+
 .night {
+  color: var(--color-text-primary-inv);
   background: var(--color-night);
-  color: var(--color-text-primary-inv);
 }
+
 .rain {
+  color: var(--color-text-primary-inv);
   background: var(--color-rain);
-  color: var(--color-text-primary-inv);
 }
+
 .dusk {
-  background: var(--color-dusk);
   color: var(--color-text-primary-inv);
+  background: var(--color-dusk);
 }
+
 .spinner {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .content {
   width: 100%;
 }
+
 .hidden {
   opacity: 0;
 }

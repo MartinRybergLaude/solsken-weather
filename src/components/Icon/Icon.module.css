@@ -2,12 +2,15 @@
   width: 24px;
   height: 24px;
 }
+
 .primary {
   color: var(--color-text-primary);
 }
+
 .secondary {
   color: var(--color-text-secondary);
 }
+
 .day {
   color: var(--color-day-dark);
 }

@@ -38,9 +38,9 @@ import PartlyCloudyNightSnow from "~/assets/weather/partly-cloudy-night-snow.jso
 import Rain from "~/assets/weather/rain.json";
 import Sleet from "~/assets/weather/sleet.json";
 import Snow from "~/assets/weather/snow.json";
-import Thunder from "~/assets/weather/thunderstorms.json";
-import ThunderstormsDay from "~/assets/weather/thunderstorms-day.json";
-import ThunderstormsNight from "~/assets/weather/thunderstorms-night.json";
+import ThunderstormsDay from "~/assets/weather/thunderstorms-day-extreme.json";
+import Thunder from "~/assets/weather/thunderstorms-extreme.json";
+import ThunderstormsNight from "~/assets/weather/thunderstorms-night-extreme.json";
 import { WeatherIconEnum } from "~/enums/WeatherIcon";
 
 import styles from "./WeatherIcon.module.css";

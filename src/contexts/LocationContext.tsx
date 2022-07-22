@@ -1,12 +1,15 @@
 import React, { useEffect } from "react";
+import useSWR from "swr";
 
 import i18n from "~/i18n";
 import Location from "~/types/location";
+import { apiBaseBigDataCloud, locationFetcher } from "~/utils/constants";
 import { getItem, setItem } from "~/utils/storage";
 
 type LocationContextType = {
   location: Location | null;
   setLocation: (location: Location | null) => void;
+  error: unknown;
 };
 
 interface LocationContextProps {
@@ -19,11 +22,30 @@ const PreSelectLocation: Location = {
   lat: 59.3293,
   lon: 18.0686,
   name: "Stockholm",
-  country: "SE",
 };
+
+interface APIData {
+  lat: number;
+  lon: number;
+  userLang: string;
+}
 
 export function LocationContextProvider({ children }: LocationContextProps) {
   const [location, setLocation] = React.useState<Location | null>(null);
+  const [apiData, setApiData] = React.useState<APIData | null>(null);
+
+  const { data: city, error } = useSWR(
+    apiData
+      ? `${apiBaseBigDataCloud}latitude=${apiData.lat}&longitude=${apiData.lon}&localityLanguage=${apiData.userLang}`
+      : null,
+    locationFetcher,
+  );
+
+  useEffect(() => {
+    if (city && apiData) {
+      setLocation({ lat: apiData.lat, lon: apiData.lon, name: city });
+    }
+  }, [city]);
 
   function handleFirstTimeSetup() {
     const lang = i18n.language;
@@ -57,23 +79,24 @@ export function LocationContextProvider({ children }: LocationContextProps) {
     setLocation(PreSelectLocation);
   }
 
-  function getPositionSuccessCallback(pos: any) {
+  function getPositionSuccessCallback(pos: GeolocationPosition) {
     const lon = pos.coords.longitude.toFixed(2);
     const lat = pos.coords.latitude.toFixed(2);
 
-    // TODO: Get city name from coordinates
+    setApiData({ lat: Number(lat), lon: Number(lon), userLang: i18n.language });
   }
 
   useEffect(() => {
     handleFirstTimeSetup();
     setSelectedLocation();
-  }, [location]);
+  }, []);
 
   return (
     <LocationContext.Provider
       value={{
         location,
         setLocation,
+        error,
       }}
     >
       {children}

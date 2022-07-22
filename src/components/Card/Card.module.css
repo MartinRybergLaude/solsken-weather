@@ -28,6 +28,11 @@
   background: var(--color-dusk);
 }
 
+.transparent {
+  color: var(--color-text-primary);
+  background: transparent;
+}
+
 .spinner {
   position: absolute;
   top: 50%;
@@ -37,6 +42,7 @@
 
 .content {
   width: 100%;
+  transition: opacity 1s ease-in-out;
 }
 
 .hidden {

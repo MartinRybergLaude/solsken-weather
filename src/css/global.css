@@ -1,8 +1,8 @@
 :root {
-  --color-background: #ffffff;
+  --color-background: #eef3f9;
 
   /* Cards */
-  --color-card: #eef3f9;
+  --color-card: #ffffff;
   --color-day: #c4e2fe;
   --color-day-dark: #24609c;
   --color-night: #1d3145;

@@ -19,12 +19,17 @@ $maxHeight: 760px;
   display: flex;
   gap: spacing(2);
   align-items: center;
-  justify-content: left;
+  justify-content: space-between;
   width: auto;
   margin-top: spacing(1);
 
   & h1 {
-    font-size: 18px;
+    font-size: 16px;
+  }
+
+  & .fakeIcon {
+    width: 24px;
+    height: 24px;
   }
 }
 

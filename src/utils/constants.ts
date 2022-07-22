@@ -1,42 +1,55 @@
 import i18n from "i18n";
-export const fetchSettings = {
-  method: "GET",
-  mode: "cors" as RequestMode,
-};
-export const apiBaseSMHI = "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/";
+
+import { Data } from "~/types/bigDataCloud";
+import { WeatherData } from "~/types/smhi";
+
+export async function locationFetcher(input: RequestInfo, init?: RequestInit): Promise<string> {
+  const res = await fetch(input, init);
+  const data = (await res.json()) as Data;
+  return data.locality;
+}
+
+export async function weatherFetcher(input: RequestInfo, init?: RequestInit): Promise<WeatherData> {
+  const res = await fetch(input, init);
+  const data = (await res.json()) as WeatherData;
+  return data;
+}
+
+export const apiBaseSMHI =
+  "https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/";
 export const apiBaseYR = "https://api.met.no/weatherapi/locationforecast/2.0/complete?";
 export const apiBaseBigDataCloud = "https://api.bigdatacloud.net/data/reverse-geocode-client?";
 export const apiBasePhoton = "https://photon.komoot.io/api/?q=";
 
 export enum windUnits {
-    ms = "ms",
-    kmh = "kmh",
-    mph = "mph",
-    kts = "kts",
-    b = "b"
+  ms = "ms",
+  kmh = "kmh",
+  mph = "mph",
+  kts = "kts",
+  b = "b",
 }
 export enum temprUnits {
-    c = "c",
-    f = "f",
-    k = "k"
+  c = "c",
+  f = "f",
+  k = "k",
 }
 export enum precUnits {
-    mmh = "mmh",
-    cmh = "cmh",
-    inh = "inh"
+  mmh = "mmh",
+  cmh = "cmh",
+  inh = "inh",
 }
 export enum pressureUnits {
-    hpa = "hpa",
-    bar = "bar",
-    at = "at"
+  hpa = "hpa",
+  bar = "bar",
+  at = "at",
 }
 export enum visUnits {
-    km = "km",
-    miles = "miles"
+  km = "km",
+  miles = "miles",
 }
 export enum timeUnits {
-    twentyfour = "twentyfour",
-    twelve = "twelve", 
+  twentyfour = "twentyfour",
+  twelve = "twelve",
 }
 export const WiNA = "wi-na";
 
@@ -64,7 +77,7 @@ export const WiThunder = "wiLightning";
 export const WiFog = "wi-fog";
 export const WiDrizzle = "wi-sprinkle";
 
-export const WiUmbrella ="wi-umbrella";
+export const WiUmbrella = "wi-umbrella";
 export const WiWind = "wi-wind";
 export const WiBarometer = "wi-barometer";
 export const WiRaindrop = "wi-raindrop";
@@ -72,5 +85,26 @@ export const WiStrongwind = "wi-strong-wind";
 export const WiThermometer = "wi-thermometer";
 export const WiHorizon = "wi-horizon-alt";
 
-export const Days = [i18n.t("day_sun"),i18n.t("day_mon"),i18n.t("day_tue"),i18n.t("day_wed"),i18n.t("day_thu"),i18n.t("day_fri"),i18n.t("day_sat")];
-export const Months = [i18n.t("month_jan"), i18n.t("month_feb"), i18n.t("month_mar"), i18n.t("month_apr"), i18n.t("month_may"), i18n.t("month_jun"), i18n.t("month_jul"), i18n.t("month_aug"), i18n.t("month_sep"), i18n.t("month_oct"), i18n.t("month_nov"), i18n.t("month_dec")];
+export const Days = [
+  i18n.t("day_sun"),
+  i18n.t("day_mon"),
+  i18n.t("day_tue"),
+  i18n.t("day_wed"),
+  i18n.t("day_thu"),
+  i18n.t("day_fri"),
+  i18n.t("day_sat"),
+];
+export const Months = [
+  i18n.t("month_jan"),
+  i18n.t("month_feb"),
+  i18n.t("month_mar"),
+  i18n.t("month_apr"),
+  i18n.t("month_may"),
+  i18n.t("month_jun"),
+  i18n.t("month_jul"),
+  i18n.t("month_aug"),
+  i18n.t("month_sep"),
+  i18n.t("month_oct"),
+  i18n.t("month_nov"),
+  i18n.t("month_dec"),
+];

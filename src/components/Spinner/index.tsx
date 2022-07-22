@@ -1,7 +1,12 @@
+import cx from "classnames";
+
 import styles from "./Spinner.module.css";
 
-function Spinner() {
-  return <span className={styles.loader} />;
+interface SpinnerProps {
+  color?: "adaptive" | "inverse-adaptive" | "white";
+}
+function Spinner({ color = "adaptive" }: SpinnerProps) {
+  return <span className={cx(styles.loader, styles[color])} />;
 }
 
 export default Spinner;

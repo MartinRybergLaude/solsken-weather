@@ -1,40 +1,45 @@
 import { FiUmbrella, FiWind } from "react-icons/fi";
-import { HiOutlineLocationMarker } from "react-icons/hi";
-import cx from "classnames";
+import { FiMenu } from "react-icons/fi";
 
-import BarometerIcon from "~/assets/monochrome/barometer.svg";
+import { ReactComponent as BarometerIcon } from "~/assets/monochrome/barometer.svg";
 import Card from "~/components/Card";
 import Container from "~/components/Container";
 import Icon from "~/components/Icon";
+import { useWeather } from "~/contexts/WeatherContext";
 
 import GraphSwitcher from "./partials/GraphSwitcher";
 import styles from "./TodayCard.module.css";
 
 function TodayCard() {
+  const { weather } = useWeather();
+  const day = weather?.formatted.days[0];
+  const current = day?.hours[0];
+  const city = weather?.formatted.city;
   return (
-    <Card color="day" contentClassName={styles.root}>
+    <Card color="day" loading={!weather} contentClassName={styles.root}>
       <Container>
         <div className={styles.location}>
-          <Icon IconComponent={HiOutlineLocationMarker} color="day" />
-          <h1>Stockholm</h1>
+          <Icon IconComponent={FiMenu} color="day" />
+          <h1>{city || "N/A"}</h1>
+          <div className={styles.fakeIcon} />
         </div>
         <div className={styles.compactable}>
           <div className={styles.temperature}>
-            <h2>21</h2>
-            <h3>Sunny</h3>
+            <h2>{current?.tempr || "N/A"}</h2>
+            <h3>{current?.text || "N/A"}</h3>
           </div>
           <div className={styles.weather}>
             <div>
               <Icon IconComponent={FiUmbrella} color="day" />
-              <p>6mm/h</p>
+              <p>{current?.precMean || "N/A"}</p>
             </div>
             <div>
               <Icon IconComponent={FiWind} color="day" />
-              <p>12m/s</p>
+              <p>{current?.wind || "N/A"}</p>
             </div>
             <div className={styles.compensatedContainer}>
               <Icon IconComponent={BarometerIcon} color="day" className={styles.compensatedIcon} />
-              <p>1024hPa</p>
+              <p>{current?.pressure || "N/A"}</p>
             </div>
           </div>
         </div>

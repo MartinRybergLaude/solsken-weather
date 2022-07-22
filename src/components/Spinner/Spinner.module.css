@@ -1,36 +1,32 @@
 .loader {
-  position: relative;
+  box-sizing: border-box;
   display: inline-block;
   width: 48px;
   height: 48px;
-}
-
-.loader::after,
-.loader::before {
-  position: absolute;
-  top: 0;
-  left: 0;
-  box-sizing: border-box;
-  width: 48px;
-  height: 48px;
-  content: "";
-  background: #fff;
+  border-top: 3px solid var(--color-primary);
+  border-right: 3px solid transparent;
   border-radius: 50%;
-  animation: animloader 2s linear infinite;
+  animation: rotation 1s linear infinite;
 }
 
-.loader::after {
-  animation-delay: 1s;
+.adaptive {
+  border-color: var(--color-text-primary);
 }
 
-@keyframes animloader {
+.adaptive-inverse {
+  border-color: var(--color-text-primary-inv);
+}
+
+.white {
+  border-color: #ffffff;
+}
+
+@keyframes rotation {
   0% {
-    opacity: 1;
-    transform: scale(0);
+    transform: rotate(0deg);
   }
 
   100% {
-    opacity: 0;
-    transform: scale(1);
+    transform: rotate(360deg);
   }
 }

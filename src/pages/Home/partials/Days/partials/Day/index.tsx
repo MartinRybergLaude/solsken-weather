@@ -1,20 +1,27 @@
-import SunnySVG from "~/assets/weather/clear-day.svg";
 import Card from "~/components/Card";
 import Container from "~/components/Container";
+import WeatherIcon from "~/components/WeatherIcon";
+import { Day as DayType } from "~/types/formattedWeather";
 
 import styles from "./Day.module.css";
 
-function Day() {
+interface DayProps {
+  day: DayType;
+}
+function Day({ day }: DayProps) {
+  console.log("icon", day.icon);
   return (
     <div className={styles.root}>
-      <h3>Today</h3>
+      <h3>{day.dayOfWeek}</h3>
       <Card className={styles.card}>
         <Container>
-          <SunnySVG />
-          <div className={styles.temps}>
-            <p className={styles.maxTemp}>21</p>
-            <p className={styles.minTemp}>22</p>
-          </div>
+          <>
+            <WeatherIcon id={day.icon} />
+            <div className={styles.temps}>
+              <p className={styles.maxTemp}>{day.tempHigh}</p>
+              <p className={styles.minTemp}>{day.tempLow}</p>
+            </div>
+          </>
         </Container>
       </Card>
     </div>

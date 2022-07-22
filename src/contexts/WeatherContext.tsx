@@ -12,7 +12,7 @@ import { useLocation } from "./LocationContext";
 
 type WeatherContextType = {
   weather: Weather | null;
-  error: unknown;
+  error?: string;
 };
 
 interface WeatherContextProps {
@@ -26,10 +26,11 @@ const WeatherContext = React.createContext<WeatherContextType>({} as WeatherCont
 export function WeatherContextProvider({ children }: WeatherContextProps) {
   const [weather, setWeather] = React.useState<Weather | null>(null);
   const [provider, setProvider] = React.useState<Provider | null>(null);
+  const [error, setError] = React.useState<string | undefined>(undefined);
 
   const { location } = useLocation();
 
-  const { data, error } = useSWR(() => {
+  const { data, error: fetchError } = useSWR(() => {
     if (!location || !provider) return null;
     if (provider === "smhi") {
       return `${apiBaseSMHI}lon/${location.lon}/lat/${location.lat}/data.json`;
@@ -46,15 +47,25 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
   }, [location]);
 
   useEffect(() => {
+    if (fetchError) {
+      setError(fetchError.message);
+    }
+  }, [fetchError]);
+
+  useEffect(() => {
     if (data && location) {
-      const rawWeatherData = changeUnits(
-        parseWeatherSMHI(data, location.lon, location.lat, location.name),
-      );
-      const formattedWeatherData = formatWeather(rawWeatherData);
-      setWeather({
-        raw: rawWeatherData,
-        formatted: formattedWeatherData,
-      });
+      try {
+        const rawWeatherData = changeUnits(
+          parseWeatherSMHI(data, location.lon, location.lat, location.name),
+        );
+        const formattedWeatherData = formatWeather(rawWeatherData);
+        setWeather({
+          raw: rawWeatherData,
+          formatted: formattedWeatherData,
+        });
+      } catch {
+        setError("Could not parse weather data");
+      }
     }
   }, [data, location]);
 

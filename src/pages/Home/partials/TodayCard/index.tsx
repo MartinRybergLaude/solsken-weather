@@ -1,52 +1,62 @@
 import { FiUmbrella, FiWind } from "react-icons/fi";
 import { FiMenu } from "react-icons/fi";
+import { MdErrorOutline } from "react-icons/md";
 
 import { ReactComponent as BarometerIcon } from "~/assets/monochrome/barometer.svg";
 import Card from "~/components/Card";
 import Container from "~/components/Container";
 import Icon from "~/components/Icon";
+import LoadingWrapper from "~/components/LoadingWrapper";
 import { useWeather } from "~/contexts/WeatherContext";
 
 import GraphSwitcher from "./partials/GraphSwitcher";
 import styles from "./TodayCard.module.css";
-
 function TodayCard() {
-  const { weather } = useWeather();
+  const { weather, error } = useWeather();
   const day = weather?.formatted.days[0];
   const current = day?.hours[0];
   const city = weather?.formatted.city;
   return (
-    <Card color="day" loading={!weather} contentClassName={styles.root}>
+    <Card color="day" className={styles.root}>
       <Container>
         <div className={styles.location}>
-          <Icon IconComponent={FiMenu} color="day" />
-          <h1>{city || "N/A"}</h1>
+          <Icon IconComponent={FiMenu} color="day" className={styles.burger} />
+          <LoadingWrapper loading={!weather} error={error}>
+            <h1>{city || ""}</h1>
+          </LoadingWrapper>
           <div className={styles.fakeIcon} />
         </div>
-        <div className={styles.compactable}>
-          <div className={styles.temperature}>
-            <h2>{current?.tempr || "N/A"}</h2>
-            <h3>{current?.text || "N/A"}</h3>
+        <LoadingWrapper loading={!weather} error={error} showIcons>
+          <div className={styles.compactable}>
+            <div className={styles.temperature}>
+              <h2>{current?.tempr || "N/A"}</h2>
+              <h3>{current?.text || "N/A"}</h3>
+            </div>
+            <div className={styles.weather}>
+              <div>
+                <Icon IconComponent={FiUmbrella} color="day" />
+                <p>{current?.precMean || "N/A"}</p>
+              </div>
+              <div>
+                <Icon IconComponent={FiWind} color="day" />
+                <p>{current?.wind || "N/A"}</p>
+              </div>
+              <div className={styles.compensatedContainer}>
+                <Icon
+                  IconComponent={BarometerIcon}
+                  color="day"
+                  className={styles.compensatedIcon}
+                />
+                <p>{current?.pressure || "N/A"}</p>
+              </div>
+            </div>
           </div>
-          <div className={styles.weather}>
-            <div>
-              <Icon IconComponent={FiUmbrella} color="day" />
-              <p>{current?.precMean || "N/A"}</p>
-            </div>
-            <div>
-              <Icon IconComponent={FiWind} color="day" />
-              <p>{current?.wind || "N/A"}</p>
-            </div>
-            <div className={styles.compensatedContainer}>
-              <Icon IconComponent={BarometerIcon} color="day" className={styles.compensatedIcon} />
-              <p>{current?.pressure || "N/A"}</p>
-            </div>
-          </div>
-        </div>
+        </LoadingWrapper>
       </Container>
-      <GraphSwitcher className={styles.fullWidth} />
+      <LoadingWrapper loading={!weather} error={error} className={styles.fullWidth}>
+        <GraphSwitcher />
+      </LoadingWrapper>
     </Card>
   );
 }
-
 export default TodayCard;

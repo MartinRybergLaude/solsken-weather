@@ -9,18 +9,28 @@
 
 .scrollContainer {
   display: flex;
-  gap: spacing(2);
   align-items: center;
   justify-content: left;
-  padding-right: spacing(2);
-  padding-bottom: spacing(4);
-  padding-left: spacing(2);
-  overflow-y: auto;
+  padding-bottom: spacing(6);
+  overflow-x: auto;
   scrollbar-width: 0;
+
+  & > div {
+    margin-left: spacing(2);
+
+    &:last-of-type {
+      padding-right: spacing(2);
+    }
+  }
 
   &::-webkit-scrollbar {
     display: none;
     width: 0;
     background: transparent;
+  }
+
+  &::after {
+    padding-right: 0.02px;
+    content: "";
   }
 }

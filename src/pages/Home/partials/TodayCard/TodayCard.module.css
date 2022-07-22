@@ -1,6 +1,7 @@
 $maxHeight: 760px;
 
 .root {
+  position: relative;
   display: grid;
   grid-template-columns:
     [full-start] spacing(2) [wrapper-start]
@@ -16,6 +17,7 @@ $maxHeight: 760px;
 }
 
 .location {
+  position: relative;
   display: flex;
   gap: spacing(2);
   align-items: center;
@@ -77,6 +79,7 @@ $maxHeight: 760px;
 
 .weather {
   display: flex;
+  gap: spacing(2);
   align-items: center;
   justify-content: space-between;
   width: 100%;
@@ -119,4 +122,11 @@ $maxHeight: 760px;
       left: negative(spacing(1));
     }
   }
+}
+
+.error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }

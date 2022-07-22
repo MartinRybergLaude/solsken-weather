@@ -1,15 +1,17 @@
 import { ReactNode } from "react";
 import cx from "classnames";
 
+import { Theme } from "~/types/themes";
+
 import styles from "./Card.module.css";
 
 interface Props {
   children: ReactNode;
-  color?: "default" | "day" | "night" | "rain" | "dusk" | "transparent";
+  theme?: Theme | "default" | "transparent";
   className?: string;
 }
-function Card({ children, color = "default", className }: Props) {
-  return <div className={cx(styles.root, styles[color], className)}>{children}</div>;
+function Card({ children, theme = "default", className }: Props) {
+  return <div className={cx(styles.root, styles[theme], className)}>{children}</div>;
 }
 
 export default Card;

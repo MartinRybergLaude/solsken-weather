@@ -28,7 +28,6 @@ export interface Day {
   sunrise: Date;
   sunset: Date;
   text: string;
-  icon: WeatherIconEnum;
   tempHigh: number;
   tempLow: number;
   hours: Hour[];

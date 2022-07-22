@@ -2,8 +2,10 @@ import i18n from "i18n";
 
 import * as Consts from "utils/constants";
 
+import { WeatherIconEnum } from "~/enums/WeatherIcon";
 import * as FormattedWeather from "~/types/formattedWeather";
 import * as RawWeather from "~/types/rawWeather";
+import { Theme } from "~/types/themes";
 
 export default function formatWeather(
   data: RawWeather.RawWeather,
@@ -29,23 +31,24 @@ export default function formatWeather(
     formattedDay.dayOfWeek = dayOfWeek;
     formattedDay.sunrise = getHourString(data.units.timeUnit, new Date(day.sunrise));
     formattedDay.sunset = getHourString(data.units.timeUnit, new Date(day.sunset));
-    formattedDay.icon = day.icon;
+    formattedDay.icon = getDayIcon(day);
     formattedDay.text = day.text;
     formattedDay.tempHigh = getTemperatureString(data.units.temprUnit, day.tempHigh);
     formattedDay.tempLow = getTemperatureString(data.units.temprUnit, day.tempLow);
 
     day.hours.forEach(hour => {
-      formattedDay.hours.push(parseHour(hour));
+      formattedDay.hours.push(parseHour(hour, day.sunrise, day.sunset));
     });
     formattedData.days.push(formattedDay);
   }
   return formattedData;
 
-  function parseHour(hour: RawWeather.Hour): FormattedWeather.Hour {
+  function parseHour(hour: RawWeather.Hour, sunrise: Date, sunset: Date): FormattedWeather.Hour {
     const formattedHour = {} as FormattedWeather.Hour;
     formattedHour.hour = getHourString(data.units.timeUnit, new Date(hour.date));
     formattedHour.text = hour.text;
     formattedHour.icon = hour.icon;
+    formattedHour.theme = getTheme(hour.icon, sunrise, sunset);
     if (hour.tempr == null || isNaN(hour.tempr)) formattedHour.tempr = "N/A";
     else formattedHour.tempr = getTemperatureString(data.units.temprUnit, hour.tempr);
     if (hour.feelslike == null || isNaN(hour.feelslike)) formattedHour.feelslike = "N/A";
@@ -71,6 +74,82 @@ export default function formatWeather(
     if (hour.cloud == null || isNaN(hour.cloud)) formattedHour.cloud = "N/A";
     else formattedHour.cloud = hour.cloud + "%";
     return formattedHour;
+  }
+}
+
+function getDayIcon(day: RawWeather.Day): WeatherIconEnum {
+  // We only care about hours between these hours
+  const hours = day.hours.filter(hour => {
+    return isBetween(new Date(hour.date).getHours(), 5, 23);
+  });
+  // No hours in the span, iterate all hours
+  if (hours.length == 0) {
+    const icons = day.hours.map(hour => hour.icon);
+    return Math.max(...icons);
+  } else {
+    const icons = hours.map(hour => hour.icon);
+    return Math.max(...icons);
+  }
+}
+
+function getTheme(icon: WeatherIconEnum, sunrise: Date, sunset: Date): Theme {
+  // Handle the cloudy case separately since it applies to both day and night
+  if (icon === WeatherIconEnum.CLOUDY && dateIsBetween(new Date(), sunrise, sunset)) {
+    return "day";
+  } else if (icon === WeatherIconEnum.CLOUDY) {
+    return "night";
+  }
+  switch (icon) {
+    case WeatherIconEnum.CLEAR_DAY:
+    case WeatherIconEnum.PARTLY_CLOUDY_DAY: {
+      if (isMorning(sunrise, sunset)) {
+        return "morning";
+      }
+      return "day";
+    }
+    case WeatherIconEnum.CLEAR_NIGHT:
+    case WeatherIconEnum.PARTLY_CLOUDY_NIGHT:
+      if (isMorning(sunrise, sunset)) {
+        return "morning";
+      }
+      return "night";
+    case WeatherIconEnum.SNOW:
+    case WeatherIconEnum.FOG:
+    case WeatherIconEnum.PARTLY_CLOUDY_DAY_DRIZZLE:
+    case WeatherIconEnum.PARTLY_CLOUDY_DAY_SLEET:
+    case WeatherIconEnum.PARTLY_CLOUDY_DAY_SNOW:
+    case WeatherIconEnum.PARTLY_CLOUDY_NIGHT_DRIZZLE:
+    case WeatherIconEnum.PARTLY_CLOUDY_NIGHT_SLEET:
+    case WeatherIconEnum.PARTLY_CLOUDY_NIGHT_SNOW:
+    case WeatherIconEnum.DRIZZLE:
+    case WeatherIconEnum.RAIN:
+    case WeatherIconEnum.SLEET:
+    case WeatherIconEnum.OVERCAST:
+    case WeatherIconEnum.OVERCAST_DAY_RAIN:
+    case WeatherIconEnum.OVERCAST_NIGHT_RAIN:
+    case WeatherIconEnum.OVERCAST_DAY_SLEET:
+    case WeatherIconEnum.OVERCAST_NIGHT_SLEET:
+    case WeatherIconEnum.OVERCAST_DAY_SNOW:
+    case WeatherIconEnum.OVERCAST_NIGHT_SNOW:
+      return "medium";
+    case WeatherIconEnum.EXTREME_DAY_RAIN:
+    case WeatherIconEnum.EXTREME_NIGHT_RAIN:
+    case WeatherIconEnum.EXTREME_DAY_SLEET:
+    case WeatherIconEnum.EXTREME_NIGHT_SLEET:
+    case WeatherIconEnum.EXTREME_DAY_SNOW:
+    case WeatherIconEnum.EXTREME_NIGHT_SNOW:
+    case WeatherIconEnum.EXTREME_RAIN:
+    case WeatherIconEnum.EXTREME_SLEET:
+    case WeatherIconEnum.EXTREME_SNOW:
+    case WeatherIconEnum.OVERCAST_RAIN:
+    case WeatherIconEnum.OVERCAST_SLEET:
+    case WeatherIconEnum.OVERCAST_SNOW:
+    case WeatherIconEnum.THUNDER:
+    case WeatherIconEnum.THUNDERSTORMS_DAY:
+    case WeatherIconEnum.THUNDERSTORMS_NIGHT:
+      return "dark";
+    default:
+      return "medium";
   }
 }
 
@@ -181,8 +260,32 @@ function getHourString(unitTime: string, date: Date): string {
     }
   }
 }
+function isMorning(sunrise: Date, sunset: Date) {
+  const lowHourSunrise = new Date(sunrise);
+  lowHourSunrise.setHours(lowHourSunrise.getHours() - 1);
+  const highHourSunrise = new Date(sunrise);
+  highHourSunrise.setHours(lowHourSunrise.getHours() + 1);
+
+  const lowHourSunset = new Date(sunset);
+  lowHourSunrise.setHours(lowHourSunset.getHours() - 1);
+  const highHourSunset = new Date(sunset);
+  highHourSunrise.setHours(lowHourSunset.getHours() + 1);
+
+  const currentDate = new Date();
+
+  if (
+    dateIsBetween(currentDate, lowHourSunrise, highHourSunrise) ||
+    dateIsBetween(currentDate, lowHourSunset, highHourSunset)
+  ) {
+    return true;
+  }
+  return false;
+}
 function isBetween(x: number, lower: number, upper: number) {
   return lower <= x && x <= upper;
+}
+function dateIsBetween(x: Date, lower: Date, upper: Date) {
+  return x > lower && x < upper;
 }
 function isSameDay(d1: Date, d2: Date) {
   return (

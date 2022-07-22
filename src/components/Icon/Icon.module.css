@@ -1,6 +1,7 @@
 .root {
   width: 24px;
   height: 24px;
+  transition: color 1s ease-in-out;
 }
 
 .primary {

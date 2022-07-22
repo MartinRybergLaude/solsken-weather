@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 import Card from "~/components/Card";
 import Container from "~/components/Container";
 import WeatherIcon from "~/components/WeatherIcon";
@@ -10,7 +12,12 @@ interface DayProps {
 }
 function Day({ day }: DayProps) {
   return (
-    <div className={styles.root}>
+    <motion.div
+      className={styles.root}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       <h3>{day.dayOfWeek}</h3>
       <Card className={styles.card}>
         <Container>
@@ -23,7 +30,7 @@ function Day({ day }: DayProps) {
           </>
         </Container>
       </Card>
-    </div>
+    </motion.div>
   );
 }
 

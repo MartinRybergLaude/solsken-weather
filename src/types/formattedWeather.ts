@@ -2,6 +2,8 @@ import { ReactNode } from "react";
 
 import { WeatherIconEnum } from "~/enums/WeatherIcon";
 
+import { Theme } from "./themes";
+
 export interface FormattedWeather {
   days: Day[];
   city: string;
@@ -32,4 +34,5 @@ export interface Hour {
   feelslike: string;
   text: string;
   icon: WeatherIconEnum;
+  theme: Theme;
 }

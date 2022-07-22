@@ -1,6 +1,7 @@
 .root {
   position: relative;
   border-radius: spacing(2);
+  transition: background-color 1s ease-in-out, color 1s ease-in-out;
 }
 
 .default {
@@ -14,18 +15,23 @@
 }
 
 .night {
-  color: var(--color-text-primary-inv);
+  color: white;
   background: var(--color-night);
 }
 
-.rain {
-  color: var(--color-text-primary-inv);
-  background: var(--color-rain);
+.morning {
+  color: black;
+  background: var(--color-morning);
 }
 
-.dusk {
-  color: var(--color-text-primary-inv);
-  background: var(--color-dusk);
+.medium {
+  color: white;
+  background: var(--color-medium);
+}
+
+.dark {
+  color: white;
+  background: var(--color-dark);
 }
 
 .transparent {

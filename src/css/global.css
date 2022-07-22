@@ -1,13 +1,15 @@
 :root {
   --color-background: #eef3f9;
 
-  /* Cards */
+  /* Weather theme */
   --color-card: #ffffff;
   --color-day: #c4e2fe;
   --color-day-dark: #24609c;
   --color-night: #1d3145;
-  --color-dusk: #ffd99f;
-  --color-rain: #627784;
+  --color-morning: #ffd99f;
+  --color-light: #ffffff;
+  --color-medium: #627784;
+  --color-dark: #2c3b4a;
 
   /* Typography */
   --color-text-primary: #1f1e31;

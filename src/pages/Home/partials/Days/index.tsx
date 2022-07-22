@@ -1,3 +1,5 @@
+import { AnimatePresence } from "framer-motion";
+
 import { useWeather } from "~/contexts/WeatherContext";
 
 import styles from "./Days.module.css";
@@ -9,7 +11,9 @@ function Days() {
   return (
     <div className={styles.root}>
       <div className={styles.scrollContainer}>
-        {days && days.map((day, index) => <Day key={index} day={day} />)}
+        <AnimatePresence>
+          {days && days.map((day, index) => <Day key={index} day={day} />)}
+        </AnimatePresence>
       </div>
     </div>
   );

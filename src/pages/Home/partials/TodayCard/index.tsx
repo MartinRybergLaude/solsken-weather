@@ -1,6 +1,5 @@
 import { FiUmbrella, FiWind } from "react-icons/fi";
 import { FiMenu } from "react-icons/fi";
-import { MdErrorOutline } from "react-icons/md";
 
 import { ReactComponent as BarometerIcon } from "~/assets/monochrome/barometer.svg";
 import Card from "~/components/Card";
@@ -17,10 +16,10 @@ function TodayCard() {
   const current = day?.hours[0];
   const city = weather?.formatted.city;
   return (
-    <Card color="day" className={styles.root}>
+    <Card theme={current?.theme} className={styles.root}>
       <Container>
         <div className={styles.location}>
-          <Icon IconComponent={FiMenu} color="day" className={styles.burger} />
+          <Icon IconComponent={FiMenu} color="unset" className={styles.burger} />
           <LoadingWrapper loading={!weather} error={error}>
             <h1>{city || ""}</h1>
           </LoadingWrapper>

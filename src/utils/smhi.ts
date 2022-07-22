@@ -62,14 +62,6 @@ function parseDays(
       }
     }
 
-    // Retrieve an icon for the day
-    // TODO: Improve icon generating algorithm
-    let icon;
-    iterationDay.hours.forEach(hour => {
-      if (new Date(hour.date).getHours() === 14) icon = hour.icon;
-    });
-    if (icon == null) icon = iterationDay.hours[~~(iterationDay.hours.length / 2)].icon;
-
     // Retrieve all temperatures for the day
     const temprs: number[] = [];
     iterationDay.hours.forEach(hour => {
@@ -77,7 +69,6 @@ function parseDays(
     });
 
     // Set remaining day params
-    iterationDay.icon = icon;
     iterationDay.tempHigh = Math.max(...temprs);
     iterationDay.tempLow = Math.min(...temprs);
     days.push(iterationDay);

@@ -21,17 +21,17 @@ function GraphSwitcher({ className }: GraphSwitcherProps) {
   return (
     <div className={cx(styles.root, className)}>
       <Slider {...settings}>
-        <Card color="day" className={styles.card}>
+        <Card className={styles.card}>
           <Container>
             <h3>Temperature</h3>
           </Container>
         </Card>
-        <Card color="day" className={styles.card}>
+        <Card className={styles.card}>
           <Container>
             <h3>Dddd</h3>
           </Container>
         </Card>
-        <Card color="day" className={styles.card}>
+        <Card className={styles.card}>
           <Container>
             <h3>SSS</h3>
           </Container>

@@ -10,7 +10,7 @@ interface Props {
   className?: string;
   color?: "unset" | "primary" | "secondary" | "day";
 }
-function Icon({ IconComponent, className, color = "unset" }: Props) {
+function Icon({ IconComponent, className, color = "primary" }: Props) {
   return <IconComponent className={cx(styles.root, styles[color], className)} />;
 }
 

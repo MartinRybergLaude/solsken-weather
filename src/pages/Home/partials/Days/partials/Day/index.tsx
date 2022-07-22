@@ -9,7 +9,6 @@ interface DayProps {
   day: DayType;
 }
 function Day({ day }: DayProps) {
-  console.log("icon", day.icon);
   return (
     <div className={styles.root}>
       <h3>{day.dayOfWeek}</h3>

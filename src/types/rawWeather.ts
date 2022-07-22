@@ -1,5 +1,3 @@
-import { ReactNode } from "react";
-
 import { WeatherIconEnum } from "~/enums/WeatherIcon";
 import {
   precUnits,

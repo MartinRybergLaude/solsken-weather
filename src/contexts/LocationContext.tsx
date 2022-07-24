@@ -7,8 +7,8 @@ import { apiBaseBigDataCloud, locationFetcher } from "~/utils/constants";
 import { getItem, setItem } from "~/utils/storage";
 
 type LocationContextType = {
-  location: Location | null;
-  setLocation: (location: Location | null) => void;
+  location?: Location;
+  setLocation: (location?: Location) => void;
   error: unknown;
 };
 
@@ -31,8 +31,8 @@ interface APIData {
 }
 
 export function LocationContextProvider({ children }: LocationContextProps) {
-  const [location, setLocation] = React.useState<Location | null>(null);
-  const [apiData, setApiData] = React.useState<APIData | null>(null);
+  const [location, setLocation] = React.useState<Location | undefined>(undefined);
+  const [apiData, setApiData] = React.useState<APIData | undefined>(undefined);
 
   const { data: city, error } = useSWR(
     apiData
@@ -67,7 +67,7 @@ export function LocationContextProvider({ children }: LocationContextProps) {
   function checkLocationPermission() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(getPositionSuccessCallback, locationErrorCallback, {
-        maximumAge: 60000,
+        maximumAge: 10 * 60 * 1000,
         timeout: 10000,
       });
     } else {

@@ -6,6 +6,7 @@ $maxHeight: 760px;
   grid-template-columns:
     [full-start] spacing(2) [wrapper-start]
     minmax(0, auto) [wrapper-end] spacing(2) [full-end];
+  max-width: spacing(140);
 
   & > * {
     grid-column: wrapper;
@@ -13,6 +14,25 @@ $maxHeight: 760px;
 
   & > .fullWidth {
     grid-column: full;
+  }
+
+  @media ($tablet-portrait-up) {
+    display: flex;
+    gap: spacing(2);
+    max-width: spacing(140);
+    aspect-ratio: 7 / 3;
+    padding: spacing(2);
+  }
+}
+
+.weatherWrapper {
+  width: 100%;
+
+  @media ($tablet-portrait-up) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
   }
 }
 
@@ -22,7 +42,7 @@ $maxHeight: 760px;
   gap: spacing(2);
   align-items: center;
   justify-content: space-between;
-  width: auto;
+  width: 100%;
   margin-top: spacing(1);
 
   & h1 {
@@ -33,16 +53,28 @@ $maxHeight: 760px;
     width: 24px;
     height: 24px;
   }
+
+  @media ($tablet-portrait-up) {
+    margin-top: 0;
+  }
 }
 
-.compactable {
+.temperatureWrapper {
   width: 100%;
 
-  @media (max-height: $maxHeight) {
+  & > div:last-of-type {
+    display: none;
+  }
+
+  @media (max-height: $maxHeight) and ($tablet-portrait-down) {
     display: flex;
-    gap: spacing(5);
+    gap: spacing(4);
     align-items: center;
     justify-content: center;
+
+    & > div:last-of-type {
+      display: block;
+    }
   }
 }
 
@@ -61,7 +93,7 @@ $maxHeight: 760px;
     &::after {
       position: absolute;
       top: 0;
-      right: negative(spacing(1));
+      right: negative(spacing(2));
       font-size: 56px;
       content: "\00b0";
     }
@@ -72,54 +104,41 @@ $maxHeight: 760px;
     font-weight: 400;
   }
 
-  @media (max-height: $maxHeight) {
+  @media (max-height: $maxHeight) and ($tablet-portrait-down) {
     margin: 0;
   }
 }
 
-.weather {
-  display: flex;
-  gap: spacing(2);
-  align-items: center;
-  justify-content: space-between;
+.weatherContainer {
   width: 100%;
-  margin-top: spacing(4);
 
-  & div {
-    display: flex;
-    flex-direction: row;
-    gap: spacing(1);
-    align-items: center;
-    justify-content: center;
-
-    & p {
-      font-size: 14px;
-      font-weight: 600;
-    }
+  & > div {
+    width: 100%;
   }
 
-  & .compensatedIcon {
-    width: spacing(5);
-    height: spacing(5);
-    margin-right: negative(spacing(1));
+  @media (max-height: $maxHeight) and ($tablet-portrait-down) {
+    display: none;
   }
+}
 
-  @media (max-height: $maxHeight) {
-    flex-direction: column;
-    align-items: start;
-    width: auto;
-    height: spacing(17);
-    margin-top: spacing(3);
+.graphWrapper {
+  width: 100%;
+
+  @media ($tablet-portrait-up) {
+    width: calc(50% - spacing(2));
+  }
+}
+
+.fullHeight {
+  width: 100%;
+  height: 100%;
+
+  @media ($tablet-portrait-up) {
+    overflow: hidden;
+    border-radius: spacing(1);
 
     & div {
-      gap: spacing(1);
-      align-items: center;
-    }
-
-    & .compensatedContainer {
-      position: relative;
-      top: negative(spacing(1));
-      left: negative(spacing(1));
+      height: 100%;
     }
   }
 }

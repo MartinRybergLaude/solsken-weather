@@ -1,4 +1,5 @@
 .card {
+  position: relative;
   flex-shrink: 0;
   width: calc(100% - spacing(4));
   height: spacing(25);
@@ -8,7 +9,36 @@
   border-radius: 8px;
 
   & h3 {
+    margin-top: spacing(1);
+    margin-bottom: spacing(1);
+    margin-left: spacing(1);
     font-size: 18px;
     font-weight: 500;
+    color: black;
+  }
+
+  @media ($tablet-portrait-up) {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    border-radius: 0;
+
+    &.first {
+      border-top-left-radius: spacing(1);
+      border-bottom-left-radius: spacing(1);
+    }
+
+    &.last {
+      border-top-right-radius: spacing(1);
+      border-bottom-right-radius: spacing(1);
+    }
+  }
+}
+
+.container {
+  padding: spacing(1, 1, 1, 1);
+
+  @media ($tablet-portrait-up) {
+    padding: spacing(1, 1, 4, 1);
   }
 }

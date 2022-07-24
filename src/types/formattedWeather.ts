@@ -1,3 +1,5 @@
+import { StringMap } from "i18next";
+
 import { WeatherIconEnum } from "~/enums/WeatherIcon";
 
 import { Theme } from "./themes";
@@ -5,6 +7,7 @@ import { Theme } from "./themes";
 export interface FormattedWeather {
   days: Day[];
   city: string;
+  chartHours: ChartHour[];
 }
 export interface Day {
   dayOfWeek: string;
@@ -15,6 +18,21 @@ export interface Day {
   tempHigh: string;
   tempLow: string;
   hours: Hour[];
+}
+
+export interface ChartHour {
+  hour: number;
+  hourText: string;
+  tempr: number;
+  feelslike: number;
+  wind: number;
+  gusts: number;
+  windDir: number;
+  humidity: number;
+  pressure: number;
+  precMean: number;
+  precMax: number | null;
+  icon: WeatherIconEnum;
 }
 export interface Hour {
   hour: string;

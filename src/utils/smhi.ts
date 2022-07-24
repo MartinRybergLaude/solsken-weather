@@ -63,10 +63,7 @@ function parseDays(
     }
 
     // Retrieve all temperatures for the day
-    const temprs: number[] = [];
-    iterationDay.hours.forEach(hour => {
-      temprs.push(hour.tempr);
-    });
+    const temprs = iterationDay.hours.map(hour => hour.tempr);
 
     // Set remaining day params
     iterationDay.tempHigh = Math.max(...temprs);

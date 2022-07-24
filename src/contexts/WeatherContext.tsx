@@ -41,7 +41,7 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
   useEffect(() => {
     if (location) {
       // Check which data source is selected
-      const provider: Provider = (getItem("dataSrc") as Provider) || "smhi";
+      const provider: Provider = (getItem("data-src") as Provider) || "smhi";
       setProvider(provider);
     }
   }, [location]);

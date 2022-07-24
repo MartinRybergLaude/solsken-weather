@@ -1,6 +1,7 @@
 import { ReactNode } from "react";
-import styles from "./Layout.module.css";
 import cx from "classnames";
+
+import styles from "./Layout.module.css";
 interface Props {
   children: ReactNode;
   flex?: boolean;
@@ -9,13 +10,7 @@ interface Props {
 
 function Layout({ children, flex = false, padding = false }: Props) {
   return (
-    <div
-      className={cx(
-        styles.root,
-        flex && styles.flex,
-        padding && styles.padding
-      )}
-    >
+    <div className={cx(styles.root, flex && styles.flex, padding && styles.padding)}>
       {children}
     </div>
   );

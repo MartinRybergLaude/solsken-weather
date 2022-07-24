@@ -12,9 +12,31 @@ export default function formatWeather(
 ): FormattedWeather.FormattedWeather {
   const formattedData = {} as FormattedWeather.FormattedWeather;
   formattedData.city = data.city.split(" ")[0];
-
+  formattedData.chartHours = [];
   formattedData.days = [];
   for (const day of data.days) {
+    if (formattedData.chartHours.length < 24) {
+      for (const hour of day.hours) {
+        if (formattedData.chartHours.length < 24) {
+          const chartHour: FormattedWeather.ChartHour = {
+            hour: hour.tempr,
+            hourText: getHourString(data.units.timeUnit, new Date(hour.date)),
+            tempr: hour.tempr,
+            feelslike: hour.feelslike,
+            wind: hour.wind,
+            gusts: hour.gusts,
+            windDir: hour.windDir,
+            humidity: hour.humidity,
+            precMax: hour.precMax,
+            precMean: hour.precMean,
+            icon: hour.icon,
+            pressure: hour.pressure,
+          };
+          formattedData.chartHours.push(chartHour);
+        }
+      }
+    }
+
     const formattedDay = {} as FormattedWeather.Day;
     formattedDay.hours = [];
     // Handle day of week

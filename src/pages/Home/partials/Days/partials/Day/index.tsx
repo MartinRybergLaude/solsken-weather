@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 
 import Container from "~/components/Container";
@@ -18,7 +19,7 @@ function Day({ day }: DayProps) {
       exit={{ opacity: 0 }}
     >
       <h3>{day.dayOfWeek}</h3>
-      <div className={styles.card}>
+      <Link className={styles.card} to="/hours">
         <Container>
           <>
             <WeatherIcon id={day.icon} />
@@ -28,7 +29,7 @@ function Day({ day }: DayProps) {
             </div>
           </>
         </Container>
-      </div>
+      </Link>
     </motion.div>
   );
 }

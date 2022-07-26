@@ -1,14 +1,17 @@
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
+import { useThemeDetector } from "~/hooks/useThemeDetector";
 import { ChartHour } from "~/types/formattedWeather";
 
 interface GraphProps {
   chartHours?: ChartHour[];
 }
 
-const COLOR = "#8755ad";
-
 function GraphPressure({ chartHours }: GraphProps) {
+  const isDarkTheme = useThemeDetector();
+
+  const LINE_COLOR = "#8755ad";
+  const TEXT_COLOR = isDarkTheme ? "#FFFFFF" : "#000000";
   return (
     <ResponsiveContainer width="100%" height="88%">
       <LineChart width={300} height={100} data={chartHours}>
@@ -21,7 +24,7 @@ function GraphPressure({ chartHours }: GraphProps) {
           tickLine={false}
           fontSize={12}
           fontWeight={500}
-          tick={{ fill: "#000000" }}
+          tick={{ fill: TEXT_COLOR }}
           allowDecimals={false}
         />
         <XAxis
@@ -31,12 +34,12 @@ function GraphPressure({ chartHours }: GraphProps) {
           tickLine={false}
           fontSize={12}
           fontWeight={500}
-          tick={{ fill: "#000000" }}
+          tick={{ fill: TEXT_COLOR }}
         />
         <Line
           type="monotone"
           dataKey="pressure"
-          stroke={COLOR}
+          stroke={LINE_COLOR}
           strokeWidth={2}
           isAnimationActive={false}
           dot={false}

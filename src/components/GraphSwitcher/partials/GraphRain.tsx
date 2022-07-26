@@ -1,16 +1,19 @@
 import { useEffect, useState } from "react";
 import { Area, Bar, ComposedChart, ResponsiveContainer, XAxis, YAxis } from "recharts";
 
+import { useThemeDetector } from "~/hooks/useThemeDetector";
 import { ChartHour } from "~/types/formattedWeather";
 
 interface GraphProps {
   chartHours?: ChartHour[];
 }
 
-const COLOR = "#2f67e0";
-
 function GraphRain({ chartHours }: GraphProps) {
   const [hoursData, setHoursData] = useState<ChartHour[] | undefined>(undefined);
+  const isDarkTheme = useThemeDetector();
+
+  const LINE_COLOR = "#2f67e0";
+  const TEXT_COLOR = isDarkTheme ? "#FFFFFF" : "#000000";
 
   // Makes sure that "edges" are smooth (otherwise null gets a cutoff)
   useEffect(() => {
@@ -33,8 +36,8 @@ function GraphRain({ chartHours }: GraphProps) {
       <ComposedChart width={300} height={100} data={hoursData}>
         <defs>
           <linearGradient id="colorRain" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor={COLOR} stopOpacity={0.2} />
-            <stop offset="95%" stopColor={COLOR} stopOpacity={0} />
+            <stop offset="5%" stopColor={LINE_COLOR} stopOpacity={0.2} />
+            <stop offset="95%" stopColor={LINE_COLOR} stopOpacity={0} />
           </linearGradient>
         </defs>
         <YAxis
@@ -46,7 +49,7 @@ function GraphRain({ chartHours }: GraphProps) {
           tickLine={false}
           fontSize={12}
           fontWeight={500}
-          tick={{ fill: "#000000" }}
+          tick={{ fill: TEXT_COLOR }}
           allowDecimals={false}
         />
         <XAxis
@@ -56,19 +59,19 @@ function GraphRain({ chartHours }: GraphProps) {
           tickLine={false}
           fontSize={12}
           fontWeight={500}
-          tick={{ fill: "#000000" }}
+          tick={{ fill: TEXT_COLOR }}
         />
         <Area
           type="monotone"
           dataKey="precMax"
-          stroke={COLOR}
+          stroke={LINE_COLOR}
           strokeOpacity={0}
           fillOpacity={1}
           isAnimationActive={false}
           fill="url(#colorRain)"
           connectNulls
         />
-        <Bar dataKey="precMean" barSize={10} fill={COLOR} isAnimationActive={false} />
+        <Bar dataKey="precMean" barSize={10} fill={LINE_COLOR} isAnimationActive={false} />
       </ComposedChart>
     </ResponsiveContainer>
   );

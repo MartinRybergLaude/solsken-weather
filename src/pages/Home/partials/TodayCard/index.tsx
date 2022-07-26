@@ -6,7 +6,7 @@ import Icon from "~/components/Icon";
 import LoadingWrapper from "~/components/LoadingWrapper";
 import { useWeather } from "~/contexts/WeatherContext";
 
-import GraphSwitcher from "./partials/GraphSwitcher";
+import GraphSwitcher from "../../../../components/GraphSwitcher";
 import SmallWeatherInfo from "./partials/SmallWeatherInfo";
 import styles from "./TodayCard.module.css";
 function TodayCard() {

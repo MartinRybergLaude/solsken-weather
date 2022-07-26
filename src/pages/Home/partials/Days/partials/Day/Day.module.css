@@ -12,6 +12,8 @@
 .card {
   width: spacing(12);
   margin-top: spacing(2);
+  color: var(--color-text-primary);
+  text-decoration: none;
   background: var(--color-bg-lite);
   border-radius: spacing(2);
 

@@ -18,8 +18,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #19181a;
-    --color-bg-lite: #3b3b3d;
+    --color-bg: #292b2f;
+    --color-bg-lite: #1d2024;
 
     /* Weather theme */
     --color-day: #c4e2fe;

@@ -25,8 +25,6 @@ $maxHeight: 760px;
     max-width: spacing(140);
     aspect-ratio: 7 / 3;
     padding: spacing(2);
-    color: initial;
-    background: initial;
     border: 1px solid var(--color-text-primary);
   }
 }

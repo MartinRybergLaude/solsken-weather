@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 
-import Card from "~/components/Card";
 import Container from "~/components/Container";
 import WeatherIcon from "~/components/WeatherIcon";
 import { Day as DayType } from "~/types/formattedWeather";
@@ -19,7 +18,7 @@ function Day({ day }: DayProps) {
       exit={{ opacity: 0 }}
     >
       <h3>{day.dayOfWeek}</h3>
-      <Card className={styles.card}>
+      <div className={styles.card}>
         <Container>
           <>
             <WeatherIcon id={day.icon} />
@@ -29,7 +28,7 @@ function Day({ day }: DayProps) {
             </div>
           </>
         </Container>
-      </Card>
+      </div>
     </motion.div>
   );
 }

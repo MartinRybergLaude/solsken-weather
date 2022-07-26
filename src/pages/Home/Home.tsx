@@ -7,9 +7,7 @@ import Days from "./partials/Days";
 function Home() {
   return (
     <Layout flex>
-      <Container>
-        <TodayCard />
-      </Container>
+      <TodayCard />
       <Days />
     </Layout>
   );

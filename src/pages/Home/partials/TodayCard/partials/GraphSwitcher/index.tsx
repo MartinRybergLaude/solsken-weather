@@ -3,8 +3,6 @@ import { useTranslation } from "react-i18next";
 import Slider from "react-slick";
 import cx from "classnames";
 
-import Card from "~/components/Card";
-import Container from "~/components/Container";
 import { useWeather } from "~/contexts/WeatherContext";
 
 import styles from "./GraphSwitcher.module.css";
@@ -22,7 +20,7 @@ function GraphSwitcher({ className }: GraphSwitcherProps) {
   const settings = {
     dots: true,
     infinite: false,
-    speed: 500,
+    speed: 200,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
@@ -33,36 +31,26 @@ function GraphSwitcher({ className }: GraphSwitcherProps) {
   return (
     <div className={cx(styles.root, className)}>
       <Slider {...settings}>
-        <Card className={cx(styles.card, styles.first)}>
-          <Container className={styles.container}>
-            <h3>{t("grid_temperature")}</h3>
-            <GraphTempr chartHours={weather?.formatted.chartHours} />
-          </Container>
-        </Card>
-        <Card className={styles.card}>
-          <Container className={styles.container}>
-            <h3>{t("grid_prec")}</h3>
-            <GraphRain chartHours={weather?.formatted.chartHours} />
-          </Container>
-        </Card>
-        <Card className={cx(styles.card, styles.last)}>
-          <Container className={styles.container}>
-            <h3>{t("grid_wind")}</h3>
-            <GraphWind chartHours={weather?.formatted.chartHours} />
-          </Container>
-        </Card>
-        <Card className={cx(styles.card, styles.last)}>
-          <Container className={styles.container}>
-            <h3>{t("grid_humidity")}</h3>
-            <GraphHumidity chartHours={weather?.formatted.chartHours} />
-          </Container>
-        </Card>
-        <Card className={cx(styles.card, styles.last)}>
-          <Container className={styles.container}>
-            <h3>{t("grid_pressure")}</h3>
-            <GraphPressure chartHours={weather?.formatted.chartHours} />
-          </Container>
-        </Card>
+        <div className={cx(styles.card, styles.first)}>
+          <h3>{t("grid_temperature")}</h3>
+          <GraphTempr chartHours={weather?.formatted.chartHours} />
+        </div>
+        <div className={styles.card}>
+          <h3>{t("grid_prec")}</h3>
+          <GraphRain chartHours={weather?.formatted.chartHours} />
+        </div>
+        <div className={styles.card}>
+          <h3>{t("grid_wind")}</h3>
+          <GraphWind chartHours={weather?.formatted.chartHours} />
+        </div>
+        <div className={styles.card}>
+          <h3>{t("grid_humidity")}</h3>
+          <GraphHumidity chartHours={weather?.formatted.chartHours} />
+        </div>
+        <div className={cx(styles.card, styles.last)}>
+          <h3>{t("grid_pressure")}</h3>
+          <GraphPressure chartHours={weather?.formatted.chartHours} />
+        </div>
       </Slider>
     </div>
   );

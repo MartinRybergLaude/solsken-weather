@@ -1,12 +1,13 @@
 .card {
   position: relative;
   flex-shrink: 0;
-  width: calc(100% - spacing(4));
+  width: calc(100% - spacing(4)) !important;
   height: spacing(25);
+  padding: spacing(1, 1, 1, 1);
   margin: 0 spacing(2);
   margin-bottom: spacing(2);
-  background-color: #ffffff66;
-  border-radius: 8px;
+  background-color: #ffffff;
+  border-radius: spacing(2);
 
   & h3 {
     margin-top: spacing(1);
@@ -18,8 +19,9 @@
   }
 
   @media ($tablet-portrait-up) {
-    width: 100%;
+    width: 100% !important;
     height: 100%;
+    padding: spacing(1, 1, 4, 1);
     margin: 0;
     border-radius: 0;
 
@@ -32,13 +34,5 @@
       border-top-right-radius: spacing(1);
       border-bottom-right-radius: spacing(1);
     }
-  }
-}
-
-.container {
-  padding: spacing(1, 1, 1, 1);
-
-  @media ($tablet-portrait-up) {
-    padding: spacing(1, 1, 4, 1);
   }
 }

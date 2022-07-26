@@ -1,7 +1,6 @@
 import { FiMenu } from "react-icons/fi";
 import cx from "classnames";
 
-import Card from "~/components/Card";
 import Container from "~/components/Container";
 import Icon from "~/components/Icon";
 import LoadingWrapper from "~/components/LoadingWrapper";
@@ -16,7 +15,7 @@ function TodayCard() {
   const current = day?.hours[0];
   const city = weather?.formatted.city;
   return (
-    <Card theme="day" className={styles.root}>
+    <div className={cx(styles.root)}>
       <Container className={styles.weatherWrapper}>
         <div className={styles.location}>
           <Icon IconComponent={FiMenu} color="unset" className={styles.burger} />
@@ -53,7 +52,7 @@ function TodayCard() {
       >
         <GraphSwitcher className={cx(styles.fullWidth, styles.fullHeight)} />
       </LoadingWrapper>
-    </Card>
+    </div>
   );
 }
 export default TodayCard;

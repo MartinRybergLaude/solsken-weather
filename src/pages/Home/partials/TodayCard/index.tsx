@@ -50,7 +50,7 @@ function TodayCard() {
         className={cx(styles.fullWidth, styles.graphWrapper)}
         contentClassName={cx(styles.fullWidth, styles.fullHeight)}
       >
-        <GraphSwitcher className={cx(styles.fullWidth, styles.fullHeight)} />
+        <GraphSwitcher />
       </LoadingWrapper>
     </div>
   );

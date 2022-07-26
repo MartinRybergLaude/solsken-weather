@@ -14,7 +14,7 @@ function GraphPressure({ chartHours }: GraphProps) {
       <LineChart width={300} height={100} data={chartHours}>
         <YAxis
           type="number"
-          domain={[0, 100]}
+          domain={["dataMin", "dataMax"]}
           padding={{ top: 10, bottom: 10 }}
           width={30}
           axisLine={false}

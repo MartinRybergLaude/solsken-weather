@@ -11,6 +11,7 @@ export interface FormattedWeather {
 }
 export interface Day {
   dayOfWeek: string;
+  dateString: string;
   sunrise: string;
   sunset: string;
   text: string;
@@ -18,6 +19,7 @@ export interface Day {
   tempHigh: string;
   tempLow: string;
   hours: Hour[];
+  chartHours: ChartHour[];
 }
 
 export interface ChartHour {

@@ -12,7 +12,7 @@ function Days() {
     <div className={styles.root}>
       <div className={styles.scrollContainer}>
         <AnimatePresence>
-          {days && days.map((day, index) => <Day key={index} day={day} />)}
+          {days && days.map((day, index) => <Day key={index} day={day} index={index} />)}
         </AnimatePresence>
       </div>
     </div>

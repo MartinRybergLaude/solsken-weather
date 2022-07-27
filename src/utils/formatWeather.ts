@@ -7,6 +7,8 @@ import * as FormattedWeather from "~/types/formattedWeather";
 import * as RawWeather from "~/types/rawWeather";
 import { Theme } from "~/types/themes";
 
+import { getHourString } from "./getHourString";
+
 export default function formatWeather(
   data: RawWeather.RawWeather,
 ): FormattedWeather.FormattedWeather {
@@ -39,6 +41,7 @@ export default function formatWeather(
 
     const formattedDay = {} as FormattedWeather.Day;
     formattedDay.hours = [];
+    formattedDay.chartHours = [];
     // Handle day of week
     let dayOfWeek = {} as string;
     const tomorrow = new Date();
@@ -57,9 +60,26 @@ export default function formatWeather(
     formattedDay.text = day.text;
     formattedDay.tempHigh = getTemperatureString(data.units.temprUnit, day.tempHigh);
     formattedDay.tempLow = getTemperatureString(data.units.temprUnit, day.tempLow);
+    formattedDay.dateString = formatDate(day.date);
 
     day.hours.forEach(hour => {
       formattedDay.hours.push(parseHour(hour, day.sunrise, day.sunset));
+    });
+    day.hours.forEach(hour => {
+      formattedDay.chartHours.push({
+        hour: hour.tempr,
+        hourText: getHourString(data.units.timeUnit, new Date(hour.date)),
+        tempr: hour.tempr,
+        feelslike: hour.feelslike,
+        wind: hour.wind,
+        gusts: hour.gusts,
+        windDir: hour.windDir,
+        humidity: hour.humidity,
+        precMax: hour.precMax,
+        precMean: hour.precMean,
+        icon: hour.icon,
+        pressure: hour.pressure,
+      });
     });
     formattedData.days.push(formattedDay);
   }
@@ -261,27 +281,6 @@ function getTemperatureString(unitTempr: string, tempr: number): string {
       return String(tempr);
   }
 }
-function getHourString(unitTime: string, date: Date): string {
-  const minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
-
-  switch (unitTime) {
-    case "twentyfour": {
-      const hours = (date.getHours() < 10 ? "0" : "") + date.getHours();
-      return hours + ":" + minutes;
-    }
-    case "twelve": {
-      let hours = date.getHours();
-      const ampm = hours >= 12 ? " pm" : " am";
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-      return hours + "." + minutes + ampm;
-    }
-    default: {
-      const hours = (date.getHours() < 10 ? "0" : "") + date.getHours();
-      return hours + ":" + minutes;
-    }
-  }
-}
 function isMorning(sunrise: Date, sunset: Date) {
   const lowHourSunrise = new Date(sunrise);
   lowHourSunrise.setHours(lowHourSunrise.getHours() - 1);
@@ -315,4 +314,8 @@ function isSameDay(d1: Date, d2: Date) {
     d1.getMonth() === d2.getMonth() &&
     d1.getDate() === d2.getDate()
   );
+}
+function formatDate(date: Date): string {
+  const dateObj = new Date(date);
+  return dateObj.getDate() + " " + Consts.Months[dateObj.getMonth()];
 }

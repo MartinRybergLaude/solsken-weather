@@ -32,6 +32,7 @@ export interface Day {
 }
 export interface Hour {
   date: Date;
+  hourText: string;
   tempr: number;
   precMin: number;
   precMax: number;

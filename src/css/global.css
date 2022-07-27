@@ -69,9 +69,14 @@ body {
 
 h1,
 h2,
-h3,
+h3 {
+  margin: 0;
+  color: var(--color-text-primary);
+}
+
 p {
   margin: 0;
+  color: var(--color-text-secondary);
 }
 
 /* React Slick */

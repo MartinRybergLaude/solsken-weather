@@ -9,8 +9,9 @@ import styles from "./Day.module.css";
 
 interface DayProps {
   day: DayType;
+  index: number;
 }
-function Day({ day }: DayProps) {
+function Day({ day, index }: DayProps) {
   return (
     <motion.div
       className={styles.root}
@@ -19,7 +20,7 @@ function Day({ day }: DayProps) {
       exit={{ opacity: 0 }}
     >
       <h3>{day.dayOfWeek}</h3>
-      <Link className={styles.card} to="/hours">
+      <Link className={styles.card} to={`/hours/${index}`}>
         <Container>
           <>
             <WeatherIcon id={day.icon} />

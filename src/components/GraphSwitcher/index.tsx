@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import cx from "classnames";
 import useEmblaCarousel from "embla-carousel-react";
 
-import { useWeather } from "~/contexts/WeatherContext";
+import { ChartHour } from "~/types/formattedWeather";
+import { Hour } from "~/types/rawWeather";
 
 import styles from "./GraphSwitcher.module.css";
 import GraphHumidity from "./partials/GraphHumidity";
@@ -12,8 +13,11 @@ import GraphRain from "./partials/GraphRain";
 import GraphTempr from "./partials/GraphTempr";
 import GraphWind from "./partials/GraphWind";
 
-function GraphSwitcher() {
-  const { weather } = useWeather();
+interface GraphSwitcherProps {
+  hours: ChartHour[] | undefined;
+}
+
+function GraphSwitcher({ hours }: GraphSwitcherProps) {
   const { t } = useTranslation();
   const [viewportRef, embla] = useEmblaCarousel({ skipSnaps: false });
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -42,23 +46,23 @@ function GraphSwitcher() {
           <div className={styles["embla__container"]}>
             <div className={cx(styles.card, styles.first)}>
               <h3>{t("grid_temperature")}</h3>
-              <GraphTempr chartHours={weather?.formatted.chartHours} />
+              <GraphTempr chartHours={hours} />
             </div>
             <div className={styles.card}>
               <h3>{t("grid_prec")}</h3>
-              <GraphRain chartHours={weather?.formatted.chartHours} />
+              <GraphRain chartHours={hours} />
             </div>
             <div className={styles.card}>
               <h3>{t("grid_wind")}</h3>
-              <GraphWind chartHours={weather?.formatted.chartHours} />
+              <GraphWind chartHours={hours} />
             </div>
             <div className={styles.card}>
               <h3>{t("grid_humidity")}</h3>
-              <GraphHumidity chartHours={weather?.formatted.chartHours} />
+              <GraphHumidity chartHours={hours} />
             </div>
             <div className={cx(styles.card, styles.last)}>
               <h3>{t("grid_pressure")}</h3>
-              <GraphPressure chartHours={weather?.formatted.chartHours} />
+              <GraphPressure chartHours={hours} />
             </div>
           </div>
         </div>

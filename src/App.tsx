@@ -23,7 +23,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/hours" element={<Hours />} />
+              <Route path="/hours/:index" element={<Hours />} />
             </Routes>
           </BrowserRouter>
         </WeatherContextProvider>

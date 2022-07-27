@@ -63,7 +63,8 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
           raw: rawWeatherData,
           formatted: formattedWeatherData,
         });
-      } catch {
+      } catch (e) {
+        console.error(e);
         setError("Could not parse weather data");
       }
     }

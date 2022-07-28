@@ -20,6 +20,7 @@
   & p {
     position: relative;
     display: inline-block;
+    color: var(--color-text-primary);
     text-align: center;
 
     &::after {

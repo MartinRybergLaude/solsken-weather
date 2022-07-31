@@ -4,7 +4,6 @@ import cx from "classnames";
 import useEmblaCarousel from "embla-carousel-react";
 
 import { ChartHour } from "~/types/formattedWeather";
-import { Hour } from "~/types/rawWeather";
 
 import styles from "./GraphSwitcher.module.css";
 import GraphHumidity from "./partials/GraphHumidity";

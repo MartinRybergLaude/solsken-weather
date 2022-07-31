@@ -4,11 +4,13 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Lottie from "lottie-react";
 
 import Horizon from "~/assets/weather/horizon.json";
+import Container from "~/components/Container";
 import GraphSwitcher from "~/components/GraphSwitcher";
 import Layout from "~/containers/Layout";
 import { useWeather } from "~/contexts/WeatherContext";
 
 import styles from "./Hours.module.css";
+import Hour from "./partials/Hour";
 
 function Hours() {
   const { index } = useParams();
@@ -50,6 +52,11 @@ function Hours() {
       <div className={styles.graphWrapper}>
         <GraphSwitcher hours={day.chartHours} />
       </div>
+      <Container className={styles.hoursWrapper}>
+        {day.hours.map((hour, index) => (
+          <Hour key={index} hour={hour} />
+        ))}
+      </Container>
     </Layout>
   );
 }

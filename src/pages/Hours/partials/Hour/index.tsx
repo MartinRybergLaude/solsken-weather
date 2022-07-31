@@ -40,7 +40,15 @@ export default function Hour({ hour }: HourProps) {
       }}
       initial={false}
     >
-      <div className={styles.preview}></div>
+      <div className={styles.preview}>
+        <div className={styles.left}>
+          <p className={styles.hourText}>{hour.hour}</p>
+          <div className={styles.temps}>
+            <p>{hour.tempr}</p>
+            <p>{hour.feelslike}</p>
+          </div>
+        </div>
+      </div>
       {isMountedVis && <div className={styles.containerExpanded}></div>}
     </motion.div>
   );

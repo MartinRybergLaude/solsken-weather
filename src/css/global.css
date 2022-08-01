@@ -1,6 +1,7 @@
 :root {
   --color-bg: #eef3f9;
   --color-bg-lite: #ffffff;
+  --color-bg-shadow: #00000066;
 
   /* Weather theme */
   --color-day: #c4e2fe;
@@ -13,13 +14,18 @@
 
   /* Typography */
   --color-text-primary: #1f1e31;
+  --color-text-primary-inv: #eef3f9;
   --color-text-secondary: #88878e;
+
+  /* Values */
+  --modal-max-width: 600px;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg: #292b2f;
     --color-bg-lite: #1d2024;
+    --color-bg-shadow: #ffffff66;
 
     /* Weather theme */
     --color-day: #c4e2fe;
@@ -31,6 +37,7 @@
 
     /* Typography */
     --color-text-primary: #eef3f9;
+    --color-text-primary-inv: #1f1e31;
     --color-text-secondary: #bdbcc2;
   }
 }
@@ -77,6 +84,14 @@ h3 {
 p {
   margin: 0;
   color: var(--color-text-secondary);
+}
+
+button {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto FlexVariable", sans-serif;
+  appearance: none;
+  background: none;
 }
 
 .wind-icon:nth-of-type(2n) {

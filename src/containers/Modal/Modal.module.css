@@ -1,0 +1,21 @@
+.shadow {
+  position: absolute;
+  top: 0;
+  z-index: 200;
+  width: 100%;
+  height: 100%;
+  background: var(--color-bg-shadow);
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 200;
+  width: calc(100% - spacing(2));
+  max-width: var(--modal-max-width);
+  padding: spacing(3);
+  background: var(--color-bg-lite);
+  border-radius: spacing(2);
+  transform: translateX(-50%) translateY(-50%);
+}

@@ -6,19 +6,12 @@ import { getItem } from "~/utils/storage";
 export default function changeUnits(weatherDataImported: RawWeather): RawWeather {
   const weatherData: RawWeather = JSON.parse(JSON.stringify(weatherDataImported));
 
-  let unitTempr = getItem("unit-tempr");
-  let unitWind = getItem("unit-wind");
-  let unitPrec = getItem("unit-prec");
-  let unitPressure = getItem("unit-pressure");
-  let unitVis = getItem("unit-vis");
-  let unitTime = getItem("unit-time");
-
-  if (!unitTempr) unitTempr = Consts.temprUnits.c;
-  if (!unitWind) unitWind = Consts.windUnits.ms;
-  if (!unitPrec) unitPrec = Consts.precUnits.mmh;
-  if (!unitPressure) unitPressure = Consts.pressureUnits.hpa;
-  if (!unitVis) unitVis = Consts.visUnits.km;
-  if (!unitTime) unitTime = Consts.timeUnits.twentyfour;
+  const unitTempr = getItem("unit-tempr") || Consts.temprUnits.c;
+  const unitWind = getItem("unit-wind") || Consts.windUnits.ms;
+  const unitPrec = getItem("unit-prec") || Consts.precUnits.mmh;
+  const unitPressure = getItem("unit-pressure") || Consts.pressureUnits.hpa;
+  const unitVis = getItem("unit-vis") || Consts.visUnits.km;
+  const unitTime = getItem("unit-time") || Consts.timeUnits.twentyfour;
 
   const unitTemprEnum = unitTempr as keyof typeof Consts.temprUnits;
   const unitWindEnum = unitWind as keyof typeof Consts.windUnits;

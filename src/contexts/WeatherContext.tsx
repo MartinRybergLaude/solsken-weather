@@ -13,6 +13,7 @@ import { useLocation } from "./LocationContext";
 type WeatherContextType = {
   weather: Weather | null;
   error?: string;
+  refresh: () => void;
 };
 
 interface WeatherContextProps {
@@ -52,7 +53,7 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
     }
   }, [fetchError]);
 
-  useEffect(() => {
+  function refresh() {
     if (data && location) {
       try {
         const rawWeatherData = changeUnits(
@@ -68,6 +69,10 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
         setError("Could not parse weather data");
       }
     }
+  }
+
+  useEffect(() => {
+    refresh();
   }, [data, location]);
 
   return (
@@ -75,6 +80,7 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
       value={{
         weather,
         error,
+        refresh,
       }}
     >
       {children}

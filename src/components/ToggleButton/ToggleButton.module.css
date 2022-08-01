@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+.listItem {
+  flex: 1;
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
+
+  &:first-of-type .button {
+    border-left: 1px solid var(--color-text-secondary);
+    border-top-left-radius: spacing(1);
+    border-bottom-left-radius: spacing(1);
+  }
+
+  &:last-of-type .button {
+    border-right: 1px solid var(--color-text-secondary);
+    border-top-right-radius: spacing(1);
+    border-bottom-right-radius: spacing(1);
+  }
+}
+
+.button {
+  width: 100%;
+  height: spacing(5);
+  color: var(--color-text-secondary);
+  cursor: pointer;
+  background: none;
+  border: none;
+  border-top: 1px solid var(--color-text-secondary);
+  border-bottom: 1px solid var(--color-text-secondary);
+}
+
+.selected {
+  color: var(--color-text-primary);
+  background: var(--color-bg);
+  border: 1px solid var(--color-text-primary) !important;
+}

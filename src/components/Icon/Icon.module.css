@@ -12,6 +12,11 @@
   color: var(--color-text-secondary);
 }
 
-.day {
-  color: var(--color-day-dark);
+.button {
+  width: 24px;
+  height: 24px;
+  padding: none;
+  margin: none;
+  cursor: pointer;
+  border: none;
 }

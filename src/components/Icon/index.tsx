@@ -8,7 +8,7 @@ import styles from "./Icon.module.css";
 interface Props {
   IconComponent: IconType | SVGIcon;
   className?: string;
-  color?: "unset" | "primary" | "secondary" | "day";
+  color?: "unset" | "primary" | "secondary";
 }
 function Icon({ IconComponent, className, color = "primary" }: Props) {
   return <IconComponent className={cx(styles.root, styles[color], className)} />;

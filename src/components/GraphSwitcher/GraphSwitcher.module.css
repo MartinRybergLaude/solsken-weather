@@ -6,6 +6,7 @@
   padding: spacing(1, 1, 1, 1);
   margin: 0 spacing(2);
   margin-bottom: spacing(2);
+  cursor: grab !important;
   background-color: var(--color-bg-lite);
   border-radius: spacing(2);
 

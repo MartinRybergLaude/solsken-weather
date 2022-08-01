@@ -49,7 +49,12 @@
   width: 100%;
 }
 
-.hoursWrapper {
+.scrollWrapper {
   flex: 1 1 auto;
+  padding-bottom: spacing(5);
   overflow-y: auto;
+}
+
+.padding {
+  padding-bottom: spacing(4);
 }

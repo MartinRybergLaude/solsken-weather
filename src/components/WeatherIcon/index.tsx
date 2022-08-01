@@ -1,4 +1,5 @@
 import React from "react";
+import cx from "classnames";
 import Lottie from "lottie-react";
 
 import ClearDay from "~/assets/weather/clear-day.json";
@@ -47,8 +48,9 @@ import styles from "./WeatherIcon.module.css";
 
 interface WeatherIconProps {
   id: WeatherIconEnum;
+  className?: string;
 }
-function WeatherIcon({ id }: WeatherIconProps) {
+function WeatherIcon({ id, className }: WeatherIconProps) {
   const Icon = () => {
     switch (id) {
       case WeatherIconEnum.CLEAR_DAY:
@@ -134,7 +136,7 @@ function WeatherIcon({ id }: WeatherIconProps) {
     }
   };
   return (
-    <div className={styles.root}>
+    <div className={cx(styles.root, className)}>
       <Icon />
     </div>
   );

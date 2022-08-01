@@ -49,14 +49,15 @@ function Hours() {
           <p>{day.dateString}</p>
         </div>
       </div>
-      <div className={styles.graphWrapper}>
+      <div className={styles.scrollWrapper}>
         <GraphSwitcher hours={day.chartHours} />
+        <Container>
+          {day.hours.map((hour, index) => (
+            <Hour key={index} hour={hour} />
+          ))}
+          <div className={styles.padding} />
+        </Container>
       </div>
-      <Container className={styles.hoursWrapper}>
-        {day.hours.map((hour, index) => (
-          <Hour key={index} hour={hour} />
-        ))}
-      </Container>
     </Layout>
   );
 }

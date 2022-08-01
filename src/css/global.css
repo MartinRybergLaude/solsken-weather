@@ -79,33 +79,14 @@ p {
   color: var(--color-text-secondary);
 }
 
-/* React Slick */
-
-.slick-dots li {
-  width: spacing(1);
-  height: spacing(1);
-  margin: 0 spacing(0.5);
-}
-
-.slick-dots .slick-active > .customDots {
-  background: var(--color-text-primary);
-}
-
-.customDots {
-  position: relative;
-  width: spacing(0.8) !important;
-  height: spacing(0.8) !important;
-  margin-top: spacing(1.5);
-  background-color: var(--color-text-secondary);
-  border-radius: 50%;
-
-  @media ($tablet-portrait-up) {
-    width: spacing(1.5) !important;
-    height: spacing(1.5) !important;
-    margin-top: negative(spacing(3.5));
-  }
-}
-
 .wind-icon:nth-of-type(2n) {
   display: none;
+}
+
+.recharts-responsive-container {
+  cursor: grab !important;
+}
+
+.recharts-wrapper {
+  cursor: grab !important;
 }

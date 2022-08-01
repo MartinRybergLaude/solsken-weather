@@ -36,7 +36,7 @@ function LoadingWrapper({
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
-              <Icon IconComponent={MdErrorOutline} color="day" />
+              <Icon IconComponent={MdErrorOutline} />
             </motion.div>
           ) : (
             loading && (
@@ -47,7 +47,7 @@ function LoadingWrapper({
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.5 }}
               >
-                <Spinner color="white" />
+                <Spinner color="adaptive" />
               </motion.div>
             )
           )}

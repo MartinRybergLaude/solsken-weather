@@ -2,20 +2,12 @@
   --color-bg: #eef3f9;
   --color-bg-lite: #ffffff;
   --color-bg-shadow: #00000066;
-
-  /* Weather theme */
-  --color-day: #c4e2fe;
-  --color-day-dark: #24609c;
-  --color-night: #1d3145;
-  --color-morning: #ffd99f;
-  --color-light: #ffffff;
-  --color-medium: #627784;
-  --color-dark: #2c3b4a;
+  --color-accent: #0077fc;
 
   /* Typography */
   --color-text-primary: #1f1e31;
   --color-text-primary-inv: #eef3f9;
-  --color-text-secondary: #88878e;
+  --color-text-secondary: #5f6a82;
 
   /* Values */
   --modal-max-width: 600px;
@@ -26,14 +18,6 @@
     --color-bg: #292b2f;
     --color-bg-lite: #1d2024;
     --color-bg-shadow: #ffffff66;
-
-    /* Weather theme */
-    --color-day: #c4e2fe;
-    --color-day-dark: #24609c;
-    --color-night: #1d3145;
-    --color-morning: #ffd99f;
-    --color-medium: #627784;
-    --color-dark: #2c3b4a;
 
     /* Typography */
     --color-text-primary: #eef3f9;

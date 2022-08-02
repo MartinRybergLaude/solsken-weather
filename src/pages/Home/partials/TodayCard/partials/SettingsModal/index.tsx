@@ -12,10 +12,6 @@ interface SettingsModalProps {
 function SettingsModal({ isOpen, setOpen }: SettingsModalProps) {
   const { t } = useTranslation();
 
-  if (!isOpen) {
-    return null;
-  }
-
   const temperatureOptions = [
     { label: "°C", value: "c" },
     { label: "°F", value: "f" },
@@ -47,7 +43,7 @@ function SettingsModal({ isOpen, setOpen }: SettingsModalProps) {
   ];
 
   return (
-    <Modal setOpen={setOpen}>
+    <Modal setOpen={setOpen} isOpen={isOpen}>
       <h1 className={styles.title}>{t("title_settings")}</h1>
       <section className={styles.section}>
         <h2>{t("title_units")}</h2>

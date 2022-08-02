@@ -1,8 +1,11 @@
 .container {
   display: flex;
   width: 100%;
-  padding: 0;
+  height: spacing(6);
+  padding: 4px;
   margin: 0;
+  background: #f2f3f5;
+  border-radius: 8px;
 }
 
 .listItem {
@@ -10,33 +13,21 @@
   padding: 0;
   margin: 0;
   list-style-type: none;
-
-  &:first-of-type .button {
-    border-left: 1px solid var(--color-text-secondary);
-    border-top-left-radius: spacing(1);
-    border-bottom-left-radius: spacing(1);
-  }
-
-  &:last-of-type .button {
-    border-right: 1px solid var(--color-text-secondary);
-    border-top-right-radius: spacing(1);
-    border-bottom-right-radius: spacing(1);
-  }
 }
 
 .button {
   width: 100%;
-  height: spacing(5);
+  height: 100%;
+  font-weight: 500;
   color: var(--color-text-secondary);
   cursor: pointer;
   background: none;
   border: none;
-  border-top: 1px solid var(--color-text-secondary);
-  border-bottom: 1px solid var(--color-text-secondary);
+  border-radius: 4px;
 }
 
 .selected {
   color: var(--color-text-primary);
-  background: var(--color-bg);
-  border: 1px solid var(--color-text-primary) !important;
+  background: var(--color-bg-lite);
+  box-shadow: rgba(0, 0, 0, 0.08) 0 4px 12px;
 }

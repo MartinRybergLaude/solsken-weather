@@ -13,10 +13,10 @@
 
   & label {
     display: block;
-    margin-top: spacing(1);
-    margin-bottom: spacing(1);
+    margin-top: spacing(2);
+    margin-bottom: spacing(0.5);
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 400;
     color: var(--color-text-secondary);
   }
 }

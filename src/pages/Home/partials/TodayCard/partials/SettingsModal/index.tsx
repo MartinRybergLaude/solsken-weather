@@ -12,6 +12,11 @@ interface SettingsModalProps {
 function SettingsModal({ isOpen, setOpen }: SettingsModalProps) {
   const { t } = useTranslation();
 
+  const dataSourceOptions = [
+    { label: "YR.no", value: "yr" },
+    { label: "SMHI", value: "smhi" },
+  ];
+
   const temperatureOptions = [
     { label: "°C", value: "c" },
     { label: "°F", value: "f" },
@@ -44,6 +49,10 @@ function SettingsModal({ isOpen, setOpen }: SettingsModalProps) {
 
   return (
     <Modal setOpen={setOpen} isOpen={isOpen}>
+      <section className={styles.section}>
+        <h2>{t("text_data_source")}</h2>
+        <ToggleButton options={dataSourceOptions} groupKey="data-src" id="data source" />
+      </section>
       <section className={styles.section}>
         <h2>{t("title_units")}</h2>
         <label htmlFor="temperature">{t("grid_temperature")}</label>

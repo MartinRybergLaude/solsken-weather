@@ -54,6 +54,9 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
   }, [fetchError]);
 
   function refresh() {
+    setError(undefined);
+    const provider: Provider = (getItem("data-src") as Provider) || "smhi";
+    setProvider(provider);
     if (data && location) {
       try {
         const rawWeatherData = changeUnits(
@@ -66,6 +69,7 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
         });
       } catch (e) {
         console.error(e);
+        setWeather(null);
         setError("Could not parse weather data");
       }
     }

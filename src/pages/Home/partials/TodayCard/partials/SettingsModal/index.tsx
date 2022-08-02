@@ -44,7 +44,6 @@ function SettingsModal({ isOpen, setOpen }: SettingsModalProps) {
 
   return (
     <Modal setOpen={setOpen} isOpen={isOpen}>
-      <h1 className={styles.title}>{t("title_settings")}</h1>
       <section className={styles.section}>
         <h2>{t("title_units")}</h2>
         <label htmlFor="temperature">{t("grid_temperature")}</label>

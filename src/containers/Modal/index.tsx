@@ -1,5 +1,9 @@
 import ReactDOM from "react-dom";
+import { useTranslation } from "react-i18next";
+import { FiX } from "react-icons/fi";
 import { AnimatePresence, motion } from "framer-motion";
+
+import Icon from "~/components/Icon";
 
 import styles from "./Modal.module.css";
 
@@ -9,6 +13,8 @@ interface ModalProps {
   isOpen: boolean;
 }
 function Modal({ children, setOpen, isOpen }: ModalProps) {
+  const { t } = useTranslation();
+
   function close() {
     setOpen(false);
   }
@@ -32,7 +38,11 @@ function Modal({ children, setOpen, isOpen }: ModalProps) {
             transition={{ duration: 0.2 }}
             className={styles.modal}
           >
-            {children}
+            <div className={styles.topBar}>
+              <h1 className={styles.title}>{t("title_settings")}</h1>
+              <Icon IconComponent={FiX} onClick={close} />
+            </div>
+            <div className={styles.content}>{children}</div>
           </motion.div>
         </>
       )}

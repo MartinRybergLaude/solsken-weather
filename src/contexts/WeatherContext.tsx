@@ -29,13 +29,23 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
 
   const { location } = useLocation();
 
-  const { data, error: fetchError } = useSWR(() => {
-    if (!location || !provider) return null;
-    if (provider === "smhi") {
-      return `${apiBaseSMHI}lon/${location.lon}/lat/${location.lat}/data.json`;
-    }
-    return `${apiBaseYR}lat=${location.lat}&lon=${location.lon}`;
-  }, weatherFetcher);
+  const { data, error: fetchError } = useSWR(
+    () => {
+      if (!location || !provider) return null;
+      if (provider === "smhi") {
+        return `${apiBaseSMHI}lon/${location.lon}/lat/${location.lat}/data.json`;
+      }
+      return `${apiBaseYR}lat=${location.lat}&lon=${location.lon}`;
+    },
+    weatherFetcher,
+    {
+      errorRetryCount: 3,
+      revalidateOnFocus: false,
+      revalidateOnMount: false,
+      revalidateOnReconnect: false,
+      refreshInterval: 1000 * 60 * 30,
+    },
+  );
 
   useEffect(() => {
     if (fetchError) {

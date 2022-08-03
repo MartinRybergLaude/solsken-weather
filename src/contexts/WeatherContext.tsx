@@ -3,11 +3,9 @@ import useSWR from "swr";
 
 import { Provider } from "~/types/provider";
 import Weather from "~/types/weather";
-import changeUnits from "~/utils/changeUnits";
 import { apiBaseSMHI, apiBaseYR, weatherFetcher } from "~/utils/constants";
 import formatWeather from "~/utils/formatWeather";
 import { parseWeather } from "~/utils/parseWeather";
-import { parseWeatherSMHI } from "~/utils/smhi";
 import { getItem } from "~/utils/storage";
 
 import { useLocation } from "./LocationContext";

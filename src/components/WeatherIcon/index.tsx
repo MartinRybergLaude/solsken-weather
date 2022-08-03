@@ -16,6 +16,7 @@ import ExtremeRain from "~/assets/weather/extreme-rain.json";
 import ExtremeSleet from "~/assets/weather/extreme-sleet.json";
 import ExtremeSnow from "~/assets/weather/extreme-snow.json";
 import Fog from "~/assets/weather/mist.json";
+import NotAvailable from "~/assets/weather/not-available.json";
 import Overcast from "~/assets/weather/overcast.json";
 import OvercastDayRain from "~/assets/weather/overcast-day-rain.json";
 import OvercastDaySleet from "~/assets/weather/overcast-day-sleet.json";
@@ -53,6 +54,8 @@ interface WeatherIconProps {
 function WeatherIcon({ id, className }: WeatherIconProps) {
   const Icon = () => {
     switch (id) {
+      case WeatherIconEnum.NOT_AVAILABLE:
+        return <Lottie animationData={NotAvailable} />;
       case WeatherIconEnum.CLEAR_DAY:
         return <Lottie animationData={ClearDay} loop />;
       case WeatherIconEnum.CLEAR_NIGHT:

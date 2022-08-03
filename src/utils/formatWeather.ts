@@ -56,7 +56,7 @@ export default function formatWeather(
     formattedDay.dayOfWeek = dayOfWeek;
     formattedDay.sunrise = getHourString(data.units.timeUnit, new Date(day.sunrise));
     formattedDay.sunset = getHourString(data.units.timeUnit, new Date(day.sunset));
-    formattedDay.icon = getDayIcon(day);
+    formattedDay.icon = day.icon || getDayIcon(day);
     formattedDay.text = day.text;
     formattedDay.tempHigh = getTemperatureString(data.units.temprUnit, day.tempHigh);
     formattedDay.tempLow = getTemperatureString(data.units.temprUnit, day.tempLow);

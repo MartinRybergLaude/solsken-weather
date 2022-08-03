@@ -1,10 +1,12 @@
 import React, { useEffect } from "react";
 import useSWR from "swr";
 
+import { Provider } from "~/types/provider";
 import Weather from "~/types/weather";
 import changeUnits from "~/utils/changeUnits";
 import { apiBaseSMHI, apiBaseYR, weatherFetcher } from "~/utils/constants";
 import formatWeather from "~/utils/formatWeather";
+import { parseWeather } from "~/utils/parseWeather";
 import { parseWeatherSMHI } from "~/utils/smhi";
 import { getItem } from "~/utils/storage";
 
@@ -19,8 +21,6 @@ type WeatherContextType = {
 interface WeatherContextProps {
   children: React.ReactNode;
 }
-
-type Provider = "smhi" | "yr";
 
 const WeatherContext = React.createContext<WeatherContextType>({} as WeatherContextType);
 
@@ -40,14 +40,6 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
   }, weatherFetcher);
 
   useEffect(() => {
-    if (location) {
-      // Check which data source is selected
-      const provider: Provider = (getItem("data-src") as Provider) || "smhi";
-      setProvider(provider);
-    }
-  }, [location]);
-
-  useEffect(() => {
     if (fetchError) {
       setError(fetchError.message);
     }
@@ -55,13 +47,11 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
 
   function refresh() {
     setError(undefined);
-    const provider: Provider = (getItem("data-src") as Provider) || "smhi";
+    const provider: Provider = (getItem("data-src") as Provider) || "yr";
     setProvider(provider);
     if (data && location) {
       try {
-        const rawWeatherData = changeUnits(
-          parseWeatherSMHI(data, location.lon, location.lat, location.name),
-        );
+        const rawWeatherData = parseWeather(data, provider, location);
         const formattedWeatherData = formatWeather(rawWeatherData);
         setWeather({
           raw: rawWeatherData,

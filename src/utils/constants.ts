@@ -1,7 +1,6 @@
 import i18n from "i18n";
 
 import { Data } from "~/types/bigDataCloud";
-import { WeatherData } from "~/types/smhi";
 
 export async function locationFetcher(input: RequestInfo, init?: RequestInit): Promise<string> {
   const res = await fetch(input, init);
@@ -9,9 +8,9 @@ export async function locationFetcher(input: RequestInfo, init?: RequestInit): P
   return data.locality;
 }
 
-export async function weatherFetcher(input: RequestInfo, init?: RequestInit): Promise<WeatherData> {
+export async function weatherFetcher(input: RequestInfo, init?: RequestInit): Promise<any> {
   const res = await fetch(input, init);
-  const data = (await res.json()) as WeatherData;
+  const data = await res.json();
   return data;
 }
 

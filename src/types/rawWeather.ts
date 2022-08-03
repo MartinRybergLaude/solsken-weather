@@ -29,6 +29,7 @@ export interface Day {
   tempHigh: number;
   tempLow: number;
   hours: Hour[];
+  icon?: WeatherIconEnum;
 }
 export interface Hour {
   date: Date;

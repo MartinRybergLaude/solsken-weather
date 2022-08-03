@@ -6,6 +6,7 @@
 
 // TODO: Tune these better
 export enum WeatherIconEnum {
+  NOT_AVAILABLE,
   PARTLY_CLOUDY_NIGHT,
   PARTLY_CLOUDY_DAY,
   CLEAR_NIGHT,

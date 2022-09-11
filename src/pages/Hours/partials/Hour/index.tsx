@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
+import { memo, useState } from "react";
 import { FiArrowDown, FiUmbrella } from "react-icons/fi";
 import { MdWaterDrop } from "react-icons/md";
 import cx from "classnames";
@@ -17,9 +16,8 @@ import styles from "./Hour.module.css";
 interface HourProps {
   hour: FormattedHour;
 }
-export default function Hour({ hour }: HourProps) {
-  const { t } = useTranslation();
 
+function Hour({ hour }: HourProps) {
   const variants = {
     open: { height: 152 },
     closed: { height: 72 },
@@ -108,3 +106,5 @@ export default function Hour({ hour }: HourProps) {
     </motion.div>
   );
 }
+
+export default memo(Hour);

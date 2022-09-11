@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { useRef, useState } from "react";
 import { FiArrowDown, FiUmbrella } from "react-icons/fi";
 import { MdWaterDrop } from "react-icons/md";
 import cx from "classnames";
@@ -18,6 +18,8 @@ interface HourProps {
 }
 
 function Hour({ hour }: HourProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
+
   const variants = {
     open: { height: 152 },
     closed: { height: 72 },
@@ -48,6 +50,7 @@ function Hour({ hour }: HourProps) {
         damping: 31,
       }}
       initial={false}
+      ref={rootRef}
     >
       <div className={styles.preview}>
         <div className={styles.left}>
@@ -68,8 +71,8 @@ function Hour({ hour }: HourProps) {
             <p>{hour.wind.split(" ")[1]}</p>
           </div>
           <FiArrowDown
+            className={styles.windIconWrapper}
             style={{ transform: `rotate(${hour.windDirDeg}deg)` }}
-            className={styles.windArrow}
           />
         </div>
       </div>
@@ -107,4 +110,4 @@ function Hour({ hour }: HourProps) {
   );
 }
 
-export default memo(Hour);
+export default Hour;

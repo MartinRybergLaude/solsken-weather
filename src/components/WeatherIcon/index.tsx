@@ -1,4 +1,4 @@
-import React from "react";
+import { memo } from "react";
 import cx from "classnames";
 import Lottie from "lottie-react";
 
@@ -145,4 +145,4 @@ function WeatherIcon({ id, className }: WeatherIconProps) {
   );
 }
 
-export default WeatherIcon;
+export default memo(WeatherIcon);

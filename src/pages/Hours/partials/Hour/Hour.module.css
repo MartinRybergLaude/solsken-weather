@@ -46,15 +46,16 @@
     margin-top: -3px;
   }
 
+  & .windIconWrapper {
+    width: spacing(2.5);
+    height: spacing(2.5);
+  }
+
   & .wind {
     display: flex;
     gap: spacing(1);
     align-items: center;
     justify-content: center;
-
-    & .windArrow {
-      color: var(--color-text-primary);
-    }
   }
 }
 

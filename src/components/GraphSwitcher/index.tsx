@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { memo, useCallback, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import cx from "classnames";
 import useEmblaCarousel from "embla-carousel-react";
@@ -92,4 +92,4 @@ export const DotButton = ({ selected, onClick }: DotButtonProps) => (
   />
 );
 
-export default GraphSwitcher;
+export default memo(GraphSwitcher);

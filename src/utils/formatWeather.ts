@@ -13,7 +13,7 @@ export default function formatWeather(
   data: RawWeather.RawWeather,
 ): FormattedWeather.FormattedWeather {
   const formattedData = {} as FormattedWeather.FormattedWeather;
-  formattedData.city = data.city.split(" ")[0];
+  formattedData.city = data.city;
   formattedData.chartHours = [];
   formattedData.days = [];
   for (const day of data.days) {

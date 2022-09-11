@@ -30,5 +30,4 @@
 .selected {
   color: var(--color-text-primary);
   background: var(--color-bg-lite);
-  box-shadow: rgba(0, 0, 0, 0.08) 0 4px 12px;
 }

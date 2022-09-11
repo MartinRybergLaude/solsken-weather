@@ -14,7 +14,7 @@ import styles from "./TodayCard.module.css";
 function TodayCard() {
   const [showSettings, setShowSettings] = useState(false);
 
-  const { weather, error, refresh } = useWeather();
+  const { weather, error, loading, refresh } = useWeather();
 
   useEffect(() => {
     if (!showSettings) {
@@ -36,13 +36,13 @@ function TodayCard() {
               className={styles.burger}
               onClick={() => setShowSettings(!showSettings)}
             />
-            <LoadingWrapper loading={!weather} error={error}>
+            <LoadingWrapper loading={loading} error={error}>
               <h1>{city || ""}</h1>
             </LoadingWrapper>
             <div className={styles.fakeIcon} />
           </div>
           <LoadingWrapper
-            loading={!weather}
+            loading={loading}
             error={error}
             contentClassName={styles.temperatureWrapper}
           >
@@ -53,7 +53,7 @@ function TodayCard() {
             <SmallWeatherInfo currentHour={current} />
           </LoadingWrapper>
           <LoadingWrapper
-            loading={!weather}
+            loading={loading}
             error={error}
             className={styles.weatherContainer}
             showIcons
@@ -62,7 +62,7 @@ function TodayCard() {
           </LoadingWrapper>
         </Container>
         <LoadingWrapper
-          loading={!weather}
+          loading={loading}
           error={error}
           className={cx(styles.fullWidth, styles.graphWrapper)}
           contentClassName={cx(styles.fullWidth, styles.fullHeight)}

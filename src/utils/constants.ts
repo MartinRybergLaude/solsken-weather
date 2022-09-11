@@ -1,6 +1,12 @@
 import i18n from "i18n";
 
 import { Data } from "~/types/bigDataCloud";
+import Location from "~/types/location";
+import { Provider } from "~/types/provider";
+import Weather from "~/types/weather";
+
+import formatWeather from "./formatWeather";
+import { parseWeather } from "./parseWeather";
 
 export async function locationFetcher(input: RequestInfo, init?: RequestInit): Promise<string> {
   const res = await fetch(input, init);
@@ -8,10 +14,22 @@ export async function locationFetcher(input: RequestInfo, init?: RequestInit): P
   return data.locality;
 }
 
-export async function weatherFetcher(input: RequestInfo, init?: RequestInit): Promise<any> {
-  const res = await fetch(input, init);
+interface WeatherParams {
+  url: RequestInfo;
+  location?: Location;
+  provider?: Provider | null;
+  init?: RequestInit;
+}
+
+export async function weatherFetcher(params: WeatherParams): Promise<Weather> {
+  const { url, location, provider, init } = params;
+  if (!location || !provider) throw new Error("missing location or provider");
+  const res = await fetch(url, init);
   const data = await res.json();
-  return data;
+  const rawWeatherData = parseWeather(data, provider, location);
+  const formattedWeatherData = formatWeather(rawWeatherData);
+
+  return { raw: rawWeatherData, formatted: formattedWeatherData };
 }
 
 export const apiBaseSMHI =

@@ -1,71 +1,54 @@
-import { useEffect, useMemo, useRef } from "react";
+import { useMemo, useRef } from "react";
 import { FiArrowLeft } from "react-icons/fi";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 import cx from "classnames";
 import Lottie from "lottie-react";
 
 import Horizon from "~/assets/weather/horizon.json";
 import Container from "~/components/Container";
 import GraphSwitcher from "~/components/GraphSwitcher";
-import Layout from "~/containers/Layout";
-import { useWeather } from "~/contexts/WeatherContext";
 import useScrollPosition from "~/hooks/useScrollPosition";
+import { Day } from "~/types/formattedWeather";
 
+import Hour from "../Hour";
 import styles from "./Hours.module.css";
-import Hour from "./partials/Hour";
 
-function Hours() {
-  const { index } = useParams();
-  const { weather } = useWeather();
-  const navigate = useNavigate();
+interface HoursProps {
+  day?: Day;
+  pauseAnimation?: boolean;
+}
+export default function Hours({ day, pauseAnimation }: HoursProps) {
   const scrollRef = useRef<HTMLDivElement>(null);
   const scrolled = useScrollPosition(true, scrollRef);
-
-  // Go back to main menu if weather data is unavailable
-  useEffect(() => {
-    if (!weather || !index) {
-      navigate("/");
-    }
-  }, [weather, index]);
-
-  // Show nothing if weather data is unavailable
-  if (!weather || !index) {
-    return null;
-  }
-
-  const day = weather.formatted.days[Number(index)];
-
   const shouldDisplayShadow = useMemo(() => scrolled > 0, [scrolled]);
 
   return (
-    <Layout flex>
+    <>
       <header className={cx(styles.header, shouldDisplayShadow && styles.shadow)}>
         <div className={styles.headerTop}>
           <Link to="/">
             <FiArrowLeft className={styles.icon} />
           </Link>
           <div className={styles.horizon}>
-            <p>{day.sunrise}</p>
+            <p>{day?.sunrise}</p>
             <Lottie animationData={Horizon} loop className={styles.colorIcon} />
-            <p>{day.sunset}</p>
+            <p>{day?.sunset}</p>
           </div>
         </div>
         <div className={styles.titleWrapper}>
-          <h1>{day.dayOfWeek}</h1>
-          <p>{day.dateString}</p>
+          <h1>{day?.dayOfWeek}</h1>
+          <p>{day?.dateString}</p>
         </div>
       </header>
       <div className={styles.scrollWrapper} ref={scrollRef}>
-        <GraphSwitcher hours={day.chartHours} />
-        <Container>
-          {day.hours.map(hour => (
-            <Hour key={hour.hour} hour={hour} />
+        <GraphSwitcher hours={day?.chartHours} />
+        <Container className={styles.hoursWrapper}>
+          {day?.hours.map(hour => (
+            <Hour key={hour.hour} hour={hour} pauseAnimation={pauseAnimation} />
           ))}
           <div className={styles.padding} />
         </Container>
       </div>
-    </Layout>
+    </>
   );
 }
-
-export default Hours;

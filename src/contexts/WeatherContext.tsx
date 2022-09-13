@@ -13,6 +13,8 @@ type WeatherContextType = {
   error?: string;
   loading?: boolean;
   refresh: () => void;
+  setSelectedDay: (day: number) => void;
+  selectedDay: number;
 };
 
 interface WeatherContextProps {
@@ -24,6 +26,7 @@ const WeatherContext = React.createContext<WeatherContextType>({} as WeatherCont
 export function WeatherContextProvider({ children }: WeatherContextProps) {
   const [provider, setProvider] = React.useState<Provider | null>(getProvider());
   const [loading, setLoading] = React.useState(true);
+  const [selectedDay, setSelectedDay] = React.useState(0);
   const [error, setError] = React.useState<string | undefined>(undefined);
   const { location } = useLocation();
 
@@ -84,6 +87,8 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
         error,
         loading,
         refresh,
+        setSelectedDay,
+        selectedDay,
       }}
     >
       {children}

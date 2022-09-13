@@ -5,6 +5,10 @@
   justify-content: flex-end;
   width: 100%;
   padding-top: spacing(2);
+
+  @media ($tablet-portrait-up) {
+    justify-content: flex-start;
+  }
 }
 
 .scrollContainer {
@@ -32,5 +36,13 @@
   &::after {
     padding-right: 0.02px;
     content: "";
+  }
+
+  @media ($tablet-portrait-up) {
+    flex-wrap: wrap;
+
+    & > * {
+      margin-top: spacing(6);
+    }
   }
 }

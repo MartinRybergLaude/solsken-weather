@@ -4,10 +4,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "@fontsource/roboto-flex/variable.css";
 import { LocationContextProvider } from "~/contexts/LocationContext";
 import { WeatherContextProvider } from "~/contexts/WeatherContext";
-import Home from "~/pages/Home";
 
 import { useThemeDetector } from "./hooks/useThemeDetector";
-import Hours from "./pages/Hours";
+import Home from "./pages/HomePage";
+import HoursPage from "./pages/HoursPage";
 
 function App() {
   const isDarkTheme = useThemeDetector();
@@ -23,7 +23,7 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/hours/:index" element={<Hours />} />
+              <Route path="/hours/:index" element={<HoursPage />} />
             </Routes>
           </BrowserRouter>
         </WeatherContextProvider>

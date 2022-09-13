@@ -45,3 +45,39 @@
 .maxTemp {
   font-weight: 700;
 }
+
+.button {
+  display: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease-in-out;
+}
+
+@media ($tablet-landscape-up) {
+  .link {
+    display: none;
+  }
+
+  .button {
+    display: unset;
+  }
+}
+
+.selected {
+  position: relative;
+}
+
+.selected::after {
+  position: absolute;
+  right: 0;
+  bottom: spacing(-2);
+  left: 50%;
+  display: block;
+  width: spacing(6);
+  height: spacing(0.5);
+  content: "";
+  background: var(--color-accent);
+  border-radius: spacing(10);
+  transition: all 0.2s ease-in-out;
+  transform: translateX(-50%);
+}

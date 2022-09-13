@@ -50,92 +50,94 @@ import styles from "./WeatherIcon.module.css";
 interface WeatherIconProps {
   id: WeatherIconEnum;
   className?: string;
+  pause?: boolean;
 }
-function WeatherIcon({ id, className }: WeatherIconProps) {
+function WeatherIcon({ id, className, pause }: WeatherIconProps) {
+  const shouldPlay = pause ? false : true;
   const Icon = () => {
     switch (id) {
       case WeatherIconEnum.NOT_AVAILABLE:
-        return <Lottie animationData={NotAvailable} />;
+        return <Lottie animationData={NotAvailable} autoplay={shouldPlay} />;
       case WeatherIconEnum.CLEAR_DAY:
-        return <Lottie animationData={ClearDay} loop />;
+        return <Lottie animationData={ClearDay} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.CLEAR_NIGHT:
-        return <Lottie animationData={ClearNight} loop />;
+        return <Lottie animationData={ClearNight} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.CLOUDY:
-        return <Lottie animationData={Cloudy} loop />;
+        return <Lottie animationData={Cloudy} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.DRIZZLE:
-        return <Lottie animationData={Drizzle} loop />;
+        return <Lottie animationData={Drizzle} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.FOG:
-        return <Lottie animationData={Fog} loop />;
+        return <Lottie animationData={Fog} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.OVERCAST:
-        return <Lottie animationData={Overcast} loop />;
+        return <Lottie animationData={Overcast} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.PARTLY_CLOUDY_DAY:
-        return <Lottie animationData={PartlyCloudyDay} loop />;
+        return <Lottie animationData={PartlyCloudyDay} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.PARTLY_CLOUDY_DAY_DRIZZLE:
-        return <Lottie animationData={PartlyCloudyDayDrizzle} loop />;
+        return <Lottie animationData={PartlyCloudyDayDrizzle} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.PARTLY_CLOUDY_DAY_RAIN:
-        return <Lottie animationData={PartlyCloudyDayRain} loop />;
+        return <Lottie animationData={PartlyCloudyDayRain} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.PARTLY_CLOUDY_DAY_SLEET:
-        return <Lottie animationData={PartlyCloudyDaySleet} loop />;
+        return <Lottie animationData={PartlyCloudyDaySleet} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.PARTLY_CLOUDY_DAY_SNOW:
-        return <Lottie animationData={PartlyCloudyDaySnow} loop />;
+        return <Lottie animationData={PartlyCloudyDaySnow} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.PARTLY_CLOUDY_NIGHT:
-        return <Lottie animationData={PartlyCloudyNight} loop />;
+        return <Lottie animationData={PartlyCloudyNight} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.PARTLY_CLOUDY_NIGHT_DRIZZLE:
-        return <Lottie animationData={PartlyCloudyNightDrizzle} loop />;
+        return <Lottie animationData={PartlyCloudyNightDrizzle} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.PARTLY_CLOUDY_NIGHT_RAIN:
-        return <Lottie animationData={PartlyCloudyNightRain} loop />;
+        return <Lottie animationData={PartlyCloudyNightRain} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.PARTLY_CLOUDY_NIGHT_SLEET:
-        return <Lottie animationData={PartlyCloudyNightSleet} loop />;
+        return <Lottie animationData={PartlyCloudyNightSleet} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.PARTLY_CLOUDY_NIGHT_SNOW:
-        return <Lottie animationData={PartlyCloudyNightSnow} loop />;
+        return <Lottie animationData={PartlyCloudyNightSnow} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.RAIN:
-        return <Lottie animationData={Rain} loop />;
+        return <Lottie animationData={Rain} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.SLEET:
-        return <Lottie animationData={Sleet} loop />;
+        return <Lottie animationData={Sleet} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.SNOW:
-        return <Lottie animationData={Snow} loop />;
+        return <Lottie animationData={Snow} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.THUNDER:
-        return <Lottie animationData={Thunder} loop />;
+        return <Lottie animationData={Thunder} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.THUNDERSTORMS_DAY:
-        return <Lottie animationData={ThunderstormsDay} loop />;
+        return <Lottie animationData={ThunderstormsDay} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.THUNDERSTORMS_NIGHT:
-        return <Lottie animationData={ThunderstormsNight} loop />;
+        return <Lottie animationData={ThunderstormsNight} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.EXTREME_DAY_RAIN:
-        return <Lottie animationData={ExtremeDayRain} loop />;
+        return <Lottie animationData={ExtremeDayRain} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.EXTREME_DAY_SLEET:
-        return <Lottie animationData={ExtremeDaySleet} loop />;
+        return <Lottie animationData={ExtremeDaySleet} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.EXTREME_DAY_SNOW:
-        return <Lottie animationData={ExtremeDaySnow} loop />;
+        return <Lottie animationData={ExtremeDaySnow} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.EXTREME_NIGHT_RAIN:
-        return <Lottie animationData={ExtremeNightRain} loop />;
+        return <Lottie animationData={ExtremeNightRain} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.EXTREME_NIGHT_SLEET:
-        return <Lottie animationData={ExtremeNightSleet} loop />;
+        return <Lottie animationData={ExtremeNightSleet} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.EXTREME_NIGHT_SNOW:
-        return <Lottie animationData={ExtremeNightSnow} loop />;
+        return <Lottie animationData={ExtremeNightSnow} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.EXTREME_RAIN:
-        return <Lottie animationData={ExtremeRain} loop />;
+        return <Lottie animationData={ExtremeRain} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.EXTREME_SLEET:
-        return <Lottie animationData={ExtremeSleet} loop />;
+        return <Lottie animationData={ExtremeSleet} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.EXTREME_SNOW:
-        return <Lottie animationData={ExtremeSnow} loop />;
+        return <Lottie animationData={ExtremeSnow} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.OVERCAST_DAY_RAIN:
-        return <Lottie animationData={OvercastDayRain} loop />;
+        return <Lottie animationData={OvercastDayRain} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.OVERCAST_DAY_SLEET:
-        return <Lottie animationData={OvercastDaySleet} loop />;
+        return <Lottie animationData={OvercastDaySleet} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.OVERCAST_DAY_SNOW:
-        return <Lottie animationData={OvercastDaySnow} loop />;
+        return <Lottie animationData={OvercastDaySnow} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.OVERCAST_NIGHT_RAIN:
-        return <Lottie animationData={OvercastNightRain} loop />;
+        return <Lottie animationData={OvercastNightRain} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.OVERCAST_NIGHT_SLEET:
-        return <Lottie animationData={OvercastNightSleet} loop />;
+        return <Lottie animationData={OvercastNightSleet} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.OVERCAST_NIGHT_SNOW:
-        return <Lottie animationData={OvercastNightSnow} loop />;
+        return <Lottie animationData={OvercastNightSnow} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.OVERCAST_RAIN:
-        return <Lottie animationData={OvercastRain} loop />;
+        return <Lottie animationData={OvercastRain} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.OVERCAST_SLEET:
-        return <Lottie animationData={OvercastSleet} loop />;
+        return <Lottie animationData={OvercastSleet} loop autoplay={shouldPlay} />;
       case WeatherIconEnum.OVERCAST_SNOW:
-        return <Lottie animationData={OvercastSnow} loop />;
+        return <Lottie animationData={OvercastSnow} loop autoplay={shouldPlay} />;
     }
   };
   return (

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import cx from "classnames";
 import { motion } from "framer-motion";
 
 import Container from "~/components/Container";
@@ -10,8 +11,10 @@ import styles from "./Day.module.css";
 interface DayProps {
   day: DayType;
   index: number;
+  setSelectedDay: (day: number) => void;
+  selectedDay: number;
 }
-function Day({ day, index }: DayProps) {
+function Day({ day, index, setSelectedDay, selectedDay }: DayProps) {
   return (
     <motion.div
       className={styles.root}
@@ -20,7 +23,7 @@ function Day({ day, index }: DayProps) {
       exit={{ opacity: 0 }}
     >
       <h3>{day.dayOfWeek}</h3>
-      <Link className={styles.card} to={`/hours/${index}`}>
+      <Link className={cx(styles.card, styles.link)} to={`/hours/${index}`}>
         <Container>
           <>
             <WeatherIcon id={day.icon} />
@@ -31,6 +34,20 @@ function Day({ day, index }: DayProps) {
           </>
         </Container>
       </Link>
+      <button
+        className={cx(styles.card, styles.button, selectedDay === index && styles.selected)}
+        onClick={() => setSelectedDay(index)}
+      >
+        <Container>
+          <>
+            <WeatherIcon id={day.icon} />
+            <div className={styles.temps}>
+              <p className={styles.maxTemp}>{day.tempHigh}</p>
+              <p className={styles.minTemp}>{day.tempLow}</p>
+            </div>
+          </>
+        </Container>
+      </button>
     </motion.div>
   );
 }

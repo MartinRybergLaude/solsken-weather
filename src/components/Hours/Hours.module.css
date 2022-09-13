@@ -64,3 +64,17 @@
 .padding {
   padding-bottom: spacing(4);
 }
+
+@media ($tablet-landscape-up) {
+  .icon {
+    display: none;
+  }
+
+  .header {
+    padding: spacing(2, 2);
+  }
+
+  .titleWrapper {
+    margin-top: spacing(-6);
+  }
+}

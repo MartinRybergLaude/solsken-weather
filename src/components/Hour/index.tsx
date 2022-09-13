@@ -15,9 +15,10 @@ import styles from "./Hour.module.css";
 
 interface HourProps {
   hour: FormattedHour;
+  pauseAnimation?: boolean;
 }
 
-function Hour({ hour }: HourProps) {
+function Hour({ hour, pauseAnimation }: HourProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
   const variants = {
@@ -60,7 +61,7 @@ function Hour({ hour }: HourProps) {
             <p>{hour.feelslike}</p>
           </div>
         </div>
-        <WeatherIcon id={hour.icon} className={styles.weatherIconWrapper} />
+        <WeatherIcon pause={pauseAnimation} id={hour.icon} className={styles.weatherIconWrapper} />
         <div>
           <p className={styles.strong}>{hour.precMean.split(" ")[0]}</p>
           <p>{hour.precMean.split(" ")[1]}</p>

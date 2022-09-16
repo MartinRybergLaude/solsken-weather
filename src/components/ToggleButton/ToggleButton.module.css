@@ -2,9 +2,9 @@
   display: flex;
   width: 100%;
   height: spacing(6);
-  padding: 4px;
+  padding: 3px;
   margin: 0;
-  background: #f2f3f5;
+  background: #e7e7e7;
   border-radius: 8px;
 }
 
@@ -20,7 +20,7 @@
   height: 100%;
   font-size: 14px;
   font-weight: 500;
-  color: var(--color-text-secondary);
+  color: var(--color-text-primary);
   cursor: pointer;
   background: none;
   border: none;

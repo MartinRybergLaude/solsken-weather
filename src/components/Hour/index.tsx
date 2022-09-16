@@ -100,7 +100,11 @@ function Hour({ hour, pauseAnimation }: HourProps) {
           </div>
           <div className={styles.infoBox}>
             <div className={cx(styles.iconWrapper, styles.max)}>
-              <Icon IconComponent={WindSVG} className={cx(styles.icon, styles.adjusted)} />
+              <Icon
+                IconComponent={WindSVG}
+                className={cx(styles.icon, styles.adjusted)}
+                color="primary"
+              />
               <p>MAX</p>
             </div>
             <p>{hour.gusts}</p>

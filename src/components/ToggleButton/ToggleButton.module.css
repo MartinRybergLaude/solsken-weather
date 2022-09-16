@@ -4,7 +4,7 @@
   height: spacing(6);
   padding: 3px;
   margin: 0;
-  background: #e7e7e7;
+  background: var(--color-bg-dark);
   border-radius: 8px;
 }
 
@@ -24,7 +24,7 @@
   cursor: pointer;
   background: none;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 
 .selected {

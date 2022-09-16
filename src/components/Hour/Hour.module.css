@@ -49,6 +49,7 @@
   & .windIconWrapper {
     width: spacing(2.5);
     height: spacing(2.5);
+    color: var(--color-text-primary);
   }
 
   & .wind {

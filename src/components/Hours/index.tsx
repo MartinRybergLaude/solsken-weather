@@ -44,7 +44,6 @@ export default function Hours({ day, pauseAnimation }: HoursProps) {
           {day?.hours.map(hour => (
             <Hour key={hour.hour} hour={hour} pauseAnimation={pauseAnimation} scrollRef={rootRef} />
           ))}
-          <div className={styles.padding} />
         </Container>
       </div>
     </aside>

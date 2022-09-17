@@ -40,10 +40,10 @@
 
   @media ($tablet-portrait-up) {
     flex-wrap: wrap;
-    margin-top: spacing(-2);
+    margin-top: spacing(6.6);
 
     & > * {
-      margin-top: spacing(6);
+      margin-top: spacing(4);
     }
   }
 }

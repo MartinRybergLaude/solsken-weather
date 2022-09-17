@@ -55,6 +55,14 @@
 }
 
 @media ($tablet-landscape-up) {
+  .root {
+    transition: all 100ms ease-in-out;
+  }
+
+  .root:hover {
+    transform: scale(0.98);
+  }
+
   .link {
     display: none;
   }

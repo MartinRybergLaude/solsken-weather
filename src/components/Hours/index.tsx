@@ -1,4 +1,4 @@
-import { useMemo, useRef } from "react";
+import { useEffect, useMemo } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import cx from "classnames";
@@ -7,7 +7,6 @@ import Lottie from "lottie-react";
 import Horizon from "~/assets/weather/horizon.json";
 import Container from "~/components/Container";
 import GraphSwitcher from "~/components/GraphSwitcher";
-import useScrollPosition from "~/hooks/useScrollPosition";
 import { Day } from "~/types/formattedWeather";
 
 import Hour from "../Hour";
@@ -18,13 +17,9 @@ interface HoursProps {
   pauseAnimation?: boolean;
 }
 export default function Hours({ day, pauseAnimation }: HoursProps) {
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const scrolled = useScrollPosition(true, scrollRef);
-  const shouldDisplayShadow = useMemo(() => scrolled > 0, [scrolled]);
-
   return (
     <>
-      <header className={cx(styles.header, shouldDisplayShadow && styles.shadow)}>
+      <header className={cx(styles.header)}>
         <div className={styles.headerTop}>
           <Link to="/">
             <FiArrowLeft className={styles.icon} />
@@ -40,7 +35,7 @@ export default function Hours({ day, pauseAnimation }: HoursProps) {
           <p>{day?.dateString}</p>
         </div>
       </header>
-      <div className={styles.scrollWrapper} ref={scrollRef}>
+      <div className={styles.scrollWrapper}>
         <GraphSwitcher hours={day?.chartHours} />
         <Container className={styles.hoursWrapper}>
           {day?.hours.map(hour => (

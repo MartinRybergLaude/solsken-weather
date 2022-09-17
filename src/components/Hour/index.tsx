@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { RefObject, useRef, useState } from "react";
 import { FiArrowDown, FiUmbrella } from "react-icons/fi";
 import { MdWaterDrop } from "react-icons/md";
 import cx from "classnames";
@@ -16,12 +16,13 @@ import styles from "./Hour.module.css";
 interface HourProps {
   hour: FormattedHour;
   pauseAnimation?: boolean;
+  scrollRef?: RefObject<Element>;
 }
 
-function Hour({ hour, pauseAnimation }: HourProps) {
+function Hour({ hour, pauseAnimation, scrollRef }: HourProps) {
   const rootRef = useRef<HTMLDivElement>(null);
 
-  const isVisible = useInView(rootRef);
+  const isVisible = useInView(rootRef, { root: scrollRef });
 
   const variants = {
     open: { height: 152 },

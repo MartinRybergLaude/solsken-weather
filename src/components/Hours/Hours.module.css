@@ -1,20 +1,27 @@
-.headerTop {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+.root {
+  position: relative;
+  max-width: 100%;
+
+  @media ($tablet-landscape-up) {
+    height: spacing(95);
+    overflow-y: auto;
+  }
 }
 
 .header {
-  position: fixed;
+  position: sticky;
+  top: 0;
   z-index: 10;
   width: 100%;
   padding: spacing(2, 4);
   background: var(--color-bg);
   transition: all 300ms linear;
+}
 
-  @media ($tablet-landscape-up) {
-    position: static;
-  }
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .icon {
@@ -56,15 +63,17 @@
 
 .graphWrapper {
   width: 100%;
+
+  @media ($tablet-landscape-up) {
+    position: sticky;
+    top: 95px;
+    z-index: 10;
+    background: var(--color-bg);
+  }
 }
 
 .scrollWrapper {
-  padding-top: spacing(20);
   overflow-y: auto;
-
-  @media ($tablet-landscape-up) {
-    padding: 0;
-  }
 }
 
 .padding {

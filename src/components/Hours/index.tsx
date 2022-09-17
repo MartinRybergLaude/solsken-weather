@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { FiArrowLeft } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import cx from "classnames";
@@ -16,8 +17,9 @@ interface HoursProps {
   pauseAnimation?: boolean;
 }
 export default function Hours({ day, pauseAnimation }: HoursProps) {
+  const rootRef = useRef<HTMLDivElement>(null);
   return (
-    <>
+    <aside className={styles.root} ref={rootRef}>
       <header className={cx(styles.header)}>
         <div className={styles.headerTop}>
           <Link to="/">
@@ -34,15 +36,17 @@ export default function Hours({ day, pauseAnimation }: HoursProps) {
           <p>{day?.dateString}</p>
         </div>
       </header>
-      <div className={styles.scrollWrapper}>
+      <div className={styles.graphWrapper}>
         <GraphSwitcher hours={day?.chartHours} />
+      </div>
+      <div className={styles.scrollWrapper}>
         <Container className={styles.hoursWrapper}>
           {day?.hours.map(hour => (
-            <Hour key={hour.hour} hour={hour} pauseAnimation={pauseAnimation} />
+            <Hour key={hour.hour} hour={hour} pauseAnimation={pauseAnimation} scrollRef={rootRef} />
           ))}
           <div className={styles.padding} />
         </Container>
       </div>
-    </>
+    </aside>
   );
 }

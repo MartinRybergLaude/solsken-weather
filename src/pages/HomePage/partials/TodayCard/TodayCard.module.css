@@ -145,3 +145,15 @@ $maxHeight: 760px;
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.welcomeText {
+  margin-top: spacing(4);
+  font-size: 42px;
+  font-weight: 100;
+  color: var(--color-text-primary);
+  text-align: center;
+
+  @media ($tablet-landscape-down) {
+    display: none;
+  }
+}

@@ -101,5 +101,8 @@
   "text_update_short": "Uppdatering tillgänglig",
   "text_update_long": "Vänligen uppdatera appen.",
   "text_updating": "Uppdaterar...",
-  "text_update_call": "Uppdatera"
+  "text_update_call": "Uppdatera",
+  "good_morning": "God morgon",
+  "good_evening": "God kväll",
+  "good_afternoon": "God eftermiddag"
 }

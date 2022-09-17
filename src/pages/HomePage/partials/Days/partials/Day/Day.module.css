@@ -51,7 +51,7 @@
   display: none;
   cursor: pointer;
   border: none;
-  border: 3px solid transparent;
+  border: 2px solid transparent;
 }
 
 @media ($tablet-landscape-up) {
@@ -74,5 +74,5 @@
 
 .selected {
   position: relative;
-  border: 3px solid var(--color-accent);
+  border: 2px solid var(--color-accent);
 }

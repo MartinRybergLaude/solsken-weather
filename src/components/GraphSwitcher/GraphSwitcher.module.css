@@ -9,6 +9,7 @@
   cursor: grab !important;
   background-color: var(--color-bg-lite);
   border-radius: spacing(2);
+  box-shadow: rgba(99, 99, 99, 0.2) 0 2px 8px 0;
 
   & h3 {
     margin-top: spacing(1);

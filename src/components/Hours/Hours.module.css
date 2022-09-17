@@ -1,10 +1,32 @@
 .root {
   position: relative;
-  max-width: 100%;
+  width: 100%;
 
   @media ($tablet-landscape-up) {
     height: spacing(100);
     overflow-y: auto;
+  }
+}
+
+.margin {
+  margin: 0 spacing(1);
+}
+
+.bg {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  width: 120%;
+  height: spacing(50);
+  margin-top: spacing(-50);
+  pointer-events: none;
+  background-size: cover;
+  mask: linear-gradient(black 70%, transparent 100%);
+  backdrop-filter: blur(20px);
+
+  @media ($tablet-landscape-down) {
+    height: spacing(25);
+    margin-top: spacing(-25);
   }
 }
 

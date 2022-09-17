@@ -25,6 +25,7 @@ $maxHeight: 760px;
     max-width: spacing(140);
     padding: spacing(2);
     margin: spacing(2);
+    margin-right: 0;
     border: 1px solid var(--color-text-primary);
   }
 }

@@ -16,12 +16,16 @@ export function parseWeather(data: any, provider: Provider, location: Location) 
 }
 
 function processWeather(data: RawWeather): RawWeather {
+  data = cleanDays(data);
   data = cleanHours(data);
   data = changeUnits(data);
 
   return data;
 }
 
+function cleanDays(data: RawWeather): RawWeather {
+  return data.days.length > 10 ? { ...data, days: data.days.splice(0, 10) } : data;
+}
 function cleanHours(data: RawWeather): RawWeather {
   data.days.forEach(day => {
     day.hours = day.hours.filter(hour => isDateNotOlderBy30min(hour.date));

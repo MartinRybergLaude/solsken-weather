@@ -18,6 +18,7 @@
   :root {
     --color-bg: #292b2f;
     --color-bg-lite: #1d2024;
+    --color-bg-dark: #404347;
     --color-bg-shadow: #ffffff66;
 
     /* Typography */

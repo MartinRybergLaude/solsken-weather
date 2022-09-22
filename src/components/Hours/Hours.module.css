@@ -24,14 +24,19 @@
   height: spacing(50);
   margin-top: spacing(-50);
   pointer-events: none;
+  background: var(--color-bg);
   background-size: cover;
   mask: linear-gradient(black 70%, transparent 100%);
-  backdrop-filter: blur(20px);
 
   @media ($tablet-landscape-down) {
     height: spacing(25);
     margin-top: spacing(-25);
   }
+}
+
+.blur {
+  background: none;
+  backdrop-filter: blur(20px);
 }
 
 .header {

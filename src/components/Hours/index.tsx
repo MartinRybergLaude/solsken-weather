@@ -8,6 +8,7 @@ import Horizon from "~/assets/weather/horizon.json";
 import Container from "~/components/Container";
 import GraphSwitcher from "~/components/GraphSwitcher";
 import { Day } from "~/types/formattedWeather";
+import { showBlur } from "~/utils/showBlur";
 
 import Hour from "../Hour";
 import styles from "./Hours.module.css";
@@ -20,7 +21,7 @@ export default function Hours({ day, pauseAnimation }: HoursProps) {
   const rootRef = useRef<HTMLDivElement>(null);
   return (
     <aside className={styles.root} ref={rootRef}>
-      <div className={styles.bg} />
+      <div className={cx(styles.bg, showBlur && styles.blur)} />
       <div className={styles.margin}>
         <header className={cx(styles.header)}>
           <div className={styles.headerTop}>

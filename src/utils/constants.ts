@@ -11,7 +11,7 @@ import { parseWeather } from "./parseWeather";
 export async function locationFetcher(input: RequestInfo, init?: RequestInit): Promise<string> {
   const res = await fetch(input, init);
   const data = (await res.json()) as Data;
-  return data.locality;
+  return data.city || data.locality || data.countryName || "N/A";
 }
 
 interface WeatherParams {

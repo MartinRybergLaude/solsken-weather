@@ -63,7 +63,7 @@ export function Map() {
         if (frame.step === frames.length - 1) return { step: 0 };
         return { step: frame.step + 1 };
       case "decrement":
-        if (frame.step === 0) return frame;
+        if (frame.step === 0) return { step: frames.length - 1 };
         return { step: frame.step - 1 };
       case "reset":
         return { step: rainData.radar.past.length - 1 };

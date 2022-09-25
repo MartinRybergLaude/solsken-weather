@@ -21,6 +21,14 @@ function Modal({ children, setOpen, isOpen }: ModalProps) {
     setOpen(false);
   }
 
+  if (isOpen) {
+    document.body.style.overflow = "hidden";
+    document.body.style.height = "100%";
+  } else {
+    document.body.style.overflow = "auto";
+    document.body.style.height = "auto";
+  }
+
   return ReactDOM.createPortal(
     <AnimatePresence>
       {isOpen && (

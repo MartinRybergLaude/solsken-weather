@@ -85,7 +85,7 @@ export function Map() {
           <MapContainer
             center={[location.lat, location.lon]}
             zoom={8}
-            scrollWheelZoom={true}
+            scrollWheelZoom={false}
             className={styles.root}
             fadeAnimation={false}
           >
@@ -93,7 +93,7 @@ export function Map() {
               className={styles.OSM}
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            {rainData && (
+            {rainData && frames && (
               <TileLayer
                 key={`weather-data-${frames[currentFrame.step].time}`}
                 url={`${rainData.host}${frames[currentFrame.step].path}/512/{z}/{x}/{y}/6/1_0.png`}

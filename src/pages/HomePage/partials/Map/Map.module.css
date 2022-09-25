@@ -28,7 +28,10 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
+  width: spacing(26);
+  background: var(--color-bg-lite);
+  border-radius: spacing(2);
   transform: translateX(-50%);
 
   & button {
@@ -38,25 +41,21 @@
     padding: spacing(1.5);
     margin: 0;
     font-size: 20px;
+    color: var(--color-accent);
     cursor: pointer;
     background: var(--color-bg-lite);
     border: none;
+    border-radius: spacing(2);
+
+    &:hover {
+      background: var(--color-bg);
+    }
   }
 
   @media ($tablet-landscape-up) {
     top: spacing(1.5);
     bottom: unset;
   }
-}
-
-.btnForward {
-  border-top-right-radius: spacing(2);
-  border-bottom-right-radius: spacing(2);
-}
-
-.btnBackward {
-  border-top-left-radius: spacing(2);
-  border-bottom-left-radius: spacing(2);
 }
 
 .btnPause {

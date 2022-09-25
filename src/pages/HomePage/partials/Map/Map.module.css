@@ -32,6 +32,7 @@
   width: spacing(26);
   background: var(--color-bg-lite);
   border-radius: spacing(2);
+  box-shadow: rgb(99 99 99 / 20%) 0 2px 8px 0;
   transform: translateX(-50%);
 
   & button {
@@ -70,6 +71,7 @@
   padding: spacing(1.5);
   background: var(--color-bg-lite);
   border-radius: spacing(2);
+  box-shadow: rgb(99 99 99 / 20%) 0 2px 8px 0;
 
   & p {
     font-weight: 500;

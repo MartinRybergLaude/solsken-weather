@@ -3,6 +3,7 @@ import i18n from "i18n";
 import { Data } from "~/types/bigDataCloud";
 import Location from "~/types/location";
 import { Provider } from "~/types/provider";
+import { RainData } from "~/types/rainViewer";
 import Weather from "~/types/weather";
 
 import formatWeather from "./formatWeather";
@@ -30,6 +31,12 @@ export async function weatherFetcher(params: WeatherParams): Promise<Weather> {
   const formattedWeatherData = formatWeather(rawWeatherData);
 
   return { raw: rawWeatherData, formatted: formattedWeatherData };
+}
+
+export async function rainFetcher(input: RequestInfo, init?: RequestInit): Promise<RainData> {
+  const res = await fetch(input, init);
+  const data = (await res.json()) as RainData;
+  return data;
 }
 
 export const apiBaseSMHI =

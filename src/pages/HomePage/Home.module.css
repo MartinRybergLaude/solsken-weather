@@ -1,7 +1,11 @@
 .root {
   max-width: 1200px;
-  height: 100%;
   margin: 0 auto;
+  margin-bottom: spacing(10);
+}
+
+.grid {
+  height: 100%;
 }
 
 .hours {
@@ -12,7 +16,17 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  min-height: 100%;
+  height: 100%;
+}
+
+.map {
+  width: calc(100% - spacing(5));
+  aspect-ratio: 2/1;
+  padding: spacing(2);
+  margin-right: spacing(3);
+  margin-left: spacing(2);
+  background: var(--color-bg-lite);
+  border-radius: spacing(2);
 }
 
 @media ($tablet-landscape-up) {
@@ -20,9 +34,10 @@
     display: unset;
   }
 
-  .root {
+  .grid {
     display: grid;
     grid-template-columns: [col1-start] 60% [col-end col2-start] 40% [col2-end];
+    height: auto;
   }
 
   .col {

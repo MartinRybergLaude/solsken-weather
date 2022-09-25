@@ -6,7 +6,6 @@ import Container from "~/components/Container";
 import Icon from "~/components/Icon";
 import LoadingWrapper from "~/components/LoadingWrapper";
 import { useWeather } from "~/contexts/WeatherContext";
-import { getTimeOfDay } from "~/utils/timeOfDay";
 
 import GraphSwitcher from "../../../../components/GraphSwitcher";
 import SettingsModal from "./partials/SettingsModal";
@@ -71,7 +70,6 @@ function TodayCard() {
           <GraphSwitcher hours={weather?.formatted.chartHours} />
         </LoadingWrapper>
       </div>
-      <p className={styles.welcomeText}>{`${getTimeOfDay()}.`}</p>
       <SettingsModal isOpen={showSettings} setOpen={setShowSettings} />
     </>
   );

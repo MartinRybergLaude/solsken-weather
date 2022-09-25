@@ -1,0 +1,72 @@
+.root {
+  width: 100%;
+  height: 100%;
+  border-radius: spacing(1) !important;
+  transform: translateZ(0);
+}
+
+.loadingWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.mapWrapper {
+  width: 100%;
+  height: 100%;
+}
+
+.OSM {
+  filter: grayscale(100%);
+}
+
+.controls {
+  position: absolute;
+  top: spacing(1.5);
+  left: 50%;
+  z-index: 1000;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  transform: translateX(-50%);
+
+  & button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: spacing(1.5);
+    font-size: 20px;
+    cursor: pointer;
+    background: var(--color-bg-lite);
+  }
+}
+
+.btnForward {
+  border-top-right-radius: spacing(2);
+  border-bottom-right-radius: spacing(2);
+}
+
+.btnBackward {
+  border-top-left-radius: spacing(2);
+  border-bottom-left-radius: spacing(2);
+}
+
+.btnPause {
+  border-radius: 0;
+}
+
+.time {
+  position: absolute;
+  top: spacing(1.5);
+  right: spacing(1.5);
+  z-index: 1000;
+  padding: spacing(1.5);
+  background: var(--color-bg-lite);
+  border-radius: spacing(2);
+
+  & p {
+    font-weight: 500;
+    color: var(--color-text-primary);
+  }
+}

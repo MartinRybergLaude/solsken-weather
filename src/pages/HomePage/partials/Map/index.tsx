@@ -6,6 +6,7 @@ import useSWR from "swr";
 import LoadingWrapper from "~/components/LoadingWrapper";
 import { useLocation } from "~/contexts/LocationContext";
 import { useWeather } from "~/contexts/WeatherContext";
+import { Frame } from "~/types/rainViewer";
 import { rainFetcher } from "~/utils/constants";
 import { timeUnits } from "~/utils/constants";
 import { getHourString } from "~/utils/getHourString";
@@ -29,7 +30,7 @@ export function Map() {
       keepPreviousData: true,
     },
   );
-  const frames = rainData?.radar.past.concat(rainData?.radar.nowcast) || [];
+  const [frames, setFrames] = React.useState<Frame[] | undefined>(undefined);
 
   const [currentFrame, dispatch] = React.useReducer(frameReducer, { step: 0 });
   const [isPlaying, setIsPlaying] = React.useState(false);
@@ -50,12 +51,13 @@ export function Map() {
   // Update the frame step to the last frame of past data
   React.useEffect(() => {
     if (rainData) {
+      setFrames(rainData?.radar.past.concat(rainData?.radar.nowcast));
       dispatch("reset");
     }
   }, [rainData]);
 
   function frameReducer(frame: frameProps, action: Action): frameProps {
-    if (!rainData) return frame;
+    if (!frames || !rainData) return frame;
     switch (action) {
       case "increment":
         if (frame.step === frames.length - 1) return { step: 0 };
@@ -78,7 +80,7 @@ export function Map() {
       contentClassName={styles.mapWrapper}
       showIcons
     >
-      {location && (
+      {location && frames && (
         <>
           <MapContainer
             center={[location.lat, location.lon]}
@@ -123,10 +125,11 @@ export function Map() {
           </div>
           <div className={styles.time}>
             <p>
-              {getHourString(
-                (getItem("unit-time") as timeUnits) || timeUnits.twentyfour,
-                new Date(frames[currentFrame.step].time * 1000),
-              )}
+              {rainData &&
+                getHourString(
+                  (getItem("unit-time") as timeUnits) || timeUnits.twentyfour,
+                  new Date(frames[currentFrame.step].time * 1000),
+                )}
             </p>
           </div>
         </>

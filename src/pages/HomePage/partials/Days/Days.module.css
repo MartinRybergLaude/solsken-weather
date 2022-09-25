@@ -15,7 +15,7 @@
   display: flex;
   align-items: center;
   justify-content: left;
-  padding-bottom: spacing(6);
+  padding-bottom: spacing(4);
   overflow-x: auto;
   scrollbar-width: 0;
 
@@ -40,6 +40,7 @@
 
   @media ($tablet-portrait-up) {
     flex-wrap: wrap;
+    padding-bottom: spacing(6);
     margin-top: spacing(-1.3);
 
     & > * {

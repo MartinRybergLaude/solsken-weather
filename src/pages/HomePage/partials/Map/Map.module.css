@@ -22,9 +22,9 @@
 
 .controls {
   position: absolute;
-  top: spacing(1.5);
+  bottom: spacing(1.5);
   left: 50%;
-  z-index: 1000;
+  z-index: 2;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -36,9 +36,16 @@
     align-items: center;
     justify-content: center;
     padding: spacing(1.5);
+    margin: 0;
     font-size: 20px;
     cursor: pointer;
     background: var(--color-bg-lite);
+    border: none;
+  }
+
+  @media ($tablet-landscape-up) {
+    top: spacing(1.5);
+    bottom: unset;
   }
 }
 
@@ -60,7 +67,7 @@
   position: absolute;
   top: spacing(1.5);
   right: spacing(1.5);
-  z-index: 1000;
+  z-index: 2;
   padding: spacing(1.5);
   background: var(--color-bg-lite);
   border-radius: spacing(2);

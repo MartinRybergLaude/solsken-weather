@@ -20,10 +20,9 @@
 }
 
 .map {
-  width: calc(100% - spacing(5));
-  aspect-ratio: 2/1;
-  padding: spacing(2);
-  margin-right: spacing(3);
+  width: calc(100% - spacing(4));
+  height: spacing(60);
+  margin-right: spacing(2);
   margin-left: spacing(2);
   background: var(--color-bg-lite);
   border-radius: spacing(2);
@@ -42,5 +41,11 @@
 
   .col {
     display: block;
+  }
+
+  .map {
+    width: calc(100% - spacing(5));
+    aspect-ratio: 2/1;
+    margin-right: spacing(3);
   }
 }

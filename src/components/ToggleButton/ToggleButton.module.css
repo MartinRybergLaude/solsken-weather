@@ -21,6 +21,7 @@
   font-size: 14px;
   font-weight: 500;
   color: var(--color-text-primary);
+  text-align: center;
   cursor: pointer;
   background: none;
   border: none;

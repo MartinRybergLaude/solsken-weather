@@ -73,8 +73,11 @@ p {
 }
 
 button {
-  all: unset;
+  padding: 0;
+  margin: 0;
   font-family: "Roboto FlexVariable", sans-serif;
+  appearance: none;
+  background: none;
 }
 
 .wind-icon:nth-of-type(2n) {

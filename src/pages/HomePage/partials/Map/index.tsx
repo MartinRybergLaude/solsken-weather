@@ -1,13 +1,11 @@
 import React from "react";
 import { FiChevronLeft, FiChevronRight, FiPauseCircle, FiPlay } from "react-icons/fi";
-import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
-import { data } from "autoprefixer";
+import { MapContainer, TileLayer } from "react-leaflet";
 import useSWR from "swr";
 
 import LoadingWrapper from "~/components/LoadingWrapper";
 import { useLocation } from "~/contexts/LocationContext";
 import { useWeather } from "~/contexts/WeatherContext";
-import { RainData } from "~/types/rainViewer";
 import { rainFetcher } from "~/utils/constants";
 import { timeUnits } from "~/utils/constants";
 import { getHourString } from "~/utils/getHourString";

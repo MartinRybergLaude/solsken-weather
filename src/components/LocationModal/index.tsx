@@ -126,7 +126,7 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
             </ul>
           )}
           <div className={styles.currentLocationWrapper}>
-            <h2 className={styles.savedTitle}>Current location</h2>
+            <h2 className={styles.savedTitle}>{t("text_location_current")}</h2>
             <button
               className={cx(
                 styles.location,
@@ -135,14 +135,14 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
               )}
               onClick={() => setCurrentLocation()}
             >
-              <h3>Current</h3>
+              <h3>{t("text_location_current")}</h3>
               <FiMapPin className={styles.pinIcon} />
             </button>
           </div>
 
           {savedLocations && savedLocations.length > 0 && (
             <>
-              <h2 className={styles.savedTitle}>Saved locations</h2>
+              <h2 className={styles.savedTitle}>{t("text_locations_saved")}</h2>
               <ul className={cx(styles.locationList, styles.savedLocationsList)}>
                 {savedLocations.map((savedLocation: Location, i: number) => (
                   <li

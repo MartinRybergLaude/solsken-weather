@@ -25,6 +25,7 @@ function Modal({ children, setOpen, isOpen, closeCB }: ModalProps) {
 
   useEffect(() => {
     if (isOpen) {
+      window.scrollTo(0, 0);
       document.body.style.overflow = "hidden";
       document.body.style.height = "100%";
     } else {
@@ -34,6 +35,7 @@ function Modal({ children, setOpen, isOpen, closeCB }: ModalProps) {
   }, [isOpen]);
 
   if (isOpen) {
+    window.scrollTo(0, 0);
     document.body.style.overflow = "hidden";
     document.body.style.height = "100%";
   } else {

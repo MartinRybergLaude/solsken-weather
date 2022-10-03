@@ -9,6 +9,7 @@ import { useLocation } from "~/contexts/LocationContext";
 import useDebounce from "~/hooks/useDebounce";
 import Location from "~/types/location";
 import { apiBasePhoton, searchFetcher } from "~/utils/constants";
+import { deleteItem, getItem, setItem } from "~/utils/storage";
 
 import SearchBar from "../SearchBar";
 import styles from "./LocationModal.module.css";
@@ -23,10 +24,10 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
 
   const { setLocation, setSelectedLocation, location } = useLocation();
   const [savedLocations, setSavedLocations] = useState<Location[]>(
-    JSON.parse(localStorage.getItem("locations") || "[]"),
+    JSON.parse(getItem("locations") || "[]"),
   );
   const [currentLocationSelected, setCurrentLocationSelected] = useState(
-    localStorage.getItem("selected-location") ? false : true,
+    getItem("selected-location") ? false : true,
   );
 
   // State to hold search input
@@ -65,12 +66,12 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
 
   // Add chosen location to saved locations
   function addLocation(location: Location) {
-    const savedLocations = JSON.parse(localStorage.getItem("locations") || "[]");
+    const savedLocations = JSON.parse(getItem("locations") || "[]");
     const newLocations: Location[] = savedLocations.find((l: Location) => l.name === location.name)
       ? [...savedLocations]
       : [...savedLocations, location];
-    localStorage.setItem("locations", JSON.stringify(newLocations));
-    localStorage.setItem("selected-location", JSON.stringify(location));
+    setItem("locations", JSON.stringify(newLocations));
+    setItem("selected-location", JSON.stringify(location));
     setLocation(location);
     setSavedLocations(newLocations);
     setCurrentLocationSelected(false);
@@ -79,13 +80,13 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
 
   // Remove chosen location from saved locations
   function removeLocation(location: Location) {
-    const savedLocations = JSON.parse(localStorage.getItem("locations") || "[]");
+    const savedLocations = JSON.parse(getItem("locations") || "[]");
     const newLocations = savedLocations.filter((l: Location) => l.name !== location.name);
-    localStorage.setItem("locations", JSON.stringify(newLocations));
-    const selectedLocation = JSON.parse(localStorage.getItem("selected-location") || "null");
+    setItem("locations", JSON.stringify(newLocations));
+    const selectedLocation = JSON.parse(getItem("selected-location") || "null");
     if (selectedLocation && location.name === selectedLocation.name) {
       setCurrentLocationSelected(true);
-      localStorage.removeItem("selected-location");
+      deleteItem("selected-location");
       setSelectedLocation();
     } else if (selectedLocation) {
       setCurrentLocationSelected(false);
@@ -95,8 +96,8 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
 
   // Set location to current location
   function setCurrentLocation() {
-    if (localStorage.getItem("selected-location")) {
-      localStorage.removeItem("selected-location");
+    if (getItem("selected-location")) {
+      deleteItem("selected-location");
       setSelectedLocation();
     }
     setCurrentLocationSelected(true);

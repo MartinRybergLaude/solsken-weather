@@ -58,6 +58,8 @@ export function WeatherContextProvider({ children }: WeatherContextProps) {
   useEffect(() => {
     if (fetchError) {
       setError(fetchError.message);
+    } else {
+      setError(undefined);
     }
   }, [fetchError]);
 

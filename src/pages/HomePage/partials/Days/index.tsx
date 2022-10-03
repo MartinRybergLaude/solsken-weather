@@ -6,13 +6,14 @@ import styles from "./Days.module.css";
 import Day from "./partials/Day";
 
 function Days() {
-  const { weather, loading, setSelectedDay, selectedDay } = useWeather();
+  const { weather, loading, error, setSelectedDay, selectedDay } = useWeather();
   const days = weather?.formatted?.days;
   return (
     <div className={styles.root}>
       <div className={styles.scrollContainer}>
         <AnimatePresence>
           {!loading &&
+            !error &&
             days?.map((day, index) => (
               <Day
                 key={index}

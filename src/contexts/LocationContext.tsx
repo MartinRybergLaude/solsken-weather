@@ -9,6 +9,7 @@ import { getItem, setItem } from "~/utils/storage";
 type LocationContextType = {
   location?: Location;
   setLocation: (location?: Location) => void;
+  setSelectedLocation: () => void;
   error: unknown;
 };
 
@@ -39,13 +40,14 @@ export function LocationContextProvider({ children }: LocationContextProps) {
       ? `${apiBaseBigDataCloud}latitude=${apiData.lat}&longitude=${apiData.lon}&localityLanguage=${apiData.userLang}`
       : null,
     locationFetcher,
+    {
+      onSuccess: (data: string | undefined) => {
+        if (data && apiData) {
+          setLocation({ lat: apiData.lat, lon: apiData.lon, name: data });
+        }
+      },
+    },
   );
-
-  useEffect(() => {
-    if (city && apiData) {
-      setLocation({ lat: apiData.lat, lon: apiData.lon, name: city });
-    }
-  }, [city]);
 
   function handleFirstTimeSetup() {
     const lang = i18n.language;
@@ -54,7 +56,14 @@ export function LocationContextProvider({ children }: LocationContextProps) {
     }
   }
 
+  useEffect(() => {
+    if (apiData && city) {
+      setLocation({ lat: apiData.lat, lon: apiData.lon, name: city });
+    }
+  }, [apiData]);
+
   function setSelectedLocation() {
+    setLocation(undefined);
     const selectedLocation = getItem("selected-location");
     if (selectedLocation) {
       const selectedLocationParsed = JSON.parse(selectedLocation) as Location;
@@ -96,6 +105,7 @@ export function LocationContextProvider({ children }: LocationContextProps) {
       value={{
         location,
         setLocation,
+        setSelectedLocation,
         error,
       }}
     >

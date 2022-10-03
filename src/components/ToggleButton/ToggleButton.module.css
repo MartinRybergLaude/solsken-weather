@@ -1,7 +1,7 @@
 .container {
   display: flex;
   width: 100%;
-  height: spacing(6);
+  height: spacing(4.5);
   padding: 3px;
   margin: 0;
   background: var(--color-bg-dark);

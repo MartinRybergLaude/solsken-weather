@@ -2,6 +2,7 @@ import i18n from "i18n";
 
 import { Data } from "~/types/bigDataCloud";
 import Location from "~/types/location";
+import LocationData from "~/types/photon";
 import { Provider } from "~/types/provider";
 import { RainData } from "~/types/rainViewer";
 import Weather from "~/types/weather";
@@ -9,8 +10,19 @@ import Weather from "~/types/weather";
 import formatWeather from "./formatWeather";
 import { parseWeather } from "./parseWeather";
 
+export async function searchFetcher(input: RequestInfo, init?: RequestInit): Promise<Location[]> {
+  const res = await fetch(input, init);
+  const data = (await res.json()) as LocationData;
+  return data.features.map(location => ({
+    name: location.properties.name,
+    lon: Math.round(location.geometry.coordinates[0] * 100 + Number.EPSILON) / 100,
+    lat: Math.round(location.geometry.coordinates[1] * 100 + Number.EPSILON) / 100,
+  }));
+}
+
 export async function locationFetcher(input: RequestInfo, init?: RequestInit): Promise<string> {
   const res = await fetch(input, init);
+
   const data = (await res.json()) as Data;
   return data.city || data.locality || data.countryName || "N/A";
 }

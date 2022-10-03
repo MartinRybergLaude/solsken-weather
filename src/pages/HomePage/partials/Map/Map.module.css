@@ -20,6 +20,10 @@
   filter: grayscale(100%);
 }
 
+.rain {
+  opacity: 0.4;
+}
+
 .controls {
   position: absolute;
   bottom: spacing(1.5);

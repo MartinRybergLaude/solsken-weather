@@ -10,55 +10,27 @@
 .blur {
   backdrop-filter: blur(10px);
   background: none;
+  opacity: 1;
 }
 
 .modal {
   position: absolute;
-  top: 50%;
+  top: spacing(4);
   left: 50%;
   z-index: 200;
   width: calc(100% - spacing(2));
   max-width: var(--modal-max-width);
-  padding: spacing(3);
   background: var(--color-bg-lite);
   border-radius: spacing(2);
   box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px, rgba(17, 17, 26, 0.1) 0 16px 56px,
     rgba(17, 17, 26, 0.1) 0 24px 80px;
-  transform: translateX(-50%) translateY(-50%);
+  transform: translateX(-50%);
+}
+
+.padded {
+  padding: spacing(3);
 
   @media ($tablet-portrait-up) {
     padding: spacing(6);
-  }
-}
-
-.topBar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  padding-bottom: spacing(2);
-  color: var(--color-text-primary);
-}
-
-.content {
-  width: 100%;
-  max-height: 50vh;
-  overflow: auto;
-  overscroll-behavior-y: contain;
-  scrollbar-width: none;
-
-  & ::-webkit-scrollbar {
-    width: 20px;
-  }
-
-  & ::-webkit-scrollbar-track {
-    background-color: transparent;
-  }
-
-  & ::-webkit-scrollbar-thumb {
-    background-color: #d6dee1;
-    background-clip: content-box;
-    border: 6px solid transparent;
-    border-radius: 20px;
   }
 }

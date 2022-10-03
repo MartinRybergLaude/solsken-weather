@@ -95,6 +95,7 @@ export function Map() {
             />
             {rainData && frames && (
               <TileLayer
+                className={styles.rain}
                 key={`weather-data-${frames[currentFrame.step].time}`}
                 url={`${rainData.host}${frames[currentFrame.step].path}/512/{z}/{x}/{y}/6/1_0.png`}
               />

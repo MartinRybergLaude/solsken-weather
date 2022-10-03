@@ -14,6 +14,7 @@ interface ToggleButtonProps {
   options: Option[];
   groupKey: string;
   id: string;
+  autoFocus?: boolean;
 }
 
 function ToggleButton({ options, groupKey, id }: ToggleButtonProps) {
@@ -28,9 +29,9 @@ function ToggleButton({ options, groupKey, id }: ToggleButtonProps) {
   }, [selected, groupKey]);
 
   return (
-    <ul className={styles.container} id={id}>
+    <ul className={styles.container} id={id} role="listbox">
       {options.map((option, i) => (
-        <li key={i} className={styles.listItem}>
+        <li key={i} className={styles.listItem} role="option">
           <button
             key={option.value}
             className={cx(styles.button, option.value == selected && styles.selected)}

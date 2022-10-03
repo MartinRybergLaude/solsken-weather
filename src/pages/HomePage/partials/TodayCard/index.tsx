@@ -1,18 +1,20 @@
 import { useEffect, useState } from "react";
-import { FiSettings } from "react-icons/fi";
+import { FiSearch, FiSettings } from "react-icons/fi";
 import cx from "classnames";
 
 import Container from "~/components/Container";
+import GraphSwitcher from "~/components/GraphSwitcher";
 import Icon from "~/components/Icon";
 import LoadingWrapper from "~/components/LoadingWrapper";
+import LocationModal from "~/components/LocationModal";
+import SettingsModal from "~/components/SettingsModal";
 import { useWeather } from "~/contexts/WeatherContext";
 
-import GraphSwitcher from "../../../../components/GraphSwitcher";
-import SettingsModal from "./partials/SettingsModal";
 import SmallWeatherInfo from "./partials/SmallWeatherInfo";
 import styles from "./TodayCard.module.css";
 function TodayCard() {
   const [showSettings, setShowSettings] = useState(false);
+  const [showLocations, setShowLocations] = useState(false);
 
   const { weather, error, loading, refresh } = useWeather();
 
@@ -34,12 +36,17 @@ function TodayCard() {
               IconComponent={FiSettings}
               color="primary"
               className={styles.burger}
-              onClick={() => setShowSettings(!showSettings)}
+              onClick={() => setShowSettings(prev => !prev)}
             />
             <LoadingWrapper loading={loading} error={error}>
               <h1>{city || ""}</h1>
             </LoadingWrapper>
-            <div className={styles.fakeIcon} />
+            <Icon
+              IconComponent={FiSearch}
+              color="primary"
+              className={styles.burger}
+              onClick={() => setShowLocations(prev => !prev)}
+            />
           </div>
           <LoadingWrapper
             loading={loading}
@@ -71,6 +78,7 @@ function TodayCard() {
         </LoadingWrapper>
       </div>
       <SettingsModal isOpen={showSettings} setOpen={setShowSettings} />
+      <LocationModal isOpen={showLocations} setOpen={setShowLocations} />
     </>
   );
 }

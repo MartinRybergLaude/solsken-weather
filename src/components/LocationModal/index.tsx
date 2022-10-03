@@ -150,7 +150,10 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
                     className={cx(
                       styles.location,
                       styles.favorite,
-                      location && savedLocation.name === location.name && styles.selectedLocation,
+                      location &&
+                        savedLocation.name === location.name &&
+                        !currentLocationSelected &&
+                        styles.selectedLocation,
                     )}
                   >
                     <button

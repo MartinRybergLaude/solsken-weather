@@ -51,7 +51,7 @@ export function LocationContextProvider({ children }: LocationContextProps) {
 
   function handleFirstTimeSetup() {
     const lang = i18n.language;
-    const userVersion = JSON.parse(getItem("version") || "null");
+    const userVersion = getItem("version");
     const currentVersion = APP_VERSION;
     if (userVersion == null && lang.substring(0, 2) === "sv") {
       setItem("data-src", "smhi");

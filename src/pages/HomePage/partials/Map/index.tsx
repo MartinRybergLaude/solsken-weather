@@ -40,7 +40,7 @@ export function Map() {
     // Set timer that will increment the frame every 500 ms
     let timer = 0;
     if (isPlaying) {
-      timer = setInterval(() => {
+      timer = window.setInterval(() => {
         dispatch("increment");
       }, 500);
     } else {

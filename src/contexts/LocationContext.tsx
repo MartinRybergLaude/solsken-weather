@@ -51,14 +51,20 @@ export function LocationContextProvider({ children }: LocationContextProps) {
 
   function handleFirstTimeSetup() {
     const lang = i18n.language;
-    const userVersion = getItem("version");
+    const userVersion = JSON.parse(getItem("version") || "null");
     const currentVersion = APP_VERSION;
     if (userVersion == null && lang.substring(0, 2) === "sv") {
       setItem("data-src", "smhi");
     }
+
     if (userVersion !== currentVersion) {
-      clearAllData();
       setItem("version", currentVersion);
+    }
+
+    const versionTwoMigration = JSON.parse(getItem("version-2-migration") || "null");
+    if (!versionTwoMigration) {
+      clearAllData();
+      setItem("version-2-migration", JSON.stringify(true));
     }
   }
 

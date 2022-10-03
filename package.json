@@ -1,7 +1,7 @@
 {
-  "name": "solsken-2",
+  "name": "solsken-web",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,6 +12,7 @@
     "@fontsource/roboto-flex": "^4.5.0",
     "@svgr/core": "6.2.1",
     "@types/lodash.debounce": "^4.0.7",
+    "@types/node": "^18.8.0",
     "@types/recharts": "^1.8.23",
     "autoprefixer": "^10.4.7",
     "classnames": "^2.3.1",

@@ -12,4 +12,7 @@ export default defineConfig({
       exportAsDefault: false,
     }),
   ],
+  define: {
+    APP_VERSION: JSON.stringify(process.env.npm_package_version),
+  },
 });

@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, version } from "react";
 import useSWR from "swr";
 
 import i18n from "~/i18n";
 import Location from "~/types/location";
 import { apiBaseBigDataCloud, locationFetcher } from "~/utils/constants";
-import { getItem, setItem } from "~/utils/storage";
+import { clearAllData, getItem, setItem } from "~/utils/storage";
 
 type LocationContextType = {
   location?: Location;
@@ -51,8 +51,14 @@ export function LocationContextProvider({ children }: LocationContextProps) {
 
   function handleFirstTimeSetup() {
     const lang = i18n.language;
-    if (getItem("version") == null && lang.substring(0, 2) === "sv") {
+    const userVersion = getItem("version");
+    const currentVersion = APP_VERSION;
+    if (userVersion == null && lang.substring(0, 2) === "sv") {
       setItem("data-src", "smhi");
+    }
+    if (userVersion !== currentVersion) {
+      clearAllData();
+      setItem("version", currentVersion);
     }
   }
 

@@ -1,4 +1,4 @@
-import React, { useEffect, version } from "react";
+import React, { useEffect } from "react";
 import useSWR from "swr";
 
 import i18n from "~/i18n";

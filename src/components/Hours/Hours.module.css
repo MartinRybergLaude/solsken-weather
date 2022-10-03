@@ -115,7 +115,7 @@
 }
 
 .hoursWrapper {
-  padding-bottom: 0;
+  padding-bottom: spacing(12);
 }
 
 @media ($tablet-landscape-up) {

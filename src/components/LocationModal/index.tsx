@@ -87,7 +87,7 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
       setCurrentLocationSelected(true);
       localStorage.removeItem("selected-location");
       setSelectedLocation();
-    } else {
+    } else if (selectedLocation) {
       setCurrentLocationSelected(false);
     }
     setSavedLocations(newLocations);

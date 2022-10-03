@@ -61,6 +61,7 @@
     "stylelint-prettier": "^2.0.0",
     "typescript": "^4.6.4",
     "vite": "^3.0.0",
+    "vite-plugin-pwa": "^0.13.1",
     "vite-tsconfig-paths": "^3.5.0"
   },
   "resolutions": {

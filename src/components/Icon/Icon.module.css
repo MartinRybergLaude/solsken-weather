@@ -1,0 +1,22 @@
+.root {
+  width: 24px;
+  height: 24px;
+  transition: color 1s ease-in-out;
+}
+
+.primary {
+  color: var(--color-text-primary);
+}
+
+.secondary {
+  color: var(--color-text-secondary);
+}
+
+.button {
+  width: 24px;
+  height: 24px;
+  padding: none;
+  margin: none;
+  cursor: pointer;
+  border: none;
+}

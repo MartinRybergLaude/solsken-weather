@@ -8,6 +8,7 @@
   "text_search": "Sök en plats...",
   "text_search_short": "Sök",
   "text_location_current": "Nuvarande position",
+  "text_locations_saved": "Sparade platser",
   "text_action_cant_undone": "Denna åtgärd kan inte ångras.",
   "text_dismiss": "Avbryt",
   "text_remove": "Ta bort",
@@ -101,5 +102,8 @@
   "text_update_short": "Uppdatering tillgänglig",
   "text_update_long": "Vänligen uppdatera appen.",
   "text_updating": "Uppdaterar...",
-  "text_update_call": "Uppdatera"
+  "text_update_call": "Uppdatera",
+  "good_morning": "God morgon",
+  "good_evening": "God kväll",
+  "good_afternoon": "God eftermiddag"
 }

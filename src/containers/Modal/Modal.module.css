@@ -1,0 +1,36 @@
+.shadow {
+  position: absolute;
+  top: 0;
+  z-index: 200;
+  width: 100%;
+  min-height: 100%;
+  background: var(--color-bg);
+}
+
+.blur {
+  backdrop-filter: blur(10px);
+  background: none;
+  opacity: 1;
+}
+
+.modal {
+  position: absolute;
+  top: spacing(4);
+  left: 50%;
+  z-index: 200;
+  width: calc(100% - spacing(2));
+  max-width: var(--modal-max-width);
+  background: var(--color-bg-lite);
+  border-radius: spacing(2);
+  box-shadow: rgba(17, 17, 26, 0.1) 0 8px 24px, rgba(17, 17, 26, 0.1) 0 16px 56px,
+    rgba(17, 17, 26, 0.1) 0 24px 80px;
+  transform: translateX(-50%);
+}
+
+.padded {
+  padding: spacing(3);
+
+  @media ($tablet-portrait-up) {
+    padding: spacing(6);
+  }
+}

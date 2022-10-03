@@ -8,6 +8,7 @@
   "text_search": "Search a place...",
   "text_search_short": "Search",
   "text_location_current": "Current location",
+  "text_locations_saved": "Saved locations",
   "text_action_cant_undone": "This action can't be undone.",
   "text_dismiss": "Cancel",
   "text_remove": "Remove",
@@ -101,5 +102,8 @@
   "text_update_short": "Update available",
   "text_update_long": "Please update the app.",
   "text_updating": "Updating...",
-  "text_update_call": "Update"
+  "text_update_call": "Update",
+  "good_morning": "Good morning",
+  "good_evening": "Good evening",
+  "good_afternoon": "Good afternoon"
 }

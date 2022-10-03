@@ -1,0 +1,51 @@
+.root {
+  max-width: 1200px;
+  margin: 0 auto;
+  margin-bottom: spacing(10);
+}
+
+.grid {
+  height: 100%;
+}
+
+.hours {
+  display: none;
+}
+
+.col {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.map {
+  width: calc(100% - spacing(4));
+  height: spacing(60);
+  margin-right: spacing(2);
+  margin-left: spacing(2);
+  background: var(--color-bg-lite);
+  border-radius: spacing(2);
+}
+
+@media ($tablet-landscape-up) {
+  .hours {
+    display: unset;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: [col1-start] 60% [col-end col2-start] 40% [col2-end];
+    height: auto;
+  }
+
+  .col {
+    display: block;
+  }
+
+  .map {
+    width: calc(100% - spacing(5));
+    aspect-ratio: 2/1;
+    margin-right: spacing(3);
+  }
+}

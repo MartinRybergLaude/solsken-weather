@@ -1,0 +1,12 @@
+.root {
+  width: 100%;
+}
+
+.flex {
+  display: flex;
+  flex-flow: column;
+}
+
+.padding {
+  padding: spacing(2);
+}

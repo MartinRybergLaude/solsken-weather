@@ -1,0 +1,32 @@
+.loader {
+  box-sizing: border-box;
+  display: inline-block;
+  width: 48px;
+  height: 48px;
+  border-top: 3px solid var(--color-primary);
+  border-right: 3px solid transparent;
+  border-radius: 50%;
+  animation: rotation 1s linear infinite;
+}
+
+.adaptive {
+  border-color: var(--color-text-primary);
+}
+
+.adaptive-inverse {
+  border-color: var(--color-text-primary-inv);
+}
+
+.white {
+  border-color: #ffffff;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

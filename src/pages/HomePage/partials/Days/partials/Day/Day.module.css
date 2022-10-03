@@ -1,0 +1,78 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: var(--color-text-primary);
+
+  & h3 {
+    font-size: 14px;
+  }
+}
+
+.card {
+  width: spacing(12);
+  margin-top: spacing(2);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  background: var(--color-bg-lite);
+  border-radius: spacing(2);
+
+  & p {
+    position: relative;
+    display: inline-block;
+    font-size: 14px;
+    color: var(--color-text-primary);
+    text-align: center;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      font-size: 14px;
+      content: "\00b0";
+    }
+  }
+
+  & svg {
+    margin-top: negative(spacing(1));
+  }
+}
+
+.temps {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.maxTemp {
+  font-weight: 700;
+}
+
+.button {
+  display: none;
+  cursor: pointer;
+  border: none;
+  border: 2px solid transparent;
+}
+
+@media ($tablet-landscape-up) {
+  .root {
+    transition: all 100ms ease-in-out;
+  }
+
+  .root:hover {
+    transform: scale(0.98);
+  }
+
+  .link {
+    display: none;
+  }
+
+  .button {
+    display: unset;
+  }
+}
+
+.selected {
+  position: relative;
+  border: 2px solid var(--color-accent);
+}

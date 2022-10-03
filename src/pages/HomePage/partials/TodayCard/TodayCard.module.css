@@ -1,0 +1,159 @@
+$maxHeight: 760px;
+
+.root {
+  position: relative;
+  display: grid;
+  grid-template-columns:
+    [full-start] spacing(2) [wrapper-start]
+    minmax(0, auto) [wrapper-end] spacing(2) [full-end];
+  max-width: spacing(140);
+  color: var(--color-text-primary);
+  background: none;
+  border-radius: spacing(2);
+
+  & > * {
+    grid-column: wrapper;
+  }
+
+  & > .fullWidth {
+    grid-column: full;
+  }
+
+  @media ($tablet-landscape-up) {
+    display: flex;
+    gap: spacing(2);
+    max-width: spacing(140);
+    padding: spacing(2);
+    margin: spacing(2);
+    margin-right: 0;
+    border: 1px solid var(--color-text-primary);
+  }
+}
+
+.weatherWrapper {
+  width: 100%;
+  height: auto;
+
+  @media ($tablet-landscape-up) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
+
+.location {
+  position: relative;
+  display: flex;
+  gap: spacing(2);
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: spacing(1);
+
+  & h1 {
+    font-size: 16px;
+  }
+
+  & .fakeIcon {
+    width: 24px;
+    height: 24px;
+  }
+
+  @media ($tablet-landscape-up) {
+    margin-top: 0;
+  }
+}
+
+.temperatureWrapper {
+  width: 100%;
+
+  & > div:last-of-type {
+    display: none;
+  }
+
+  @media (max-height: $maxHeight) and ($tablet-landscape-down) {
+    display: flex;
+    gap: spacing(4);
+    align-items: center;
+    justify-content: center;
+
+    & > div:last-of-type {
+      display: block;
+    }
+  }
+}
+
+.temperature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: spacing(4);
+
+  & h2 {
+    position: relative;
+    font-size: 96px;
+    font-weight: 400;
+
+    &::after {
+      position: absolute;
+      top: 0;
+      right: negative(spacing(2));
+      font-size: 56px;
+      content: "\00b0";
+    }
+  }
+
+  & h3 {
+    font-size: 18px;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  @media (max-height: $maxHeight) and ($tablet-landscape-down) {
+    margin: 0;
+  }
+}
+
+.weatherContainer {
+  width: 100%;
+
+  & > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+  }
+
+  @media (max-height: $maxHeight) and ($tablet-landscape-down) {
+    display: none;
+  }
+}
+
+.graphWrapper {
+  width: 100%;
+
+  @media ($tablet-landscape-up) {
+    display: none;
+  }
+}
+
+.error {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.welcomeText {
+  margin-top: spacing(4);
+  font-size: 42px;
+  font-weight: 100;
+  color: var(--color-text-primary);
+  text-align: center;
+
+  @media ($tablet-landscape-down) {
+    display: none;
+  }
+}

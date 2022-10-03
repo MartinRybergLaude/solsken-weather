@@ -1,0 +1,124 @@
+.hour {
+  padding: spacing(1);
+  margin-bottom: spacing(1);
+  overflow-y: hidden;
+  cursor: pointer;
+  user-select: none;
+  background: var(--color-bg-lite);
+  border-radius: spacing(2);
+
+  & p {
+    font-size: 14px;
+  }
+
+  @media ($tablet-landscape-up) {
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.preview {
+  display: flex;
+  gap: spacing(1);
+  align-items: center;
+  justify-content: space-between;
+  padding: spacing(1);
+
+  & .left {
+    & .hourText {
+      color: var(--color-text-primary);
+    }
+
+    & .temps p {
+      display: inline-block;
+      font-weight: 700;
+      color: var(--color-text-primary);
+
+      &::after {
+        content: "\00b0";
+      }
+
+      &:last-of-type {
+        margin-left: spacing(1);
+        font-weight: 400;
+      }
+    }
+  }
+
+  & .weatherIconWrapper {
+    width: spacing(6);
+    height: spacing(6);
+    margin-top: -3px;
+  }
+
+  & .windIconWrapper {
+    width: spacing(2.5);
+    height: spacing(2.5);
+    color: var(--color-text-primary);
+  }
+
+  & .wind {
+    display: flex;
+    gap: spacing(1);
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+.strong {
+  color: var(--color-text-primary);
+}
+
+.containerExpanded {
+  display: flex;
+  gap: spacing(1);
+  align-items: center;
+  justify-content: space-between;
+  height: 68px;
+  margin-top: spacing(0.5);
+
+  & .infoBox {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: calc(25% - spacing(1));
+    height: 68px;
+    padding: spacing(1);
+    background: var(--color-bg);
+    border-radius: spacing(1);
+
+    & p {
+      margin-top: spacing(0.5);
+      font-size: 14px;
+      color: var(--color-text-primary);
+    }
+
+    & .iconWrapper {
+      width: 100%;
+      height: spacing(2.5);
+    }
+
+    & .max {
+      display: flex;
+      gap: spacing(1);
+
+      & p {
+        font-size: 10px;
+      }
+    }
+
+    & .icon {
+      width: spacing(2.5);
+      height: spacing(2.5);
+    }
+
+    & .adjusted {
+      width: spacing(3.5);
+      height: spacing(3.5);
+      margin-top: -4px;
+      margin-left: -4px;
+    }
+  }
+}

@@ -24,6 +24,7 @@ function Home() {
       <div className={styles.map}>
         <Map />
       </div>
+      <div className={styles.padding} />
     </div>
   );
 }

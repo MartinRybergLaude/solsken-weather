@@ -28,6 +28,10 @@
   border-radius: spacing(2);
 }
 
+.padding {
+  height: spacing(2);
+}
+
 @media ($tablet-landscape-up) {
   .hours {
     display: unset;

@@ -16,7 +16,7 @@ export default defineConfig({
       registerType: "autoUpdate",
       includeAssets: ["favicon.ico", "pwa-192x192.png", "pwa-512x512.png"],
       manifest: {
-        name: "Solskeb",
+        name: "Solsken",
         short_name: "Solsken",
         description: "A beautiful and smooth weather app",
         theme_color: "#292b2f",

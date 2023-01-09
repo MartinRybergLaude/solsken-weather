@@ -19,7 +19,7 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg: #292b2f;
-    --color-bg-rgb: 41, 43, 47;
+    --color-bg-rgb: 1, 43, 474;
     --color-bg-lite: #1d2024;
     --color-bg-dark: #404347;
     --color-bg-shadow: #ffffff66;

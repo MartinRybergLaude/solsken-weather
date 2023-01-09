@@ -9,7 +9,7 @@ $maxHeight: 760px;
   max-width: spacing(140);
   color: var(--color-text-primary);
   background: none;
-  border-radius: spacing(2);
+  border-radius: 0;
 
   & > * {
     grid-column: wrapper;
@@ -26,7 +26,47 @@ $maxHeight: 760px;
     padding: spacing(2);
     margin: spacing(2);
     margin-right: 0;
-    border: 1px solid var(--color-text-primary);
+    border: 1px solid #c7cbcf;
+    border-radius: spacing(2);
+  }
+}
+
+.glass {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  backdrop-filter: blur(20px);
+
+  &::before {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    content: "";
+    background: var(--color-glass);
+  }
+
+  @media ($tablet-landscape-down) {
+    left: -16px;
+    width: 100vw;
+  }
+}
+
+.dayIcon {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  z-index: -2;
+  width: 512px;
+  transform: translate(-50%, -50%);
+
+  @media ($tablet-landscape-down) {
+    top: 0;
+    left: 0;
   }
 }
 

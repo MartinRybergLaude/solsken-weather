@@ -1,9 +1,11 @@
 :root {
   --color-bg: #eef3f9;
+  --color-bg-rgb: 238, 243, 249;
   --color-bg-lite: #ffffff;
   --color-bg-dark: #e6e8eb;
   --color-bg-shadow: #00000066;
   --color-accent: #0077fc;
+  --color-glass: rgba(238, 243, 249, 0.3);
 
   /* Typography */
   --color-text-primary: #1f1e31;
@@ -17,9 +19,11 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --color-bg: #292b2f;
+    --color-bg-rgb: 41, 43, 47;
     --color-bg-lite: #1d2024;
     --color-bg-dark: #404347;
     --color-bg-shadow: #ffffff66;
+    --color-glass: rgba(41, 43, 47, 0.3);
 
     /* Typography */
     --color-text-primary: #eef3f9;

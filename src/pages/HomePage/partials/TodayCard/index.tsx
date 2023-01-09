@@ -8,6 +8,7 @@ import Icon from "~/components/Icon";
 import LoadingWrapper from "~/components/LoadingWrapper";
 import LocationModal from "~/components/LocationModal";
 import SettingsModal from "~/components/SettingsModal";
+import WeatherIcon from "~/components/WeatherIcon";
 import { useWeather } from "~/contexts/WeatherContext";
 
 import SmallWeatherInfo from "./partials/SmallWeatherInfo";
@@ -30,6 +31,8 @@ function TodayCard() {
   return (
     <>
       <div className={cx(styles.root)}>
+        <div className={styles.glass} />
+        {current && <WeatherIcon id={current.icon} className={styles.dayIcon} />}
         <Container className={styles.weatherWrapper}>
           <div className={styles.location}>
             <Icon

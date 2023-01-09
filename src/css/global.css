@@ -45,7 +45,7 @@ body {
   width: 100%;
   min-height: 100%;
   margin: 0;
-  font-family: "Roboto FlexVariable", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Roboto FlexVariable", sans-serif;
   user-select: none;
   background: var(--color-bg);
   font-synthesis: none;

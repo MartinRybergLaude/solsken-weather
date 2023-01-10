@@ -3,28 +3,6 @@
   font-weight: 700;
 }
 
-.section {
-  & h2 {
-    padding-bottom: spacing(1);
-    margin-top: spacing(2);
-    font-size: 16px;
-    color: var(--color-accent);
-  }
-
-  & label {
-    display: block;
-    margin-top: spacing(1.5);
-    margin-bottom: spacing(0.5);
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--color-text-secondary);
-
-    &:first-of-type {
-      margin-top: spacing(0.5);
-    }
-  }
-}
-
 .topBar {
   display: flex;
   align-items: center;

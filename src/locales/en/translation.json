@@ -17,6 +17,7 @@
   "text_weatherdata_from": "Weather data from",
   "text_website": "Website",
   "text_data_source": "Data source",
+  "text_data_source_desc": "YR.no works globally. SMHI is for the Nordic countries.",
   "text_default_hour_view": "Default hour view",
   "text_simple": "Simple",
   "text_informative": "Informative",
@@ -103,6 +104,9 @@
   "text_update_long": "Please update the app.",
   "text_updating": "Updating...",
   "text_update_call": "Update",
+  "text_welcome": "Welcome",
+  "text_enter_settings": "Please enter your preferences before we start. Don't worry, this can be changed later.",
+  "text_done": "Done",
   "good_morning": "Good morning",
   "good_evening": "Good evening",
   "good_afternoon": "Good afternoon"

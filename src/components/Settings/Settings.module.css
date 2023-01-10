@@ -1,0 +1,32 @@
+.section {
+  margin-top: spacing(2);
+
+  & h2 {
+    padding-bottom: spacing(1);
+    font-size: 12px;
+    font-weight: 900;
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+  }
+
+  & label {
+    display: block;
+    margin-top: spacing(1.5);
+    margin-bottom: spacing(0.5);
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-accent);
+
+    &:first-of-type {
+      margin-top: spacing(0.5);
+    }
+  }
+
+  & .altLabel {
+    color: var(--color-text-secondary);
+  }
+
+  &:first-of-type {
+    margin-top: spacing(0);
+  }
+}

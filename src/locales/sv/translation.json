@@ -17,6 +17,7 @@
   "text_weatherdata_from": "Väderdata från",
   "text_website": "Hemsida",
   "text_data_source": "Datakälla",
+  "text_data_source_desc": "YR.no fungerar överallt. SMHI fungerar endast i Norden.",
   "text_default_hour_view": "Standardvy för timmar",
   "text_simple": "Enkel",
   "text_informative": "Informerande",
@@ -103,6 +104,9 @@
   "text_update_long": "Vänligen uppdatera appen.",
   "text_updating": "Uppdaterar...",
   "text_update_call": "Uppdatera",
+  "text_welcome": "Välkommen",
+  "text_enter_settings": "Vänligen ange dina inställningar innan vi börjar. Oroa dig inte, detta kan ändras senare.",
+  "text_done": "Klar",
   "good_morning": "God morgon",
   "good_evening": "God kväll",
   "good_afternoon": "God eftermiddag"

@@ -65,7 +65,7 @@ $maxHeight: 760px;
   transform: translate(-50%, -50%);
 
   @media ($tablet-landscape-down) {
-    top: 0;
+    top: 30%;
     left: 0;
   }
 }

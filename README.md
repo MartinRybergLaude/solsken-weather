@@ -1,5 +1,5 @@
 <p align="center">
-   <img src="https://github.com/MartinRybergLaude/Solsken-PWA/blob/master/public/solsken.svg?raw=true" width="64" title="hover text">
+   <img src="https://github.com/MartinRybergLaude/Solsken-PWA/blob/master/public/solsken.svg?raw=true" width="80" title="hover text">
 </p>
 <h1 align="center">
   Solsken

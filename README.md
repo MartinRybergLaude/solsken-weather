@@ -1,11 +1,11 @@
 <p align="center">
-   <img src="https://github.com/MartinRybergLaude/Solsken-PWA/blob/master/public/solsken.svg?raw=true" width="80" alt="">
+   <img src="https://github.com/MartinRybergLaude/solsken-weather/blob/master/public/solsken.svg?raw=true" width="80" alt="">
 </p>
 <h1 align="center">
   Solsken
 </h1>
 <p align="center">
-  A progressive web app to cover all your weather needs, built with ViteJS using Reactjs with Typescript.
+  A progressive web app to cover all your weather needs, built with Vite.js using React.js with Typescript.
 </p>
 <p align="center">
     <a href="https://solsken.app">Live</a>
@@ -37,7 +37,7 @@ Additionally, the app employs an efficient caching system in accordance with res
 
     ```shell
     # Clone the repo to a local directory
-    git clone git@github.com:MartinRybergLaude/Solsken.git
+    git clone git@github.com:MartinRybergLaude/solsken-weather.git
     ```
 
 2.  **Install**
@@ -45,7 +45,7 @@ Additionally, the app employs an efficient caching system in accordance with res
     Open cmd, terminal or powershell in the cloned direcory and install
 
     ```shell
-    cd Solsken
+    cd solsken-weather
     pnpm i
     ```
 

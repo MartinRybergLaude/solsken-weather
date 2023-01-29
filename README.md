@@ -1,32 +1,33 @@
 <p align="center">
-   <img src="https://github.com/MartinRybergLaude/Solsken-PWA/blob/master/public/pwa-512x512.png?raw=true" width="64" title="hover text">
+   <img src="https://github.com/MartinRybergLaude/Solsken-PWA/blob/master/public/solsken.svg?raw=true" width="64" title="hover text">
 </p>
 <h1 align="center">
-  Solsken PWA
+  Solsken
 </h1>
 <p align="center">
   A progressive web app to cover all your weather needs, built with ViteJS using Reactjs with Typescript.
 </p>
 <p align="center">
-    <a href="https://solsken.app">Website</a>
+    <a href="https://solsken.app">Live</a>
   • <a href="https://play.google.com/store/apps/details?id=app.solsken.twa">Playstore</a>
-  • <a href="https://mrlaude.com/work/solsken">Case study</a>
+  • <a href="https://mrlaude.com/blog/solsken-app">Blog post</a>
 </p>
 
 ## 💡 Introduction
 
-The goal of Solsken is to be an effective, usable cross-platform weather app with worldwide support, presenting **all** information the APIs provide. Mobile use is prioritized heavily, and the UI and UX are built to provide an experience as close to native as possible. 
+The goal of Solsken is to be an effective, usable cross-platform weather app with worldwide support, presenting **all** information the APIs provide. Mobile use is prioritized heavily, and the UI and UX are built to provide an experience as close to native as possible.
 
-Solsken allows use of two different **weather providers:** 
+Solsken allows use of two different **weather providers:**
+
 - [SMHI](https://opendata.smhi.se/) (for Fennoscandian countries)
 - [YR.no](https://developer.yr.no/) (for worldwide use)
- 
+
 Additionally, the app employs an efficient caching system in accordance with respective weather provider's usage policy.
 
 ## ✅ Prerequisites
 
-- NodeJS
-- yarn
+- Node.js
+- pnpm
 
 ## 🚀 Quick start
 
@@ -45,7 +46,7 @@ Additionally, the app employs an efficient caching system in accordance with res
 
     ```shell
     cd Solsken-web
-    yarn
+    pnpm i
     ```
 
 3.  **Start the app**
@@ -53,16 +54,16 @@ Additionally, the app employs an efficient caching system in accordance with res
     Start the app on `http://localhost:5173`
 
     ```shell
-    yarn dev
+    pnpm dev
     ```
 
 ## 🧐 Technologies
 
-- ViteJS
-- React
+- Vite.js
+- React.js
 - Typescript
 - PostCSS
-- CSS-modules
+- CSS modules
 - Framer Motion
 - SWR
 

@@ -37,7 +37,7 @@ Additionally, the app employs an efficient caching system in accordance with res
 
     ```shell
     # Clone the repo to a local directory
-    git clone https://github.com/MartinRybergLaude/Solsken-web.git
+    git clone git@github.com:MartinRybergLaude/Solsken.git
     ```
 
 2.  **Install**
@@ -45,7 +45,7 @@ Additionally, the app employs an efficient caching system in accordance with res
     Open cmd, terminal or powershell in the cloned direcory and install
 
     ```shell
-    cd Solsken-web
+    cd Solsken
     pnpm i
     ```
 

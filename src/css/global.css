@@ -18,12 +18,12 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #292b2f;
+    --color-bg: #101010;
     --color-bg-rgb: 1, 43, 474;
-    --color-bg-lite: #1d2024;
+    --color-bg-lite: #1e1e1e;
     --color-bg-dark: #404347;
     --color-bg-shadow: #ffffff66;
-    --color-glass: rgba(41, 43, 47, 0.3);
+    --color-glass: rgba(16, 16, 16, 0.3);
 
     /* Typography */
     --color-text-primary: #eef3f9;

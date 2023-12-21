@@ -25,7 +25,7 @@ function App() {
   return (
     <>
       <Helmet>
-        <meta name="theme-color" content={isDarkTheme ? "#292b2f" : "#eef3f9"} />
+        <meta name="theme-color" content={isDarkTheme ? "#101010" : "#eef3f9"} />
       </Helmet>
 
       <LocationContextProvider>

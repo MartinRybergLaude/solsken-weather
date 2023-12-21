@@ -3,7 +3,7 @@ name: Build and Deploy
 on:
   push:
     branches:
-      - main
+      - master
 
 jobs:
   # Build job
@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install
       - name: Build app
-        run: pnpm builc
+        run: pnpm build
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4

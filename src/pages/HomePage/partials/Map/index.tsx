@@ -1,7 +1,6 @@
 import React from "react";
 import { FiChevronLeft, FiChevronRight, FiPauseCircle, FiPlay } from "react-icons/fi";
-import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import { LatLngExpression } from "leaflet";
+import { MapContainer, TileLayer } from "react-leaflet";
 import useSWR from "swr";
 
 import LoadingWrapper from "~/components/LoadingWrapper";
@@ -73,18 +72,6 @@ export function Map() {
     }
   }
 
-  interface ChangeViewProps {
-    center?: LatLngExpression;
-    zoom?: number;
-  }
-
-  function ChangeView({ center, zoom }: ChangeViewProps) {
-    if (!center || !zoom) return null;
-    const map = useMap();
-    map.setView(center, zoom);
-    return null;
-  }
-
   return (
     <LoadingWrapper
       loading={loading || !rainData}
@@ -93,7 +80,7 @@ export function Map() {
       contentClassName={styles.mapWrapper}
       showIcons
     >
-      {location && frames && (
+      {location && (
         <>
           <MapContainer
             center={[location.lat, location.lon]}
@@ -102,7 +89,6 @@ export function Map() {
             className={styles.root}
             fadeAnimation={false}
           >
-            <ChangeView center={[location.lat, location.lon]} zoom={8} />
             <TileLayer
               className={styles.OSM}
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -141,6 +127,7 @@ export function Map() {
           <div className={styles.time}>
             <p>
               {rainData &&
+                frames &&
                 getHourString(
                   (getItem("unit-time") as timeUnits) || timeUnits.twentyfour,
                   new Date(frames[currentFrame.step].time * 1000),

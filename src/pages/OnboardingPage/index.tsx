@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { motion, useAnimationControls } from "framer-motion";
 
-import { ReactComponent as LogoSVG } from "assets/logo.svg";
+import LogoSVG from "assets/logo.svg?react";
 
 import Icon from "~/components/Icon";
 import Settings from "~/components/Settings";

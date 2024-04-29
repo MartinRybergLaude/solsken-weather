@@ -1,9 +1,10 @@
 import React from "react";
 import { FiChevronLeft, FiChevronRight, FiPauseCircle, FiPlay } from "react-icons/fi";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import useSWR from "swr";
 
 import LoadingWrapper from "~/components/LoadingWrapper";
+import Recenter from "~/components/Recenter";
 import { useLocation } from "~/contexts/LocationContext";
 import { useWeather } from "~/contexts/WeatherContext";
 import { Frame } from "~/types/rainViewer";
@@ -89,6 +90,7 @@ export function Map() {
             className={styles.root}
             fadeAnimation={false}
           >
+            <Recenter />
             <TileLayer
               className={styles.OSM}
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"

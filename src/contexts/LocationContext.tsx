@@ -43,6 +43,7 @@ export function LocationContextProvider({ children }: LocationContextProps) {
     {
       onSuccess: (data: string | undefined) => {
         if (data && apiData) {
+          
           setLocation({ lat: apiData.lat, lon: apiData.lon, name: data });
         }
       },
@@ -70,6 +71,7 @@ export function LocationContextProvider({ children }: LocationContextProps) {
 
   useEffect(() => {
     if (apiData && city) {
+      
       setLocation({ lat: apiData.lat, lon: apiData.lon, name: city });
     }
   }, [apiData]);

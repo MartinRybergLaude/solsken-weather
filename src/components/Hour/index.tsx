@@ -4,8 +4,8 @@ import { MdWaterDrop } from "react-icons/md";
 import cx from "classnames";
 import { motion, useInView } from "framer-motion";
 
-import { ReactComponent as BarometerSVG } from "assets/monochrome/barometer.svg";
-import { ReactComponent as WindSVG } from "assets/monochrome/wind.svg";
+import BarometerSVG  from "assets/monochrome/barometer.svg?react";
+import WindSVG from "assets/monochrome/wind.svg?react";
 
 import Icon from "~/components/Icon";
 import WeatherIcon from "~/components/WeatherIcon";

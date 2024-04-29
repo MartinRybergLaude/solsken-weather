@@ -1,6 +1,6 @@
 import { FiUmbrella, FiWind } from "react-icons/fi";
 
-import { ReactComponent as BarometerIcon } from "~/assets/monochrome/barometer.svg";
+import BarometerIcon from "~/assets/monochrome/barometer.svg?react";
 import Icon from "~/components/Icon";
 import { Hour } from "~/types/formattedWeather";
 

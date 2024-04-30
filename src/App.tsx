@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
-import "@fontsource/roboto-flex/variable.css";
 import { LocationContextProvider } from "~/contexts/LocationContext";
 import { WeatherContextProvider } from "~/contexts/WeatherContext";
 

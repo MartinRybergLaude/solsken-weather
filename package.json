@@ -10,7 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@fontsource/roboto-flex": "^4.5.5",
     "@svgr/core": "8.1.0",
     "@types/lodash.debounce": "^4.0.9",
     "@types/node": "^18.19.31",

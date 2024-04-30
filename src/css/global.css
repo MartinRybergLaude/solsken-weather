@@ -32,6 +32,12 @@
   }
 }
 
+@font-face {
+  font-family: "Satoshi";
+  font-weight: 100 1000;
+  src: url("/assets/satoshi.woff2") format("woff2");
+}
+
 * {
   box-sizing: border-box;
 }
@@ -45,7 +51,7 @@ body {
   width: 100%;
   min-height: 100%;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Roboto FlexVariable", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Satoshi", sans-serif;
   user-select: none;
   background: var(--color-bg);
   font-synthesis: none;
@@ -77,7 +83,7 @@ p {
 button {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Roboto FlexVariable", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Satoshi", sans-serif;
   appearance: none;
   background: none;
 }

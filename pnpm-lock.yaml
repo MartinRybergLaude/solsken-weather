@@ -8,9 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@fontsource/roboto-flex':
-        specifier: ^4.5.5
-        version: 4.5.5
       '@svgr/core':
         specifier: 8.1.0
         version: 8.1.0(typescript@5.4.5)
@@ -942,9 +939,6 @@ packages:
   '@eslint/js@8.57.0':
     resolution: {integrity: sha512-Ys+3g2TaW7gADOJzPt83SJtCDhMjndcDMFVQ/Tj9iA1BfJzFKD9mAUXT3OenpuPHbI6P/myECxRJrofUsDx/5g==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-
-  '@fontsource/roboto-flex@4.5.5':
-    resolution: {integrity: sha512-sBm53Q8WA61CS6ic4PLCdSDukpb2Yemt/f3tjBXlikV9zz2bg40KCUDVImAg7Hdzz9J57ggWVnuNW3RHLccqlQ==}
 
   '@humanwhocodes/config-array@0.11.14':
     resolution: {integrity: sha512-3T8LkOmg45BV5FICb15QQMsyUSWrQ8AygVfC7ZG32zOalnqrilm018ZVCw0eapXux8FtA33q8PSRSstjee3jSg==}
@@ -4298,8 +4292,6 @@ snapshots:
       - supports-color
 
   '@eslint/js@8.57.0': {}
-
-  '@fontsource/roboto-flex@4.5.5': {}
 
   '@humanwhocodes/config-array@0.11.14':
     dependencies:

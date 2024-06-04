@@ -48,6 +48,10 @@ $maxHeight: 760px;
     height: 100%;
     content: "";
     background: var(--color-glass);
+
+    @media ($tablet-landscape-down) {
+      background: linear-gradient(var(--color-glass), var(--color-bg));
+    }
   }
 
   @media ($tablet-landscape-down) {

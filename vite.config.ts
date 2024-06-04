@@ -9,11 +9,13 @@ export default defineConfig({
   plugins: [
     react(),
     tsconfigPaths(),
-    svgr({
-      exportAsDefault: false,
-    }),
+    svgr(),
     VitePWA({
       registerType: "autoUpdate",
+      workbox: {
+        clientsClaim: true,
+        skipWaiting: true,
+      },
       includeAssets: ["favicon.ico", "pwa-192x192.png", "pwa-512x512.png"],
       manifest: {
         name: "Solsken",

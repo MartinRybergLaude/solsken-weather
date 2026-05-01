@@ -45,21 +45,21 @@ function parseDays(
 
   // Iterate each day
   for (const time1 of times) {
-    if (isSameDay(new Date(time1.validTime), new Date(iterationDate))) continue;
+    if (isSameDay(new Date(time1.time), new Date(iterationDate))) continue;
 
     const iterationDay = {} as WeatherTypesUni.Day;
     iterationDay.hours = [];
-    iterationDate = time1.validTime;
+    iterationDate = time1.time;
 
     // Set sunrise and sunset
-    iterationDay.date = time1.validTime;
+    iterationDay.date = time1.time;
     const sunTimes = SunCalc.getTimes(new Date(iterationDay.date), lat, lon);
     iterationDay.sunrise = sunTimes.sunrise;
     iterationDay.sunset = sunTimes.sunset;
 
     // Iterate each hour
     for (const time2 of times) {
-      if (isSameDay(new Date(time2.validTime), new Date(iterationDate))) {
+      if (isSameDay(new Date(time2.time), new Date(iterationDate))) {
         iterationDay.hours.push(parseHour(time2, iterationDay.sunrise, iterationDay.sunset));
       }
     }
@@ -80,58 +80,33 @@ function parseHour(
   sunset: Date,
 ): WeatherTypesUni.Hour {
   const hour = {} as WeatherTypesUni.Hour;
-  hour.date = time.validTime;
-  time.parameters.forEach(param => {
-    switch (param.name) {
-      case WeatherTypesSMHI.Name.T:
-        hour.tempr = param.values[0];
-        break;
-      case WeatherTypesSMHI.Name.Pmax:
-        hour.precMax = param.values[0];
-        break;
-      case WeatherTypesSMHI.Name.Pmin:
-        hour.precMin = param.values[0];
-        break;
-      case WeatherTypesSMHI.Name.Pmean:
-        hour.precMean = param.values[0];
-        break;
-      case WeatherTypesSMHI.Name.Ws:
-        hour.wind = param.values[0];
-        break;
-      case WeatherTypesSMHI.Name.Wd:
-        hour.windDir = param.values[0];
-        break;
-      case WeatherTypesSMHI.Name.Msl:
-        hour.pressure = param.values[0];
-        break;
-      case WeatherTypesSMHI.Name.Vis:
-        hour.vis = param.values[0];
-        break;
-      case WeatherTypesSMHI.Name.R:
-        hour.humidity = param.values[0];
-        break;
-      case WeatherTypesSMHI.Name.Gust:
-        hour.gusts = param.values[0];
-        break;
-      case WeatherTypesSMHI.Name.TccMean:
-        hour.cloud = param.values[0];
-        break;
-      case WeatherTypesSMHI.Name.Wsymb2: {
-        const wsymb2Num = param.values[0];
-        const correctedForIndex = wsymb2Num - 1;
-        hour.text = WeatherTypesSMHI.TextList[correctedForIndex];
-        if (
-          new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-          new Date(hour.date).getHours() <= new Date(sunset).getHours()
-        ) {
-          hour.icon = WeatherTypesSMHI.IconListDay[correctedForIndex];
-        } else {
-          hour.icon = WeatherTypesSMHI.IconListNight[correctedForIndex];
-        }
-        break;
-      }
+  const data = time.data;
+  hour.date = time.time;
+  hour.tempr = data.air_temperature ?? 0;
+  hour.precMax = data.precipitation_amount_max ?? 0;
+  hour.precMin = data.precipitation_amount_min ?? 0;
+  hour.precMean = data.precipitation_amount_mean ?? 0;
+  hour.wind = data.wind_speed ?? 0;
+  hour.windDir = data.wind_from_direction ?? 0;
+  hour.pressure = data.air_pressure_at_mean_sea_level ?? 0;
+  hour.vis = data.visibility_in_air ?? 0;
+  hour.humidity = data.relative_humidity ?? 0;
+  hour.gusts = data.wind_speed_of_gust ?? 0;
+  hour.cloud = data.cloud_area_fraction ?? 0;
+
+  if (data.symbol_code !== undefined) {
+    const correctedForIndex = data.symbol_code - 1;
+    hour.text = WeatherTypesSMHI.TextList[correctedForIndex];
+    if (
+      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
+      new Date(hour.date).getHours() <= new Date(sunset).getHours()
+    ) {
+      hour.icon = WeatherTypesSMHI.IconListDay[correctedForIndex];
+    } else {
+      hour.icon = WeatherTypesSMHI.IconListNight[correctedForIndex];
     }
-  });
+  }
+
   hour.feelslike = calcFeelsLike(hour.tempr, hour.humidity, hour.wind);
   return hour;
 }

@@ -16,7 +16,7 @@ import styles from "./Hour.module.css";
 interface HourProps {
   hour: FormattedHour;
   pauseAnimation?: boolean;
-  scrollRef?: RefObject<Element>;
+  scrollRef?: RefObject<Element | null>;
 }
 
 function Hour({ hour, pauseAnimation, scrollRef }: HourProps) {

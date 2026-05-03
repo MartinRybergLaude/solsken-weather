@@ -3,7 +3,7 @@ import i18n from "i18n";
 import { WeatherIconEnum } from "~/enums/WeatherIcon";
 
 export interface WeatherData {
-  approvedTime: Date;
+  createdTime: Date;
   referenceTime: Date;
   geometry: Geometry;
   timeSeries: TimeSery[];
@@ -11,59 +11,27 @@ export interface WeatherData {
 
 export interface Geometry {
   type: string;
-  coordinates: Array<number[]>;
+  coordinates: number[];
 }
 
 export interface TimeSery {
-  validTime: Date;
-  parameters: Parameter[];
+  time: Date;
+  data: TimeData;
 }
 
-export interface Parameter {
-  name: Name;
-  levelType: LevelType;
-  level: number;
-  unit: Unit;
-  values: number[];
-}
-
-export enum LevelType {
-  Hl = "hl",
-  Hmsl = "hmsl",
-}
-
-export enum Name {
-  Gust = "gust",
-  HccMean = "hcc_mean",
-  LccMean = "lcc_mean",
-  MccMean = "mcc_mean",
-  Msl = "msl",
-  Pcat = "pcat",
-  Pmax = "pmax",
-  Pmean = "pmean",
-  Pmedian = "pmedian",
-  Pmin = "pmin",
-  R = "r",
-  Spp = "spp",
-  T = "t",
-  TccMean = "tcc_mean",
-  Tstm = "tstm",
-  Vis = "vis",
-  Wd = "wd",
-  Ws = "ws",
-  Wsymb2 = "Wsymb2",
-}
-
-export enum Unit {
-  Category = "category",
-  Cel = "Cel",
-  Degree = "degree",
-  HPa = "hPa",
-  KM = "km",
-  KgM2H = "kg/m2/h",
-  MS = "m/s",
-  Octas = "octas",
-  Percent = "percent",
+export interface TimeData {
+  air_temperature?: number;
+  wind_from_direction?: number;
+  wind_speed?: number;
+  wind_speed_of_gust?: number;
+  relative_humidity?: number;
+  air_pressure_at_mean_sea_level?: number;
+  visibility_in_air?: number;
+  cloud_area_fraction?: number;
+  precipitation_amount_min?: number;
+  precipitation_amount_max?: number;
+  precipitation_amount_mean?: number;
+  symbol_code?: number;
 }
 
 export const TextList = [

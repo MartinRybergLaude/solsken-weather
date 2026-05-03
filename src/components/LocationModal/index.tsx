@@ -43,7 +43,10 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
   const debouncedSearch = useDebounce(search, 500);
 
   // SWR network request for location search
-  const { data: locations } = useSWR(`${apiBasePhoton}${debouncedSearch}&limit=6`, searchFetcher);
+  const { data: locations } = useSWR(
+    debouncedSearch ? `${apiBasePhoton}${encodeURIComponent(debouncedSearch)}&limit=6` : null,
+    searchFetcher,
+  );
 
   useEffect(() => {
     if (search.length > 0) {

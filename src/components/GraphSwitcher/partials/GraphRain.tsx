@@ -18,16 +18,12 @@ function GraphRain({ chartHours }: GraphProps) {
   // Makes sure that "edges" are smooth (otherwise null gets a cutoff)
   useEffect(() => {
     if (chartHours) {
-      for (let i = 0; i < chartHours.length; i++) {
-        if (
-          chartHours[i].precMax === 0 &&
-          !chartHours[i - 1]?.precMax &&
-          !chartHours[i + 1]?.precMax
-        ) {
-          chartHours[i].precMax = null;
-        }
-      }
-      setHoursData(chartHours);
+      const next = chartHours.map((hour, i) =>
+        hour.precMax === 0 && !chartHours[i - 1]?.precMax && !chartHours[i + 1]?.precMax
+          ? { ...hour, precMax: null }
+          : hour,
+      );
+      setHoursData(next);
     }
   }, [chartHours]);
 

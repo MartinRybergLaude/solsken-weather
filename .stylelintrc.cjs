@@ -1,6 +1,7 @@
 module.exports = {
   extends: ["stylelint-config-recommended", "stylelint-config-recess-order"],
   plugins: ["stylelint-prettier"],
+  ignoreFiles: ["src/css/leaflet.css", "dist/**", "dev-dist/**", "node_modules/**"],
   rules: {
     // Avoid complicated CSS quoting:
     "font-family-name-quotes": "always-unless-keyword",
@@ -37,8 +38,6 @@ module.exports = {
 
     // Extras:
     "length-zero-no-unit": true,
-    "number-leading-zero": "always",
-    "number-no-trailing-zeros": true,
     "selector-pseudo-element-colon-notation": "double",
     "prettier/prettier": true,
 

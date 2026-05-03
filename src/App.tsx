@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { Helmet } from "react-helmet";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 import { LocationContextProvider } from "~/contexts/LocationContext";
@@ -21,12 +20,19 @@ function App() {
     }
   }, []);
 
+  useEffect(() => {
+    const color = isDarkTheme ? "#101010" : "#eef3f9";
+    let meta = document.querySelector<HTMLMetaElement>("meta[name=theme-color]");
+    if (!meta) {
+      meta = document.createElement("meta");
+      meta.name = "theme-color";
+      document.head.appendChild(meta);
+    }
+    meta.content = color;
+  }, [isDarkTheme]);
+
   return (
     <>
-      <Helmet>
-        <meta name="theme-color" content={isDarkTheme ? "#101010" : "#eef3f9"} />
-      </Helmet>
-
       <LocationContextProvider>
         <WeatherContextProvider>
           <BrowserRouter>

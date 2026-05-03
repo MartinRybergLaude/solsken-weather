@@ -1,5 +1,3 @@
-import { StringMap } from "i18next";
-
 import { WeatherIconEnum } from "~/enums/WeatherIcon";
 
 import { Theme } from "./themes";

@@ -10,6 +10,7 @@ import useDebounce from "~/hooks/useDebounce";
 import Location from "~/types/location";
 import { apiBasePhoton, searchFetcher } from "~/utils/constants";
 import { deleteItem, getItem, setItem } from "~/utils/storage";
+import { getTimezoneForCoords, validateTimezone } from "~/utils/timezone";
 
 import SearchBar from "../SearchBar";
 import styles from "./LocationModal.module.css";
@@ -69,16 +70,22 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
 
   // Add chosen location to saved locations
   function addLocation(location: Location) {
+    const ensured = ensureTimezone(location);
     const savedLocations = JSON.parse(getItem("locations") || "[]");
-    const newLocations: Location[] = savedLocations.find((l: Location) => l.name === location.name)
+    const newLocations: Location[] = savedLocations.find((l: Location) => l.name === ensured.name)
       ? [...savedLocations]
-      : [...savedLocations, location];
+      : [...savedLocations, ensured];
     setItem("locations", JSON.stringify(newLocations));
-    setItem("selected-location", JSON.stringify(location));
-    setLocation(location);
+    setItem("selected-location", JSON.stringify(ensured));
+    setLocation(ensured);
     setSavedLocations(newLocations);
     setCurrentLocationSelected(false);
     closeModal();
+  }
+
+  function ensureTimezone(location: Location): Location {
+    if (location.timezone && validateTimezone(location.timezone)) return location;
+    return { ...location, timezone: getTimezoneForCoords(location.lat, location.lon) };
   }
 
   // Remove chosen location from saved locations

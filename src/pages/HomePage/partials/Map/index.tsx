@@ -133,6 +133,7 @@ export function Map() {
                 getHourString(
                   (getItem("unit-time") as timeUnits) || timeUnits.twentyfour,
                   new Date(frames[currentFrame.step].time * 1000),
+                  location.timezone,
                 )}
             </p>
           </div>

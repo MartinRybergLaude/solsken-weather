@@ -1,23 +1,38 @@
 import { timeUnits } from "./constants";
 
-export function getHourString(unitTime: timeUnits, date: Date): string {
-  const minutes = (date.getMinutes() < 10 ? "0" : "") + date.getMinutes();
+function partsFor(date: Date, options: Intl.DateTimeFormatOptions): Intl.DateTimeFormatPart[] {
+  return new Intl.DateTimeFormat("en-US", options).formatToParts(date);
+}
 
+function partValue(parts: Intl.DateTimeFormatPart[], type: Intl.DateTimeFormatPartTypes): string {
+  return parts.find(p => p.type === type)?.value ?? "";
+}
+
+export function getHourString(unitTime: timeUnits, date: Date, timeZone: string): string {
   switch (unitTime) {
-    case "twentyfour": {
-      const hours = (date.getHours() < 10 ? "0" : "") + date.getHours();
-      return hours + ":" + minutes;
-    }
     case "twelve": {
-      let hours = date.getHours();
-      const ampm = hours >= 12 ? " pm" : " am";
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-      return hours + "." + minutes + ampm;
+      const parts = partsFor(date, {
+        timeZone,
+        hour: "numeric",
+        minute: "2-digit",
+        hourCycle: "h12",
+      });
+      const hours = partValue(parts, "hour");
+      const minutes = partValue(parts, "minute");
+      const dayPeriod = partValue(parts, "dayPeriod").toLowerCase();
+      return `${hours}.${minutes} ${dayPeriod}`;
     }
+    case "twentyfour":
     default: {
-      const hours = (date.getHours() < 10 ? "0" : "") + date.getHours();
-      return hours + ":" + minutes;
+      const parts = partsFor(date, {
+        timeZone,
+        hour: "2-digit",
+        minute: "2-digit",
+        hourCycle: "h23",
+      });
+      const hours = partValue(parts, "hour");
+      const minutes = partValue(parts, "minute");
+      return `${hours}:${minutes}`;
     }
   }
 }

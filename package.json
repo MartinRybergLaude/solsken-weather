@@ -38,7 +38,8 @@
     "react-router-dom": "^7.14.2",
     "recharts": "^3.8.1",
     "suncalc": "^1.9.0",
-    "swr": "^2.4.1"
+    "swr": "^2.4.1",
+    "tz-lookup": "^6.1.25"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.4",

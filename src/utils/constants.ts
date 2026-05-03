@@ -9,15 +9,21 @@ import Weather from "~/types/weather";
 
 import formatWeather from "./formatWeather";
 import { parseWeather } from "./parseWeather";
+import { getTimezoneForCoords } from "./timezone";
 
 export async function searchFetcher(input: RequestInfo, init?: RequestInit): Promise<Location[]> {
   const res = await fetch(input, init);
   const data = (await res.json()) as LocationData;
-  return data.features.map(location => ({
-    name: location.properties.name,
-    lon: Math.round(location.geometry.coordinates[0] * 100 + Number.EPSILON) / 100,
-    lat: Math.round(location.geometry.coordinates[1] * 100 + Number.EPSILON) / 100,
-  }));
+  return data.features.map(location => {
+    const lon = Math.round(location.geometry.coordinates[0] * 100 + Number.EPSILON) / 100;
+    const lat = Math.round(location.geometry.coordinates[1] * 100 + Number.EPSILON) / 100;
+    return {
+      name: location.properties.name,
+      lon,
+      lat,
+      timezone: getTimezoneForCoords(lat, lon),
+    };
+  });
 }
 
 export async function locationFetcher(input: RequestInfo, init?: RequestInit): Promise<string> {

@@ -1,5 +1,6 @@
 import SunCalc from "suncalc";
 
+import Location from "~/types/location";
 import * as WeatherTypesUni from "~/types/rawWeather";
 import * as WeatherTypesSMHI from "~/types/smhi";
 import {
@@ -11,16 +12,16 @@ import {
   windUnits,
 } from "~/utils/constants";
 
-import { calcFeelsLike, isSameDay } from "./weatherTransforms";
+import { isSameDayInTimezone } from "./timezone";
+import { calcFeelsLike } from "./weatherTransforms";
 
 export function parseWeatherSMHI(
   weatherData: WeatherTypesSMHI.WeatherData,
-  lon: number,
-  lat: number,
-  city: string,
+  location: Location,
 ): WeatherTypesUni.RawWeather {
   const weatherDataUni = {} as WeatherTypesUni.RawWeather;
-  weatherDataUni.city = city;
+  weatherDataUni.city = location.name;
+  weatherDataUni.timezone = location.timezone;
   weatherDataUni.days = [];
   weatherDataUni.units = {
     temprUnit: temprUnits.c,
@@ -31,7 +32,12 @@ export function parseWeatherSMHI(
     timeUnit: timeUnits.twentyfour,
   };
 
-  weatherDataUni.days = parseDays(weatherData.timeSeries, lon, lat);
+  weatherDataUni.days = parseDays(
+    weatherData.timeSeries,
+    location.lon,
+    location.lat,
+    location.timezone,
+  );
 
   return weatherDataUni;
 }
@@ -39,17 +45,18 @@ function parseDays(
   times: WeatherTypesSMHI.TimeSery[],
   lon: number,
   lat: number,
+  tz: string,
 ): WeatherTypesUni.Day[] {
   const days = [];
   let iterationDate = new Date(0);
 
   // Iterate each day
   for (const time1 of times) {
-    if (isSameDay(new Date(time1.time), new Date(iterationDate))) continue;
+    if (isSameDayInTimezone(new Date(time1.time), iterationDate, tz)) continue;
 
     const iterationDay = {} as WeatherTypesUni.Day;
     iterationDay.hours = [];
-    iterationDate = time1.time;
+    iterationDate = new Date(time1.time);
 
     // Set sunrise and sunset
     iterationDay.date = time1.time;
@@ -59,8 +66,10 @@ function parseDays(
 
     // Iterate each hour
     for (const time2 of times) {
-      if (isSameDay(new Date(time2.time), new Date(iterationDate))) {
-        iterationDay.hours.push(parseHour(time2, iterationDay.sunrise, iterationDay.sunset));
+      if (isSameDayInTimezone(new Date(time2.time), iterationDate, tz)) {
+        iterationDay.hours.push(
+          parseHour(time2, iterationDay.sunrise, iterationDay.sunset, lat, lon),
+        );
       }
     }
 
@@ -78,6 +87,8 @@ function parseHour(
   time: WeatherTypesSMHI.TimeSery,
   sunrise: Date,
   sunset: Date,
+  lat: number,
+  lon: number,
 ): WeatherTypesUni.Hour {
   const hour = {} as WeatherTypesUni.Hour;
   const data = time.data;
@@ -97,10 +108,15 @@ function parseHour(
   if (data.symbol_code !== undefined) {
     const correctedForIndex = data.symbol_code - 1;
     hour.text = WeatherTypesSMHI.TextList[correctedForIndex];
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
+    const date = new Date(hour.date);
+    const t = date.getTime();
+    const sunriseMs = sunrise.getTime();
+    const sunsetMs = sunset.getTime();
+    const isDay =
+      !Number.isNaN(sunriseMs) && !Number.isNaN(sunsetMs)
+        ? t >= sunriseMs && t <= sunsetMs
+        : SunCalc.getPosition(date, lat, lon).altitude > 0;
+    if (isDay) {
       hour.icon = WeatherTypesSMHI.IconListDay[correctedForIndex];
     } else {
       hour.icon = WeatherTypesSMHI.IconListNight[correctedForIndex];

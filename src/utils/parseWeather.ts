@@ -9,9 +9,9 @@ import { parseWeatherYR } from "./yr";
 export function parseWeather(data: any, provider: Provider, location: Location) {
   switch (provider) {
     case "smhi":
-      return processWeather(parseWeatherSMHI(data, location.lon, location.lat, location.name));
+      return processWeather(parseWeatherSMHI(data, location));
     case "yr":
-      return processWeather(parseWeatherYR(data, location.lon, location.lat, location.name));
+      return processWeather(parseWeatherYR(data, location));
   }
 }
 

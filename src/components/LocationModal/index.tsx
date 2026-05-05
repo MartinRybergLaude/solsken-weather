@@ -10,6 +10,7 @@ import useDebounce from "~/hooks/useDebounce";
 import Location from "~/types/location";
 import { apiBasePhoton, searchFetcher } from "~/utils/constants";
 import { deleteItem, getItem, setItem } from "~/utils/storage";
+import { getTimezoneForCoords, validateTimezone } from "~/utils/timezone";
 
 import SearchBar from "../SearchBar";
 import styles from "./LocationModal.module.css";
@@ -23,9 +24,7 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
   const { t } = useTranslation();
 
   const { setLocation, setSelectedLocation, location } = useLocation();
-  const [savedLocations, setSavedLocations] = useState<Location[]>(
-    JSON.parse(getItem("locations") || "[]"),
-  );
+  const [savedLocations, setSavedLocations] = useState<Location[]>(loadSavedLocations);
   const [currentLocationSelected, setCurrentLocationSelected] = useState(
     getItem("selected-location") ? false : true,
   );
@@ -49,6 +48,12 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
   );
 
   useEffect(() => {
+    const upgraded = loadSavedLocations();
+    setSavedLocations(upgraded);
+    setItem("locations", JSON.stringify(upgraded));
+  }, []);
+
+  useEffect(() => {
     if (search.length > 0) {
       setIsSearching(true);
     } else {
@@ -69,21 +74,45 @@ export default function LocationModal({ isOpen, setOpen }: LocationModalProps) {
 
   // Add chosen location to saved locations
   function addLocation(location: Location) {
-    const savedLocations = JSON.parse(getItem("locations") || "[]");
-    const newLocations: Location[] = savedLocations.find((l: Location) => l.name === location.name)
-      ? [...savedLocations]
-      : [...savedLocations, location];
+    const ensured = ensureTimezone(location);
+    if (!ensured) return;
+    const savedLocations = loadSavedLocations();
+    const existingIndex = savedLocations.findIndex(l => l.name === ensured.name);
+    const newLocations: Location[] =
+      existingIndex >= 0
+        ? savedLocations.map((l, i) => (i === existingIndex ? ensured : l))
+        : [...savedLocations, ensured];
     setItem("locations", JSON.stringify(newLocations));
-    setItem("selected-location", JSON.stringify(location));
-    setLocation(location);
+    setItem("selected-location", JSON.stringify(ensured));
+    setLocation(ensured);
     setSavedLocations(newLocations);
     setCurrentLocationSelected(false);
     closeModal();
   }
 
+  function ensureTimezone(location: Partial<Location>): Location | undefined {
+    if (location.lat == null || location.lon == null || !location.name) return undefined;
+    const timezone =
+      location.timezone && validateTimezone(location.timezone)
+        ? location.timezone
+        : getTimezoneForCoords(location.lat, location.lon);
+    return {
+      lat: location.lat,
+      lon: location.lon,
+      name: location.name,
+      timezone,
+    };
+  }
+
+  function loadSavedLocations(): Location[] {
+    return (JSON.parse(getItem("locations") || "[]") as Partial<Location>[])
+      .map(ensureTimezone)
+      .filter((location): location is Location => Boolean(location));
+  }
+
   // Remove chosen location from saved locations
   function removeLocation(location: Location) {
-    const savedLocations = JSON.parse(getItem("locations") || "[]");
+    const savedLocations = loadSavedLocations();
     const newLocations = savedLocations.filter((l: Location) => l.name !== location.name);
     setItem("locations", JSON.stringify(newLocations));
     const selectedLocation = JSON.parse(getItem("selected-location") || "null");

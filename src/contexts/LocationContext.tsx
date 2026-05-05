@@ -5,6 +5,7 @@ import i18n from "~/i18n";
 import Location from "~/types/location";
 import { apiBaseBigDataCloud, locationFetcher } from "~/utils/constants";
 import { clearAllData, getItem, setItem } from "~/utils/storage";
+import { getTimezoneForCoords, validateTimezone } from "~/utils/timezone";
 
 type LocationContextType = {
   location?: Location;
@@ -23,12 +24,14 @@ const PreSelectLocation: Location = {
   lat: 59.3293,
   lon: 18.0686,
   name: "Stockholm",
+  timezone: "Europe/Stockholm",
 };
 
 interface APIData {
   lat: number;
   lon: number;
   userLang: string;
+  timezone: string;
 }
 
 export function LocationContextProvider({ children }: LocationContextProps) {
@@ -43,8 +46,12 @@ export function LocationContextProvider({ children }: LocationContextProps) {
     {
       onSuccess: (data: string | undefined) => {
         if (data && apiData) {
-          
-          setLocation({ lat: apiData.lat, lon: apiData.lon, name: data });
+          setLocation({
+            lat: apiData.lat,
+            lon: apiData.lon,
+            name: data,
+            timezone: apiData.timezone,
+          });
         }
       },
     },
@@ -71,8 +78,12 @@ export function LocationContextProvider({ children }: LocationContextProps) {
 
   useEffect(() => {
     if (apiData && city) {
-      
-      setLocation({ lat: apiData.lat, lon: apiData.lon, name: city });
+      setLocation({
+        lat: apiData.lat,
+        lon: apiData.lon,
+        name: city,
+        timezone: apiData.timezone,
+      });
     }
   }, [apiData]);
 
@@ -80,11 +91,28 @@ export function LocationContextProvider({ children }: LocationContextProps) {
     setLocation(undefined);
     const selectedLocation = getItem("selected-location");
     if (selectedLocation) {
-      const selectedLocationParsed = JSON.parse(selectedLocation) as Location;
-      setLocation(selectedLocationParsed);
+      const parsed = JSON.parse(selectedLocation) as Partial<Location>;
+      const upgraded = upgradeLocation(parsed);
+      if (upgraded) {
+        if (upgraded.timezone !== parsed.timezone) {
+          setItem("selected-location", JSON.stringify(upgraded));
+        }
+        setLocation(upgraded);
+      } else {
+        checkLocationPermission();
+      }
     } else {
       checkLocationPermission();
     }
+  }
+
+  function upgradeLocation(parsed: Partial<Location>): Location | undefined {
+    if (parsed.lat == null || parsed.lon == null || !parsed.name) return undefined;
+    const tz =
+      parsed.timezone && validateTimezone(parsed.timezone)
+        ? parsed.timezone
+        : getTimezoneForCoords(parsed.lat, parsed.lon);
+    return { lat: parsed.lat, lon: parsed.lon, name: parsed.name, timezone: tz };
   }
 
   function checkLocationPermission() {
@@ -103,10 +131,17 @@ export function LocationContextProvider({ children }: LocationContextProps) {
   }
 
   function getPositionSuccessCallback(pos: GeolocationPosition) {
-    const lon = pos.coords.longitude.toFixed(2);
-    const lat = pos.coords.latitude.toFixed(2);
+    const rawLon = pos.coords.longitude;
+    const rawLat = pos.coords.latitude;
+    const lon = rawLon.toFixed(2);
+    const lat = rawLat.toFixed(2);
 
-    setApiData({ lat: Number(lat), lon: Number(lon), userLang: i18n.language });
+    setApiData({
+      lat: Number(lat),
+      lon: Number(lon),
+      userLang: i18n.language,
+      timezone: getTimezoneForCoords(rawLat, rawLon),
+    });
   }
 
   useEffect(() => {

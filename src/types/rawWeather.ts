@@ -12,6 +12,7 @@ export interface RawWeather {
   days: Day[];
   units: Units;
   city: string;
+  timezone: string;
 }
 export interface Units {
   temprUnit: temprUnits;

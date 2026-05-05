@@ -8,10 +8,18 @@ import * as RawWeather from "~/types/rawWeather";
 import { Theme } from "~/types/themes";
 
 import { getHourString } from "./getHourString";
+import {
+  getDayInTimezone,
+  getDayOfWeekInTimezone,
+  getHourInTimezone,
+  getMonthIndexInTimezone,
+  isSameDayInTimezone,
+} from "./timezone";
 
 export default function formatWeather(
   data: RawWeather.RawWeather,
 ): FormattedWeather.FormattedWeather {
+  const tz = data.timezone;
   const formattedData = {} as FormattedWeather.FormattedWeather;
   formattedData.city = data.city;
   formattedData.chartHours = [];
@@ -22,7 +30,7 @@ export default function formatWeather(
         if (formattedData.chartHours.length < 24) {
           const chartHour: FormattedWeather.ChartHour = {
             hour: hour.tempr,
-            hourText: getHourString(data.units.timeUnit, new Date(hour.date)),
+            hourText: getHourString(data.units.timeUnit, new Date(hour.date), tz),
             tempr: hour.tempr,
             feelslike: hour.feelslike,
             wind: hour.wind,
@@ -44,23 +52,23 @@ export default function formatWeather(
     formattedDay.chartHours = [];
     // Handle day of week
     let dayOfWeek = {} as string;
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    if (isSameDay(new Date(day.date), new Date())) {
+    const now = new Date();
+    const tomorrow = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+    if (isSameDayInTimezone(new Date(day.date), now, tz)) {
       dayOfWeek = i18n.t("day_today");
-    } else if (isSameDay(new Date(day.date), tomorrow)) {
+    } else if (isSameDayInTimezone(new Date(day.date), tomorrow, tz)) {
       dayOfWeek = i18n.t("day_tomorrow");
     } else {
-      dayOfWeek = Consts.Days[new Date(day.date).getDay()];
+      dayOfWeek = Consts.Days[getDayOfWeekInTimezone(new Date(day.date), tz)];
     }
     formattedDay.dayOfWeek = dayOfWeek;
-    formattedDay.sunrise = getHourString(data.units.timeUnit, new Date(day.sunrise));
-    formattedDay.sunset = getHourString(data.units.timeUnit, new Date(day.sunset));
-    formattedDay.icon = day.icon || getDayIcon(day);
+    formattedDay.sunrise = getHourString(data.units.timeUnit, new Date(day.sunrise), tz);
+    formattedDay.sunset = getHourString(data.units.timeUnit, new Date(day.sunset), tz);
+    formattedDay.icon = day.icon || getDayIcon(day, tz);
     formattedDay.text = day.text;
     formattedDay.tempHigh = getTemperatureString(data.units.temprUnit, day.tempHigh);
     formattedDay.tempLow = getTemperatureString(data.units.temprUnit, day.tempLow);
-    formattedDay.dateString = formatDate(day.date);
+    formattedDay.dateString = formatDate(day.date, tz);
 
     day.hours.forEach(hour => {
       formattedDay.hours.push(parseHour(hour, day.sunrise, day.sunset));
@@ -68,7 +76,7 @@ export default function formatWeather(
     day.hours.forEach(hour => {
       formattedDay.chartHours.push({
         hour: hour.tempr,
-        hourText: getHourString(data.units.timeUnit, new Date(hour.date)),
+        hourText: getHourString(data.units.timeUnit, new Date(hour.date), tz),
         tempr: hour.tempr,
         feelslike: hour.feelslike,
         wind: hour.wind,
@@ -87,7 +95,7 @@ export default function formatWeather(
 
   function parseHour(hour: RawWeather.Hour, sunrise: Date, sunset: Date): FormattedWeather.Hour {
     const formattedHour = {} as FormattedWeather.Hour;
-    formattedHour.hour = getHourString(data.units.timeUnit, new Date(hour.date));
+    formattedHour.hour = getHourString(data.units.timeUnit, new Date(hour.date), tz);
     formattedHour.text = hour.text;
     formattedHour.icon = hour.icon;
     formattedHour.theme = getTheme(hour.icon, sunrise, sunset);
@@ -119,10 +127,10 @@ export default function formatWeather(
   }
 }
 
-function getDayIcon(day: RawWeather.Day): WeatherIconEnum {
+function getDayIcon(day: RawWeather.Day, tz: string): WeatherIconEnum {
   // We only care about hours between these hours
   const hours = day.hours.filter(hour => {
-    return isBetween(new Date(hour.date).getHours(), 5, 23);
+    return isBetween(getHourInTimezone(new Date(hour.date), tz), 5, 23);
   });
   // No hours in the span, iterate all hours
   if (hours.length == 0) {
@@ -282,25 +290,13 @@ function getTemperatureString(unitTempr: string, tempr: number): string {
   }
 }
 function isMorning(sunrise: Date, sunset: Date) {
-  const lowHourSunrise = new Date(sunrise);
-  lowHourSunrise.setHours(lowHourSunrise.getHours() - 1);
-  const highHourSunrise = new Date(sunrise);
-  highHourSunrise.setHours(lowHourSunrise.getHours() + 1);
-
-  const lowHourSunset = new Date(sunset);
-  lowHourSunrise.setHours(lowHourSunset.getHours() - 1);
-  const highHourSunset = new Date(sunset);
-  highHourSunrise.setHours(lowHourSunset.getHours() + 1);
-
-  const currentDate = new Date();
-
-  if (
-    dateIsBetween(currentDate, lowHourSunrise, highHourSunrise) ||
-    dateIsBetween(currentDate, lowHourSunset, highHourSunset)
-  ) {
-    return true;
-  }
-  return false;
+  const oneHour = 60 * 60 * 1000;
+  const now = Date.now();
+  const sunriseMs = sunrise.getTime();
+  const sunsetMs = sunset.getTime();
+  const nearSunrise = now >= sunriseMs - oneHour && now <= sunriseMs + oneHour;
+  const nearSunset = now >= sunsetMs - oneHour && now <= sunsetMs + oneHour;
+  return nearSunrise || nearSunset;
 }
 function isBetween(x: number, lower: number, upper: number) {
   return lower <= x && x <= upper;
@@ -308,14 +304,7 @@ function isBetween(x: number, lower: number, upper: number) {
 function dateIsBetween(x: Date, lower: Date, upper: Date) {
   return x > lower && x < upper;
 }
-function isSameDay(d1: Date, d2: Date) {
-  return (
-    d1.getFullYear() === d2.getFullYear() &&
-    d1.getMonth() === d2.getMonth() &&
-    d1.getDate() === d2.getDate()
-  );
-}
-function formatDate(date: Date): string {
+function formatDate(date: Date, tz: string): string {
   const dateObj = new Date(date);
-  return dateObj.getDate() + " " + Consts.Months[dateObj.getMonth()];
+  return getDayInTimezone(dateObj, tz) + " " + Consts.Months[getMonthIndexInTimezone(dateObj, tz)];
 }

@@ -11,19 +11,20 @@ import {
 } from "utils/constants";
 
 import { WeatherIconEnum } from "~/enums/WeatherIcon";
+import Location from "~/types/location";
 import * as WeatherTypesUni from "~/types/rawWeather";
 import * as WeatherTypesYR from "~/types/yr";
 
-import { calcFeelsLike, isSameDay } from "./weatherTransforms";
+import { getHourInTimezone, isSameDayInTimezone } from "./timezone";
+import { calcFeelsLike } from "./weatherTransforms";
 
 export function parseWeatherYR(
   weatherData: WeatherTypesYR.WeatherData,
-  lon: number,
-  lat: number,
-  city: string,
+  location: Location,
 ): WeatherTypesUni.RawWeather {
   const weatherDataUni = {} as WeatherTypesUni.RawWeather;
-  weatherDataUni.city = city;
+  weatherDataUni.city = location.name;
+  weatherDataUni.timezone = location.timezone;
   weatherDataUni.days = [];
   weatherDataUni.units = {
     temprUnit: temprUnits.c,
@@ -34,7 +35,12 @@ export function parseWeatherYR(
     timeUnit: timeUnits.twentyfour,
   };
 
-  weatherDataUni.days = parseDays(weatherData.properties.timeseries, lon, lat);
+  weatherDataUni.days = parseDays(
+    weatherData.properties.timeseries,
+    location.lon,
+    location.lat,
+    location.timezone,
+  );
 
   return weatherDataUni;
 }
@@ -43,17 +49,18 @@ function parseDays(
   times: WeatherTypesYR.Timesery[],
   lon: number,
   lat: number,
+  tz: string,
 ): WeatherTypesUni.Day[] {
   const days = [];
   let iterationDate = new Date(0);
 
   // Iterate each day
   for (let i = 0; i < times.length; i++) {
-    if (isSameDay(new Date(times[i].time), new Date(iterationDate))) continue;
+    if (isSameDayInTimezone(new Date(times[i].time), iterationDate, tz)) continue;
 
     const iterationDay = {} as WeatherTypesUni.Day;
     iterationDay.hours = [];
-    iterationDate = times[i].time;
+    iterationDate = new Date(times[i].time);
 
     // Set sunrise sunset
     iterationDay.date = times[i].time;
@@ -63,7 +70,11 @@ function parseDays(
 
     iterationDay.icon = getDayIcon(times[i]);
 
-    const twelveHour = times.find(hour => new Date(hour.time).getHours() == 12);
+    const twelveHour = times.find(
+      hour =>
+        isSameDayInTimezone(new Date(hour.time), iterationDate, tz) &&
+        getHourInTimezone(new Date(hour.time), tz) === 12,
+    );
     if (twelveHour) {
       const dayNightIcons = [getDayIcon(twelveHour), iterationDay.icon];
       iterationDay.icon = Math.max(...dayNightIcons);
@@ -71,8 +82,10 @@ function parseDays(
 
     // Iterate each hour
     for (const time2 of times) {
-      if (isSameDay(new Date(time2.time), new Date(iterationDate))) {
-        iterationDay.hours.push(parseHour(time2, iterationDay.sunrise, iterationDay.sunset));
+      if (isSameDayInTimezone(new Date(time2.time), iterationDate, tz)) {
+        iterationDay.hours.push(
+          parseHour(time2, iterationDay.sunrise, iterationDay.sunset, lat, lon),
+        );
       }
     }
 
@@ -89,10 +102,30 @@ function parseDays(
   }
   return days;
 }
+
+function isDaylight(
+  hour: Date | string,
+  sunrise: Date,
+  sunset: Date,
+  lat: number,
+  lon: number,
+): boolean {
+  const date = new Date(hour);
+  const t = date.getTime();
+  const sunriseMs = sunrise.getTime();
+  const sunsetMs = sunset.getTime();
+  if (!Number.isNaN(sunriseMs) && !Number.isNaN(sunsetMs)) {
+    return t >= sunriseMs && t <= sunsetMs;
+  }
+  return SunCalc.getPosition(date, lat, lon).altitude > 0;
+}
+
 function parseHour(
   time: WeatherTypesYR.Timesery,
   sunrise: Date,
   sunset: Date,
+  lat: number,
+  lon: number,
 ): WeatherTypesUni.Hour {
   const hour = {} as WeatherTypesUni.Hour;
   hour.date = time.time;
@@ -112,31 +145,18 @@ function parseHour(
   hour.cloud = time.data.instant.details.cloud_area_fraction;
   hour.feelslike = calcFeelsLike(hour.tempr, hour.humidity, hour.wind);
   const symbol = time.data.next_1_hours?.summary.symbol_code;
+  const isDay = isDaylight(hour.date, sunrise, sunset, lat, lon);
   if (symbol == null) {
     hour.icon = WeatherIconEnum.NOT_AVAILABLE;
     hour.text = "N/A";
   } else if (symbol.startsWith("clearsky")) {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.CLEAR_DAY;
-    } else {
-      hour.icon = WeatherIconEnum.CLEAR_NIGHT;
-    }
+    hour.icon = isDay ? WeatherIconEnum.CLEAR_DAY : WeatherIconEnum.CLEAR_NIGHT;
     hour.text = i18n.t("w_clear");
   } else if (symbol === "cloudy") {
     hour.icon = WeatherIconEnum.CLOUDY;
     hour.text = i18n.t("w_cloudy");
   } else if (symbol.startsWith("fair")) {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.PARTLY_CLOUDY_DAY;
-    } else {
-      hour.icon = WeatherIconEnum.PARTLY_CLOUDY_NIGHT;
-    }
+    hour.icon = isDay ? WeatherIconEnum.PARTLY_CLOUDY_DAY : WeatherIconEnum.PARTLY_CLOUDY_NIGHT;
     hour.text = i18n.t("w_varying_cloudiness");
   } else if (symbol === "fog") {
     hour.icon = WeatherIconEnum.FOG;
@@ -148,14 +168,7 @@ function parseHour(
     hour.icon = WeatherIconEnum.THUNDER;
     hour.text = i18n.t("w_thunder");
   } else if (symbol.split("_")[0] === "heavyrainshowers") {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.EXTREME_DAY_RAIN;
-    } else {
-      hour.icon = WeatherIconEnum.EXTREME_NIGHT_RAIN;
-    }
+    hour.icon = isDay ? WeatherIconEnum.EXTREME_DAY_RAIN : WeatherIconEnum.EXTREME_NIGHT_RAIN;
     hour.text = i18n.t("w_heavy_rain_showers");
   } else if (symbol.startsWith("heavyrainshowersandthunder")) {
     hour.icon = WeatherIconEnum.THUNDER;
@@ -167,14 +180,7 @@ function parseHour(
     hour.icon = WeatherIconEnum.THUNDER;
     hour.text = i18n.t("w_thunder");
   } else if (symbol.split("_")[0] === "heavysleetshowers") {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.EXTREME_SLEET;
-    } else {
-      hour.icon = WeatherIconEnum.EXTREME_SLEET;
-    }
+    hour.icon = WeatherIconEnum.EXTREME_SLEET;
     hour.text = i18n.t("w_heavy_sleet_showers");
   } else if (symbol.startsWith("heavysleetshowersandthunder")) {
     hour.icon = WeatherIconEnum.THUNDER;
@@ -186,14 +192,7 @@ function parseHour(
     hour.icon = WeatherIconEnum.EXTREME_SNOW;
     hour.text = i18n.t("w_thunder");
   } else if (symbol.split("_")[0] === "heavysnowshowers") {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.EXTREME_SNOW;
-    } else {
-      hour.icon = WeatherIconEnum.EXTREME_SNOW;
-    }
+    hour.icon = WeatherIconEnum.EXTREME_SNOW;
     hour.text = i18n.t("w_heavy_snow_showers");
   } else if (symbol.startsWith("heavysnowshowersandthunder")) {
     hour.icon = WeatherIconEnum.THUNDER;
@@ -205,14 +204,9 @@ function parseHour(
     hour.icon = WeatherIconEnum.THUNDER;
     hour.text = i18n.t("w_thunder");
   } else if (symbol.split("_")[0] === "lightrainshowers") {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.PARTLY_CLOUDY_DAY_RAIN;
-    } else {
-      hour.icon = WeatherIconEnum.PARTLY_CLOUDY_NIGHT_RAIN;
-    }
+    hour.icon = isDay
+      ? WeatherIconEnum.PARTLY_CLOUDY_DAY_RAIN
+      : WeatherIconEnum.PARTLY_CLOUDY_NIGHT_RAIN;
     hour.text = i18n.t("w_light_rain_showers");
   } else if (symbol.startsWith("lightrainshowersandthunder")) {
     hour.icon = WeatherIconEnum.THUNDER;
@@ -224,14 +218,9 @@ function parseHour(
     hour.icon = WeatherIconEnum.THUNDER;
     hour.text = i18n.t("w_thunder");
   } else if (symbol.split("_")[0] === "lightsleetshowers") {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.PARTLY_CLOUDY_DAY_SLEET;
-    } else {
-      hour.icon = WeatherIconEnum.PARTLY_CLOUDY_NIGHT_SLEET;
-    }
+    hour.icon = isDay
+      ? WeatherIconEnum.PARTLY_CLOUDY_DAY_SLEET
+      : WeatherIconEnum.PARTLY_CLOUDY_NIGHT_SLEET;
     hour.text = i18n.t("w_light_sleet_showers");
   } else if (symbol.startsWith("lightssleetshowersandthunder")) {
     hour.icon = WeatherIconEnum.THUNDER;
@@ -243,27 +232,15 @@ function parseHour(
     hour.icon = WeatherIconEnum.THUNDER;
     hour.text = i18n.t("w_thunder");
   } else if (symbol.split("_")[0] === "lightsnowshowers") {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.PARTLY_CLOUDY_DAY_SNOW;
-    } else {
-      hour.icon = WeatherIconEnum.PARTLY_CLOUDY_NIGHT_SNOW;
-    }
+    hour.icon = isDay
+      ? WeatherIconEnum.PARTLY_CLOUDY_DAY_SNOW
+      : WeatherIconEnum.PARTLY_CLOUDY_NIGHT_SNOW;
     hour.text = i18n.t("w_light_snow_showers");
   } else if (symbol.startsWith("lightssnowshowersandthunder")) {
     hour.icon = WeatherIconEnum.THUNDER;
     hour.text = i18n.t("w_thunder");
   } else if (symbol.startsWith("partlycloudy")) {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.PARTLY_CLOUDY_DAY;
-    } else {
-      hour.icon = WeatherIconEnum.PARTLY_CLOUDY_NIGHT;
-    }
+    hour.icon = isDay ? WeatherIconEnum.PARTLY_CLOUDY_DAY : WeatherIconEnum.PARTLY_CLOUDY_NIGHT;
     hour.text = i18n.t("w_varying_cloudiness");
   } else if (symbol === "rain") {
     hour.icon = WeatherIconEnum.RAIN;
@@ -272,14 +249,7 @@ function parseHour(
     hour.icon = WeatherIconEnum.THUNDER;
     hour.text = i18n.t("w_thunder");
   } else if (symbol.split("_")[0] === "rainshowers") {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.OVERCAST_DAY_RAIN;
-    } else {
-      hour.icon = WeatherIconEnum.OVERCAST_NIGHT_RAIN;
-    }
+    hour.icon = isDay ? WeatherIconEnum.OVERCAST_DAY_RAIN : WeatherIconEnum.OVERCAST_NIGHT_RAIN;
     hour.text = i18n.t("w_moderate_rain");
   } else if (symbol.startsWith("rainshowersandthunder")) {
     hour.icon = WeatherIconEnum.THUNDER;
@@ -291,14 +261,7 @@ function parseHour(
     hour.icon = WeatherIconEnum.THUNDER;
     hour.text = i18n.t("w_thunder");
   } else if (symbol.split("_")[0] === "sleetshowers") {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.OVERCAST_DAY_SLEET;
-    } else {
-      hour.icon = WeatherIconEnum.OVERCAST_NIGHT_SLEET;
-    }
+    hour.icon = isDay ? WeatherIconEnum.OVERCAST_DAY_SLEET : WeatherIconEnum.OVERCAST_NIGHT_SLEET;
     hour.text = i18n.t("w_moderate_sleet_showers");
   } else if (symbol.startsWith("sleetshowersandthunder")) {
     hour.icon = WeatherIconEnum.THUNDER;
@@ -310,14 +273,7 @@ function parseHour(
     hour.icon = WeatherIconEnum.THUNDER;
     hour.text = i18n.t("w_thunder");
   } else if (symbol.split("_")[0] === "snowshowers") {
-    if (
-      new Date(hour.date).getHours() >= new Date(sunrise).getHours() &&
-      new Date(hour.date).getHours() <= new Date(sunset).getHours()
-    ) {
-      hour.icon = WeatherIconEnum.OVERCAST_DAY_SNOW;
-    } else {
-      hour.icon = WeatherIconEnum.OVERCAST_NIGHT_SNOW;
-    }
+    hour.icon = isDay ? WeatherIconEnum.OVERCAST_DAY_SNOW : WeatherIconEnum.OVERCAST_NIGHT_SNOW;
     hour.text = i18n.t("w_moderate_snow_showers");
   } else if (symbol.startsWith("snowshowersandthunder")) {
     hour.icon = WeatherIconEnum.THUNDER;

@@ -83,7 +83,9 @@ function parseDays(
     // Iterate each hour
     for (const time2 of times) {
       if (isSameDayInTimezone(new Date(time2.time), iterationDate, tz)) {
-        iterationDay.hours.push(parseHour(time2, iterationDay.sunrise, iterationDay.sunset));
+        iterationDay.hours.push(
+          parseHour(time2, iterationDay.sunrise, iterationDay.sunset, lat, lon),
+        );
       }
     }
 
@@ -101,15 +103,29 @@ function parseDays(
   return days;
 }
 
-function isDaylight(hour: Date | string, sunrise: Date, sunset: Date): boolean {
-  const t = new Date(hour).getTime();
-  return t >= sunrise.getTime() && t <= sunset.getTime();
+function isDaylight(
+  hour: Date | string,
+  sunrise: Date,
+  sunset: Date,
+  lat: number,
+  lon: number,
+): boolean {
+  const date = new Date(hour);
+  const t = date.getTime();
+  const sunriseMs = sunrise.getTime();
+  const sunsetMs = sunset.getTime();
+  if (!Number.isNaN(sunriseMs) && !Number.isNaN(sunsetMs)) {
+    return t >= sunriseMs && t <= sunsetMs;
+  }
+  return SunCalc.getPosition(date, lat, lon).altitude > 0;
 }
 
 function parseHour(
   time: WeatherTypesYR.Timesery,
   sunrise: Date,
   sunset: Date,
+  lat: number,
+  lon: number,
 ): WeatherTypesUni.Hour {
   const hour = {} as WeatherTypesUni.Hour;
   hour.date = time.time;
@@ -129,7 +145,7 @@ function parseHour(
   hour.cloud = time.data.instant.details.cloud_area_fraction;
   hour.feelslike = calcFeelsLike(hour.tempr, hour.humidity, hour.wind);
   const symbol = time.data.next_1_hours?.summary.symbol_code;
-  const isDay = isDaylight(hour.date, sunrise, sunset);
+  const isDay = isDaylight(hour.date, sunrise, sunset, lat, lon);
   if (symbol == null) {
     hour.icon = WeatherIconEnum.NOT_AVAILABLE;
     hour.text = "N/A";

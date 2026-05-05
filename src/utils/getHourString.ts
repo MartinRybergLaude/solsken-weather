@@ -9,6 +9,8 @@ function partValue(parts: Intl.DateTimeFormatPart[], type: Intl.DateTimeFormatPa
 }
 
 export function getHourString(unitTime: timeUnits, date: Date, timeZone: string): string {
+  if (Number.isNaN(date.getTime())) return "N/A";
+
   switch (unitTime) {
     case "twelve": {
       const parts = partsFor(date, {

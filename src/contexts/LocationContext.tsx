@@ -31,6 +31,7 @@ interface APIData {
   lat: number;
   lon: number;
   userLang: string;
+  timezone: string;
 }
 
 export function LocationContextProvider({ children }: LocationContextProps) {
@@ -49,7 +50,7 @@ export function LocationContextProvider({ children }: LocationContextProps) {
             lat: apiData.lat,
             lon: apiData.lon,
             name: data,
-            timezone: getTimezoneForCoords(apiData.lat, apiData.lon),
+            timezone: apiData.timezone,
           });
         }
       },
@@ -81,7 +82,7 @@ export function LocationContextProvider({ children }: LocationContextProps) {
         lat: apiData.lat,
         lon: apiData.lon,
         name: city,
-        timezone: getTimezoneForCoords(apiData.lat, apiData.lon),
+        timezone: apiData.timezone,
       });
     }
   }, [apiData]);
@@ -130,10 +131,17 @@ export function LocationContextProvider({ children }: LocationContextProps) {
   }
 
   function getPositionSuccessCallback(pos: GeolocationPosition) {
-    const lon = pos.coords.longitude.toFixed(2);
-    const lat = pos.coords.latitude.toFixed(2);
+    const rawLon = pos.coords.longitude;
+    const rawLat = pos.coords.latitude;
+    const lon = rawLon.toFixed(2);
+    const lat = rawLat.toFixed(2);
 
-    setApiData({ lat: Number(lat), lon: Number(lon), userLang: i18n.language });
+    setApiData({
+      lat: Number(lat),
+      lon: Number(lon),
+      userLang: i18n.language,
+      timezone: getTimezoneForCoords(rawLat, rawLon),
+    });
   }
 
   useEffect(() => {

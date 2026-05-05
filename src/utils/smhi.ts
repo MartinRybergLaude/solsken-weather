@@ -67,7 +67,9 @@ function parseDays(
     // Iterate each hour
     for (const time2 of times) {
       if (isSameDayInTimezone(new Date(time2.time), iterationDate, tz)) {
-        iterationDay.hours.push(parseHour(time2, iterationDay.sunrise, iterationDay.sunset));
+        iterationDay.hours.push(
+          parseHour(time2, iterationDay.sunrise, iterationDay.sunset, lat, lon),
+        );
       }
     }
 
@@ -85,6 +87,8 @@ function parseHour(
   time: WeatherTypesSMHI.TimeSery,
   sunrise: Date,
   sunset: Date,
+  lat: number,
+  lon: number,
 ): WeatherTypesUni.Hour {
   const hour = {} as WeatherTypesUni.Hour;
   const data = time.data;
@@ -104,8 +108,14 @@ function parseHour(
   if (data.symbol_code !== undefined) {
     const correctedForIndex = data.symbol_code - 1;
     hour.text = WeatherTypesSMHI.TextList[correctedForIndex];
-    const t = new Date(hour.date).getTime();
-    const isDay = t >= sunrise.getTime() && t <= sunset.getTime();
+    const date = new Date(hour.date);
+    const t = date.getTime();
+    const sunriseMs = sunrise.getTime();
+    const sunsetMs = sunset.getTime();
+    const isDay =
+      !Number.isNaN(sunriseMs) && !Number.isNaN(sunsetMs)
+        ? t >= sunriseMs && t <= sunsetMs
+        : SunCalc.getPosition(date, lat, lon).altitude > 0;
     if (isDay) {
       hour.icon = WeatherTypesSMHI.IconListDay[correctedForIndex];
     } else {

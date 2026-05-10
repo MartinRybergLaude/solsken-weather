@@ -85,7 +85,7 @@ export function Map() {
         <>
           <MapContainer
             center={[location.lat, location.lon]}
-            zoom={8}
+            zoom={7}
             scrollWheelZoom={false}
             className={styles.root}
             fadeAnimation={false}

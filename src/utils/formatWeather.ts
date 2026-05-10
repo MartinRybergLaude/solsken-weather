@@ -62,8 +62,13 @@ export default function formatWeather(
       dayOfWeek = Consts.Days[getDayOfWeekInTimezone(new Date(day.date), tz)];
     }
     formattedDay.dayOfWeek = dayOfWeek;
-    formattedDay.sunrise = getHourString(data.units.timeUnit, new Date(day.sunrise), tz);
-    formattedDay.sunset = getHourString(data.units.timeUnit, new Date(day.sunset), tz);
+    // changeUnits round-trips the raw weather through JSON, so sunrise/sunset
+    // arrive here as ISO strings even though the type says Date. Re-hydrate
+    // before passing on so getTime() / comparisons downstream don't blow up.
+    const sunrise = new Date(day.sunrise);
+    const sunset = new Date(day.sunset);
+    formattedDay.sunrise = getHourString(data.units.timeUnit, sunrise, tz);
+    formattedDay.sunset = getHourString(data.units.timeUnit, sunset, tz);
     formattedDay.icon = day.icon || getDayIcon(day, tz);
     formattedDay.text = day.text;
     formattedDay.tempHigh = getTemperatureString(data.units.temprUnit, day.tempHigh);
@@ -71,7 +76,7 @@ export default function formatWeather(
     formattedDay.dateString = formatDate(day.date, tz);
 
     day.hours.forEach(hour => {
-      formattedDay.hours.push(parseHour(hour, day.sunrise, day.sunset));
+      formattedDay.hours.push(parseHour(hour, sunrise, sunset));
     });
     day.hours.forEach(hour => {
       formattedDay.chartHours.push({

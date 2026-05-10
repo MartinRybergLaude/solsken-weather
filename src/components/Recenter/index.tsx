@@ -9,7 +9,7 @@ export default function Recenter() {
     
     useEffect(() => {
     if (location) {
-      map.flyTo([location.lat, location.lon], 8);
+      map.flyTo([location.lat, location.lon], 7);
     }
   }, [location]);
 

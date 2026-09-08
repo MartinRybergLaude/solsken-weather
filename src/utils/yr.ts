@@ -15,7 +15,7 @@ import Location from "~/types/location";
 import * as WeatherTypesUni from "~/types/rawWeather";
 import * as WeatherTypesYR from "~/types/yr";
 
-import { getHourInTimezone, isSameDayInTimezone } from "./timezone";
+import { getHourInTimezone, getNoonInTimezone, isSameDayInTimezone } from "./timezone";
 import { calcFeelsLike } from "./weatherTransforms";
 
 export function parseWeatherYR(
@@ -64,7 +64,7 @@ function parseDays(
 
     // Set sunrise sunset
     iterationDay.date = times[i].time;
-    const sunTimes = SunCalc.getTimes(new Date(iterationDay.date), lat, lon);
+    const sunTimes = SunCalc.getTimes(getNoonInTimezone(new Date(iterationDay.date), tz), lat, lon);
     iterationDay.sunrise = sunTimes.sunrise;
     iterationDay.sunset = sunTimes.sunset;
 

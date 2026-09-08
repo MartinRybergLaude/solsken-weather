@@ -12,7 +12,7 @@ import {
   windUnits,
 } from "~/utils/constants";
 
-import { isSameDayInTimezone } from "./timezone";
+import { getNoonInTimezone, isSameDayInTimezone } from "./timezone";
 import { calcFeelsLike } from "./weatherTransforms";
 
 export function parseWeatherSMHI(
@@ -60,7 +60,7 @@ function parseDays(
 
     // Set sunrise and sunset
     iterationDay.date = time1.time;
-    const sunTimes = SunCalc.getTimes(new Date(iterationDay.date), lat, lon);
+    const sunTimes = SunCalc.getTimes(getNoonInTimezone(new Date(iterationDay.date), tz), lat, lon);
     iterationDay.sunrise = sunTimes.sunrise;
     iterationDay.sunset = sunTimes.sunset;
 

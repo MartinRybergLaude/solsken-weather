@@ -27,7 +27,7 @@ Additionally, the app employs an efficient caching system in accordance with res
 ## ✅ Prerequisites
 
 - Node.js
-- pnpm
+- pnpm 12 (pinned via `packageManager` in package.json)
 
 ## 🚀 Quick start
 
